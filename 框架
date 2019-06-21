@@ -1,0 +1,47 @@
+[{
+  name: "test",
+  images: ["1.png", "2.png"]
+}]
+
+页面A
+  组件A
+    组件A-1(name) {{ text }}
+    组件A-2
+
+
+<组件A> 加载数据
+  <重复遍历组件 functional> v-for="item in list"
+    <组件A-1 :text="item.name">
+
+    </组件A-1>
+  </重复遍历组件>
+</组件A>
+
+data {
+  props: ["data"]
+}
+
+
+组件A的行为
+1、组件初始化完毕之后调用接口
+2、接口调用完毕之后数据存储用的字段名称（比如：list)
+3、数据放在哪个字段上面
+设置的选项
+1、行为：调用api
+2、字段：数据存储字段（list）
+data() {
+  return {
+    list: []
+  }
+}
+
+
+重复遍历组件
+1、接收prop list
+<重复遍历组件 :list="list">
+  
+  <组件 v-for="item in list" :data="item"></组件>
+</重复遍历组件>
+
+组件A-1
+1、接收prop data

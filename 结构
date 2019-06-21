@@ -1,0 +1,10 @@
+index
+  -toolbar
+  -mainContent
+    -screens（滚动事件）
+      -screenViewport
+        -noZoomAreaB
+        -zoomArea
+          -canvasArea（组件列表）
+        -noZoomAreaF
+  -fixedArea
