@@ -1,9 +1,9 @@
 <template>
   <div class="main-content">
     <screens />
+    <leftpane />
     <basicWidgets />
     <!-- todo:放快捷方式说明之类的弹窗 -->
-    <leftpane />
     <viewport />
     <rightpane />
   </div>

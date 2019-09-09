@@ -13,4 +13,5 @@ export default {};
 
 <style lang="less">
 @import "./assets/styles/style.less";
+@import "./assets/iconfont/iconfont.css";
 </style>

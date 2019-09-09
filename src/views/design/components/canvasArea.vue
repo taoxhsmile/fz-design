@@ -6,7 +6,7 @@
         style="width: 375px;  background: none; "
         @mousewheel.stop="handleMousewheel"
       >
-        <div class="group-list">
+        <div class="group-list component-container">
           <!-- 预览数据列表 -->
           <preview :data="pageComponents"></preview>
         </div>

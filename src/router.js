@@ -16,21 +16,6 @@ export default new Router({
       path: "/test",
       name: "test",
       component: () => import("./views/test.vue")
-    },
-    {
-      path: "/test/index",
-      name: "test-index",
-      component: () => import("./views/test/index.vue")
-    },
-    {
-      path: "/test1",
-      name: "test1",
-      component: () => import("./views/test1.vue")
-    },
-    {
-      path: "/test2",
-      name: "test2",
-      component: () => import("./views/test2.vue")
     }
   ]
 });

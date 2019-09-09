@@ -6,6 +6,10 @@ import router from "./router";
 import store from "./vuex/store";
 //注册eventBus
 import eventBus from "./eventBus.js";
+import { registerComponents } from "@/components/index.js";
+
+//注册全局组件
+registerComponents(Vue);
 
 Vue.use(eventBus);
 

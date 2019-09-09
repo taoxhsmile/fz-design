@@ -1,20 +1,39 @@
 <template>
-  <div class="leftpane" style="width: 248px;">
-    <div class="leftpane-content" style="width:248px;">
-      <div class="aside" id="rightnav">
-        <leftpaneContentRightnavHeader />
-        <leftpaneContentRightnavBody />
-      </div>
+  <div class="leftpane">
+    <div class="leftpane-content">
+      <!-- 组件库 -->
+      <template v-if="basicWidgetsFunctionalListActiveIndex === 0">
+        <leftpaneComponentLibrary></leftpaneComponentLibrary>
+      </template>
+      <!-- 图标库 -->
+      <template v-if="basicWidgetsFunctionalListActiveIndex === 1">
+        图标库
+      </template>
+      <!-- 素材库 -->
+      <template v-if="basicWidgetsFunctionalListActiveIndex === 2">
+        素材库
+      </template>
+      <!-- 页面库 -->
+      <template v-if="basicWidgetsFunctionalListActiveIndex === 3">
+        <leftpanePageLibrary></leftpanePageLibrary>
+      </template>
     </div>
   </div>
 </template>
 <script>
-import leftpaneContentRightnavHeader from "./leftpaneContentRightnavHeader.vue";
-import leftpaneContentRightnavBody from "./leftpaneContentRightnavBody.vue";
+import { mapGetters } from "vuex";
+import leftpaneComponentLibrary from "./leftpaneComponentLibrary";
+import leftpanePageLibrary from "./leftpanePageLibrary";
 export default {
   components: {
-    leftpaneContentRightnavHeader,
-    leftpaneContentRightnavBody
+    leftpaneComponentLibrary,
+    leftpanePageLibrary
+  },
+  computed: {
+    ...mapGetters({
+      basicWidgetsFunctionalListActiveIndex:
+        "componentBasicWidgetsFunctionalList/activeIndex"
+    })
   }
 };
 </script>
@@ -30,8 +49,10 @@ export default {
   font-size: 12px;
   z-index: 4;
   background: white;
+  width: 300px;
   .leftpane-content {
     position: absolute;
+    width: 100%;
     right: 0px;
     height: 100%;
     display: flex;

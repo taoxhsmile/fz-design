@@ -1,26 +1,33 @@
 <template>
   <div class="basic-widgets-wrap">
-    <ul id="basic-widgets">
-      <li v-for="(widget, i) in widgets" :key="i">
-        <component :is="getComponentName(widget, 'leftpane')"></component>
+    <!-- 基础组件快捷列表 -->
+    <ul class="basic-widgets">
+      <li v-for="(basicPreviewData, i) in basicPreviewDatas" :key="i">
+        <shortcut :basicPreviewData="basicPreviewData">
+          <div class="content">
+            <fz-icon :name="basicPreviewData.icon"></fz-icon>
+            <p>{{ basicPreviewData.name }}</p>
+          </div>
+        </shortcut>
       </li>
     </ul>
+    <!-- 库 -->
+    <basicWidgetsFunctionalList></basicWidgetsFunctionalList>
   </div>
 </template>
 <script>
-import getBasicComponents from "@design/components/basic/index.js";
-import { getComponentName } from "@design/components/basic/index.js";
+import { getPreviewDataByKind } from "@design/components/basic/index.js";
+import basicWidgetsFunctionalList from "./basicWidgetsFunctionalList";
+import shortcut from "./shortcut";
 export default {
   components: {
-    ...getBasicComponents("leftpane")
+    basicWidgetsFunctionalList,
+    shortcut
   },
   data() {
     return {
-      widgets: ["text", "picture"]
+      basicPreviewDatas: getPreviewDataByKind("basic")
     };
-  },
-  methods: {
-    getComponentName
   }
 };
 </script>
@@ -29,45 +36,36 @@ export default {
   position: relative;
   z-index: 11;
   flex-shrink: 0;
-  width: 40px;
+  width: 70px;
   display: flex;
   flex-direction: column;
-  -webkit-box-pack: justify;
   justify-content: space-between;
-  -webkit-box-align: center;
   align-items: center;
-  padding: 14px 0px;
   background: rgb(255, 255, 255);
+  border-left: 1px solid rgb(222, 222, 228);
   border-right: 1px solid rgb(222, 222, 228);
-  #basic-widgets {
+  .basic-widgets {
     display: flex;
     flex-direction: column;
-    -webkit-box-align: center;
     align-items: center;
+    width: 100%;
     li {
-      width: 26px;
-      height: 26px;
-      margin-bottom: 24px;
-      display: flex;
-      -webkit-box-pack: center;
-      justify-content: center;
-      -webkit-box-align: center;
-      align-items: center;
-      font-size: 18px;
-      cursor: pointer;
-      color: rgb(108, 109, 110);
-      border-width: 1px;
-      border-style: solid;
-      border-color: transparent;
-      border-image: initial;
-      border-radius: 2px;
-      &:hover {
-        color: rgb(65, 80, 88);
-        background-color: rgb(242, 242, 242);
-        border-color: rgb(232, 232, 232);
+      .content {
+        text-align: center;
+        color: rgb(108, 109, 110);
+        padding: 20px 0;
+        font-size: 18px;
       }
-      &:hover /deep/ .tooltip {
+      i {
         display: block;
+        width: 24px;
+        height: 24px;
+        margin: 0 auto;
+        font-size: 22px;
+        margin-bottom: 9px;
+      }
+      p {
+        font-size: 14px;
       }
     }
   }

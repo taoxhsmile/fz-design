@@ -24,7 +24,16 @@ const converter = {
   top(value) {
     return addUnit(value);
   },
+  marginTop(value) {
+    return addUnit(value);
+  },
+  marginLeft(value) {
+    return addUnit(value);
+  },
   fontSize(value) {
+    return addUnit(value);
+  },
+  borderWidth(value) {
     return addUnit(value);
   },
   textShadow(value) {

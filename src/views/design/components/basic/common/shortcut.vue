@@ -26,14 +26,15 @@ export default {
       this.$emit("click", $event);
     },
     _addComponent() {
-      let { previewData } = this;
-      // 创建一个preview实例 并且设置指定移动的值
+      let {
+        previewData: { data }
+      } = this;
+
       let _styles = {
-        ...previewData._styles
-        // left: 0,
-        // top: 0
+        ...data._styles
       };
-      this.addComponent({ ...previewData, _styles });
+
+      this.addComponent({ ...data, _styles });
     }
   }
 };

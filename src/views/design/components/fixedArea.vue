@@ -1,14 +1,14 @@
 <template>
   <div class="fixed-area">
-    <colorPanel v-if="componentColorPanel.show"></colorPanel>
+    <!-- <colorPanel v-if="componentColorPanel.show"></colorPanel> -->
   </div>
 </template>
 <script>
 import { mapState } from "vuex";
-import colorPanel from "./panels/fixed/colorPanel.vue";
+// import colorPanel from "./panels/fixed/colorPanel.vue";
 export default {
   components: {
-    colorPanel
+    // colorPanel
   },
   computed: {
     ...mapState({

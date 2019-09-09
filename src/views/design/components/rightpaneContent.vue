@@ -1,30 +1,26 @@
 <template>
   <div class="rightpane-content">
     <div class="aside">
-      <div class="header">header</div>
-      <div class="arrange">arrange</div>
       <div class="main">
-        <component v-if="selectComponent" :is="editView"></component>
+        <component v-if="selectComponent" :is="rightPane"></component>
       </div>
     </div>
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
-import getBasicComponents from "./basic/index.js";
+import getComponents from "./basic/index.js";
 export default {
   computed: {
     ...mapGetters({
       selectComponent: "pageDesign/selectComponent"
     }),
-    editView() {
+    rightPane() {
       let { selectComponent } = this;
       if (!selectComponent) {
         return null;
       }
-      return getBasicComponents("editView")[
-        `${selectComponent.__type__}EditView`
-      ];
+      return getComponents("rightPane")[`${selectComponent.__type__}`];
     }
   }
 };
@@ -40,26 +36,7 @@ export default {
     display: flex;
     flex-direction: column;
     background: rgb(255, 255, 255);
-    .header {
-      height: 32px;
-      padding-left: 10px;
-      padding-right: 12px;
-      display: flex;
-      -webkit-box-pack: end;
-      justify-content: flex-end;
-      background: rgb(242, 243, 244);
-      overflow: hidden;
-    }
-    .arrange {
-      height: 32px;
-      display: flex;
-      -webkit-box-align: center;
-      align-items: center;
-      justify-content: space-around;
-      border-bottom: 1px solid rgb(235, 235, 235);
-    }
     .main {
-      width: 208px;
       overflow-x: hidden;
       overflow-y: auto;
       flex: 1 1 0%;

@@ -36,10 +36,10 @@
 </template>
 <script>
 import { mapGetters, mapMutations } from "vuex";
-import getBasicComponents from "./basic/index.js";
+import getComponents from "./basic/index.js";
 export default {
   components: {
-    ...getBasicComponents("leftpaneRightnav")
+    ...getComponents("leftpaneRightnav")
   },
   data() {
     return {

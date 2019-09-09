@@ -1,26 +1,36 @@
 <script>
-import getBasicComponents from "./basic/index.js";
+import getComponents from "./basic/index.js";
+import widgetView from "./widgetView";
 export default {
   functional: true,
   props: {
     data: Array
   },
   render(h, ctx) {
-    const previews = getBasicComponents("preview");
+    const previews = getComponents("preview");
     function _render({ data }) {
-      return data.map(componentData => {
-        let preview = previews[`${componentData.__type__}Preview`];
+      return data.map((componentData, i) => {
+        //textPreview、picturePreview****等等
+        let preview = previews[`${componentData.__type__}`];
         return (
-          <preview
+          <widgetView
             key={componentData.__id__}
-            data-cid={componentData.__id__}
             data={componentData}
-            scopedSlots={{
-              default: function(props) {
-                return _render(props);
-              }
-            }}
-          />
+            list={data}
+            index={i}
+          >
+            <preview
+              data-cid={componentData.__id__}
+              data={componentData}
+              list={data}
+              index={i}
+              scopedSlots={{
+                default: function(props) {
+                  return _render(props);
+                }
+              }}
+            />
+          </widgetView>
         );
       });
     }

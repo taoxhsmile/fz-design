@@ -1,7 +1,7 @@
 <template>
   <div
     id="screens"
-    @mousedown="handleMousedown"
+    @click="handleClick"
     @mousewheel.stop.prevent="handleMousewheel"
     ref="screens"
   >
@@ -28,7 +28,7 @@ export default {
       setTranslateY: "componentArtBoard/setTranslateY"
     }),
     //点击空白区域的时候清空selectComponent
-    handleMousedown() {
+    handleClick() {
       this.setSelectComponent(null);
     },
     //鼠标滚轮事件
@@ -51,5 +51,6 @@ export default {
   justify-content: center;
   align-items: center;
   transition: background 0.2s ease-in-out;
+  background: #f8f8f8;
 }
 </style>
