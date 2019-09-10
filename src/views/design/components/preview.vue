@@ -4,25 +4,25 @@ import widgetView from "./widgetView";
 export default {
   functional: true,
   props: {
-    data: Array
+    list: Array
   },
   render(h, ctx) {
     const previews = getComponents("preview");
-    function _render({ data }) {
-      return data.map((componentData, i) => {
+    function _render({ list }) {
+      return list.map((componentData, i) => {
         //textPreview、picturePreview****等等
         let preview = previews[`${componentData.__type__}`];
         return (
           <widgetView
             key={componentData.__id__}
             data={componentData}
-            list={data}
+            list={list}
             index={i}
           >
             <preview
               data-cid={componentData.__id__}
               data={componentData}
-              list={data}
+              list={list}
               index={i}
               scopedSlots={{
                 default: function(props) {

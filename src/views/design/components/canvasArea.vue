@@ -4,32 +4,18 @@
       <div
         id="canvas"
         style="width: 375px;  background: none; "
-        @mousewheel.stop="handleMousewheel"
+        @mousewheel.stop
       >
-        <div class="group-list component-container">
-          <!-- 预览数据列表 -->
-          <preview :data="pageComponents"></preview>
-        </div>
+        <groupList />
       </div>
     </div>
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
-import preview from "./preview.vue";
+import groupList from "./groupList";
 export default {
   components: {
-    preview
-  },
-  computed: {
-    ...mapGetters({
-      pageComponents: "pageDesign/pageComponents"
-    })
-  },
-  methods: {
-    handleMousewheel() {
-      console.log("handleMousewheel");
-    }
+    groupList
   }
 };
 </script>
@@ -75,10 +61,5 @@ export default {
   z-index: 1;
   transform-origin: top left;
   margin: 0 auto;
-
-  .group-list {
-    position: relative;
-    z-index: 1;
-  }
 }
 </style>

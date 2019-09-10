@@ -1,4 +1,3 @@
-import Vue from "vue";
 import { Message } from "element-ui";
 
 // 获取随机数不带小数点
@@ -55,7 +54,7 @@ export default {
       });
     },
     //添加组件
-    addComponent(state, componentData) {
+    addComponent(state, { componentData, index }) {
       if (state.pageActiveIndex < 0) {
         return Message({
           type: "error",
@@ -67,17 +66,12 @@ export default {
       componentData = JSON.parse(JSON.stringify(componentData));
       componentData.__id__ = "component" + getRandomId();
 
-      // 如果当前选中的是布局组件则直接往布局组件内部添加组件
-      if (
-        state.selectComponent &&
-        ["fz-layout", "fz-duplicate"].indexOf(state.selectComponent.__type__) >
-          -1
-      ) {
-        if (!state.selectComponent._slots) {
-          Vue.set(state.selectComponent, "_slots", [componentData]);
-        } else {
-          state.selectComponent._slots.push(componentData);
-        }
+      if (index >= 0) {
+        this.getters["pageDesign/pageComponents"].splice(
+          index,
+          0,
+          componentData
+        );
       } else {
         this.getters["pageDesign/pageComponents"].push(componentData);
       }
