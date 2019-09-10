@@ -47,14 +47,19 @@ export default {
                 width: `${offsetWidth}px`,
                 height: `${offsetHeight}px`,
                 zIndex: 1000,
-                background: "white"
+                background: "white",
+                borderRadius: "10px",
+                border: "1px solid #ccc",
+                justifyContent: "center",
+                display: "flex",
+                alignItems: "center"
               })
               .appendTo(document.body);
           }
           //设置样式
           $(dragTarget).css({
-            left: `${pageX}px`,
-            top: `${pageY}px`
+            left: `${pageX - offsetWidth / 2}px`,
+            top: `${pageY - offsetHeight / 2}px`
           });
 
           let insertInfo = getInsertContainerAndWidgetView({ pageX, pageY });
@@ -132,6 +137,5 @@ export default {
 <style lang="less" scoped>
 .shortcut {
   cursor: pointer;
-  border: 1px solid red;
 }
 </style>

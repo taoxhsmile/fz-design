@@ -13,6 +13,7 @@ import {
   createGetInsertContainerAndWidgetView,
   getInsertTempBlock
 } from "@design/components/tools/drag";
+
 export default {
   props: ["list", "index", "data"],
   computed: {

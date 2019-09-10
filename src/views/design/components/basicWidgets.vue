@@ -51,6 +51,7 @@ export default {
     width: 100%;
     padding-top: 10px;
     li {
+      width: 100%;
       .content {
         text-align: center;
         color: rgb(108, 109, 110);
