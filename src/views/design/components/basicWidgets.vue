@@ -49,12 +49,12 @@ export default {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    padding-top: 10px;
     li {
       .content {
         text-align: center;
         color: rgb(108, 109, 110);
-        padding: 20px 0;
-        font-size: 18px;
+        padding: 10px 0;
       }
       i {
         display: block;

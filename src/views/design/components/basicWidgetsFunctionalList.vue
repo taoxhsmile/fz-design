@@ -46,7 +46,7 @@ export default {
   width: 100%;
   li {
     text-align: center;
-    padding: 22px 0;
+    padding: 10px 0;
     border-top: 1px solid white;
     border-bottom: 1px solid white;
     position: relative;
