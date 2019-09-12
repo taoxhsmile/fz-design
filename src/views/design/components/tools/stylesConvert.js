@@ -37,13 +37,20 @@ const converter = {
     return addUnit(value);
   },
   textShadow(value) {
-    let { hShadow, vShadow, blur, color } = value;
+    let result = /((?:\d+\s*){3})(.*)/.exec(value),
+      val = result[1],
+      color = result[2],
+      [hShadow, vShadow, blur] = val.trim().split(" ");
+
     return `${hShadow + unit} ${vShadow + unit} ${blur + unit} ${color}`;
   },
   boxShadow(value) {
-    let { hShadow, vShadow, blur, color, spread } = value;
-    return `${hShadow + unit} ${vShadow + unit} ${blur + unit} ${spread +
-      unit} ${color}`;
+    let result = /((?:\d+\s*){3})(.*)/.exec(value),
+      val = result[1],
+      color = result[2],
+      [hShadow, vShadow, blur] = val.trim().split(" ");
+
+    return `${hShadow + unit} ${vShadow + unit} ${blur + unit} ${color}`;
   },
   font(value) {
     //todo

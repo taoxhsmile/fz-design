@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      activeName: "content",
+      activeName: "container",
       defaultStyles: {
         fontSize: 12,
         textAlign: "left",
@@ -51,7 +51,8 @@ export default {
         borderWidth: 1,
         borderColor: "rgba(0, 0, 0, 1)",
         color: "#101010",
-        textDecoration: ""
+        textDecoration: "",
+        textShadow: "rgb(245, 53, 48) 1px 1px 5px"
       }
     };
   },

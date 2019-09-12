@@ -44,6 +44,9 @@ export default {
     height: 56px;
     line-height: 56px;
   }
+  & /deep/ .el-collapse {
+    border-top: none;
+  }
   & /deep/ .el-collapse-item__header {
     color: #303133;
     height: 56px;
@@ -60,6 +63,9 @@ export default {
   & /deep/ .el-color-picker__trigger {
     width: 48px;
     height: 48px;
+  }
+  & /deep/ .el-collapse-item__content {
+    padding-bottom: 0;
   }
 
   & /deep/ .rightpane__content-wrap {
@@ -84,6 +90,19 @@ export default {
   & /deep/ .el-tabs__content {
     overflow-y: auto;
     height: calc(100% - 56px);
+  }
+
+  & /deep/ .el-collapse-item__arrow {
+    margin-right: 16px;
+  }
+
+  & /deep/ .el-input-number.is-controls-right .el-input__inner {
+    padding-left: 8px;
+    padding-right: 40px;
+  }
+
+  & /deep/ .el-collapse-item__wrap {
+    border-bottom: none;
   }
 }
 </style>

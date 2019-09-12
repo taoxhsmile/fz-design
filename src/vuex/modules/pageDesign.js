@@ -1,4 +1,5 @@
 import { Message } from "element-ui";
+import $ from "jquery";
 
 // 获取随机数不带小数点
 function getRandomId() {
@@ -101,15 +102,24 @@ export default {
     },
     // 设置选中组件的数据 传入 key和value
     setSelectComponentProperty({ selectComponent }, { key, value }) {
-      if (Object.prototype.toString.call(value) === "[object Object]") {
-        value = { ...selectComponent[key], ...value };
+      let oldValue = selectComponent;
+      key = key.split(".");
+      key.forEach(k => {
+        oldValue = oldValue[k];
+      });
+
+      if ($.isPlainObject(value)) {
+        value = { ...oldValue, ...value };
         Object.keys(value).forEach(key => {
           if (value[key] == null) delete value[key];
         });
-        selectComponent[key] = value;
-      } else {
-        selectComponent[key] = value;
       }
+
+      let _key = key.pop();
+      key.forEach(k => {
+        selectComponent = selectComponent[k];
+      });
+      selectComponent[_key] = value;
     },
     setDragComponent(state, dragComponent) {
       state.dragComponent = dragComponent;

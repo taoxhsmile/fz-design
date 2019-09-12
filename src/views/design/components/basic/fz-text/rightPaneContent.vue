@@ -2,23 +2,25 @@
   <el-collapse :value="['1', '2']">
     <el-collapse-item title="文本内容" name="1">
       <div class="rightpane__content-wrap">
-        <el-input
-          type="textarea"
-          resize="none"
-          placeholder="请输入文本"
-          maxlength="500"
-          show-word-limit
-          :rows="6"
-          :value="selectComponent.content"
-          @input="
-            val =>
-              setSelectComponentProperty({
-                key: 'content',
-                value: val
-              })
-          "
-        >
-        </el-input>
+        <el-row type="flex" justify="center" align="middle">
+          <el-input
+            type="textarea"
+            resize="none"
+            placeholder="请输入文本"
+            maxlength="500"
+            show-word-limit
+            :rows="6"
+            :value="selectComponent.content"
+            @input="
+              val =>
+                setSelectComponentProperty({
+                  key: 'content',
+                  value: val
+                })
+            "
+          >
+          </el-input>
+        </el-row>
       </div>
     </el-collapse-item>
     <el-collapse-item title="字体设置" name="2">
@@ -178,11 +180,14 @@ export default {
 <style lang="less" scoped>
 ul.font-style {
   display: flex;
-  padding: 4px 5px;
+  padding: 0px 5px;
   border-radius: 4px;
   border: 1px solid rgba(216, 220, 230, 1);
   width: 118px;
   justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  height: 32px;
   li {
     width: 24px;
     height: 24px;

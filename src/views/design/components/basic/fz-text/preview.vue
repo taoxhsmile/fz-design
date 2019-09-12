@@ -11,8 +11,31 @@ export default {
   mixins: [previewMixins],
   computed: {
     styles() {
+      let {
+        _styles,
+        _customFeature: { useTextShadow, textShadow, useBoxShadow, boxShadow }
+      } = this.data;
+
+      if (useTextShadow === 1) {
+        _styles = {
+          ..._styles,
+          textShadow: `${textShadow.hShadow} ${textShadow.vShadow} ${
+            textShadow.blur
+          } ${textShadow.color}`
+        };
+      }
+
+      if (useBoxShadow === 1) {
+        _styles = {
+          ..._styles,
+          boxShadow: `${boxShadow.hShadow} ${boxShadow.vShadow} ${
+            boxShadow.blur
+          } ${boxShadow.color}`
+        };
+      }
+
       return stylesConvert({
-        _styles: this.data._styles
+        _styles
       });
     }
   }
