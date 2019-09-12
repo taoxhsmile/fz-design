@@ -5,9 +5,9 @@
   </div>
 </template>
 <script>
+import { mapMutations } from "vuex";
 import artboard from "./artboard.vue";
 import artboardFooter from "./artboardFooter.vue";
-import { mapMutations } from "vuex";
 export default {
   components: {
     artboard,

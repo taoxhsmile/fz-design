@@ -3,6 +3,7 @@
     id="screens"
     @click="handleClick"
     @mousewheel.stop.prevent="handleMousewheel"
+    @mousedown.stop="mousedown"
     ref="screens"
   >
     <screenViewport />
@@ -10,6 +11,7 @@
 </template>
 <script>
 import { mapMutations, mapGetters } from "vuex";
+import $ from "jquery";
 import screenViewport from "./screenViewport.vue";
 export default {
   components: {
@@ -36,6 +38,19 @@ export default {
       let { deltaX, deltaY } = e;
       this.setTranslateX(this.translateX - deltaX);
       this.setTranslateY(this.translateY - deltaY);
+    },
+    mousedown({ clientX: startX, clientY: startY }) {
+      let { translateX, translateY } = this;
+      let mousemoveFn = ({ clientX: endX, clientY: endY }) => {
+          this.setTranslateX(translateX + (endX - startX));
+          this.setTranslateY(translateY + (endY - startY));
+        },
+        mouseupFn = () => {
+          $(document).off("mousemove", mousemoveFn);
+          $(document).off("mouseup", mouseupFn);
+        };
+      $(document).on("mousemove", mousemoveFn);
+      $(document).on("mouseup", mouseupFn);
     }
   }
 };
