@@ -32,6 +32,7 @@ import { mapGetters } from "vuex";
 import rightPaneContent from "./rightPaneContent";
 import rightPaneContainer from "./rightPaneContainer";
 import rightPaneBehavior from "./rightPaneBehavior";
+import { defaultStyles } from "./previewData";
 export default {
   components: {
     rightPaneContent,
@@ -41,19 +42,7 @@ export default {
   data() {
     return {
       activeName: "container",
-      defaultStyles: {
-        fontSize: 12,
-        textAlign: "left",
-        lineHeight: 25,
-        width: 375,
-        backgroundColor: "rgba(0,0,0,0)",
-        borderStyle: "none",
-        borderWidth: 1,
-        borderColor: "rgba(0, 0, 0, 1)",
-        color: "#101010",
-        textDecoration: "",
-        textShadow: "rgb(245, 53, 48) 1px 1px 5px"
-      }
+      defaultStyles
     };
   },
   computed: {

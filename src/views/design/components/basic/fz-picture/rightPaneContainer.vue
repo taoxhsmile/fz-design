@@ -27,18 +27,18 @@
               "
             ></el-input-number>
           </el-col>
-          <el-col :span="3">行高</el-col>
+          <el-col :span="3">高度</el-col>
           <el-col :span="9">
             <el-input-number
               style="width:88px;"
               controls-position="right"
               :min="0"
-              :value="_styles.lineHeight"
+              :value="_styles.height"
               @change="
                 val =>
                   setSelectComponentProperty({
                     key: '_styles',
-                    value: { lineHeight: val }
+                    value: { height: val }
                   })
               "
             ></el-input-number>
@@ -111,146 +111,6 @@
             </el-button>
           </el-col>
         </el-row>
-      </div>
-
-      <div class="rightpane__content-wrap border">
-        <el-row
-          class="rightpane__title"
-          type="flex"
-          justify="center"
-          align="middle"
-        >
-          <el-col>颜色</el-col>
-        </el-row>
-        <el-row type="flex" justify="center" align="middle">
-          <el-col :span="3">背景</el-col>
-          <el-col :span="9">
-            <el-color-picker
-              :value="_styles.backgroundColor"
-              @change="
-                val =>
-                  setSelectComponentProperty({
-                    key: '_styles',
-                    value: { backgroundColor: val }
-                  })
-              "
-              show-alpha
-            ></el-color-picker>
-          </el-col>
-          <el-col :span="12">
-            <el-button type="text">设置背景图</el-button>
-          </el-col>
-        </el-row>
-      </div>
-
-      <div class="rightpane__content-wrap">
-        <el-row
-          class="rightpane__title"
-          type="flex"
-          justify="center"
-          align="middle"
-        >
-          <el-col>效果</el-col>
-        </el-row>
-        <el-row type="flex" justify="center" align="middle">
-          <el-col :span="12">
-            <el-radio
-              :value="_customFeature.useTextShadow"
-              @change="
-                val =>
-                  setSelectComponentProperty({
-                    key: '_customFeature',
-                    value: { useTextShadow: val }
-                  })
-              "
-              :label="0"
-              >无效果</el-radio
-            >
-          </el-col>
-          <el-col :span="12">
-            <el-radio
-              :value="_customFeature.useTextShadow"
-              @change="
-                val =>
-                  setSelectComponentProperty({
-                    key: '_customFeature',
-                    value: { useTextShadow: val }
-                  })
-              "
-              :label="1"
-              >阴影</el-radio
-            >
-          </el-col>
-        </el-row>
-
-        <div v-show="_customFeature.useTextShadow === 1">
-          <el-row type="flex" justify="center" align="middle">
-            <el-col :span="5">模糊半径</el-col>
-            <el-col :span="7">
-              <el-input-number
-                style="width:68px;"
-                controls-position="right"
-                :min="0"
-                :value="_customFeature.textShadow.blur"
-                @change="
-                  val =>
-                    setSelectComponentProperty({
-                      key: '_customFeature.textShadow',
-                      value: { blur: val }
-                    })
-                "
-              ></el-input-number>
-            </el-col>
-            <el-col :span="5">阴影颜色</el-col>
-            <el-col :span="7">
-              <el-color-picker
-                :value="_customFeature.textShadow.color"
-                @change="
-                  val =>
-                    setSelectComponentProperty({
-                      key: '_customFeature.textShadow',
-                      value: { color: val }
-                    })
-                "
-                show-alpha
-              ></el-color-picker>
-            </el-col>
-          </el-row>
-          <el-row type="flex" justify="center" align="middle">
-            <el-col :span="5">X轴偏移</el-col>
-            <el-col :span="7">
-              <el-input-number
-                style="width:68px;"
-                controls-position="right"
-                :min="0"
-                :value="_customFeature.textShadow.hShadow"
-                @change="
-                  val =>
-                    setSelectComponentProperty({
-                      key: '_customFeature.textShadow',
-                      value: { hShadow: val }
-                    })
-                "
-              ></el-input-number>
-            </el-col>
-            <el-col :span="5">Y轴偏移</el-col>
-            <el-col :span="7">
-              <el-input-number
-                style="width:68px;"
-                controls-position="right"
-                :min="0"
-                :value="_customFeature.textShadow.vShadow"
-                @change="
-                  val =>
-                    setSelectComponentProperty({
-                      key: '_customFeature.textShadow',
-                      value: { vShadow: val }
-                    })
-                "
-              ></el-input-number>
-            </el-col>
-          </el-row>
-        </div>
       </div>
     </el-collapse-item>
     <el-collapse-item title="边框设置" name="2">

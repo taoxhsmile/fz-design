@@ -11,7 +11,7 @@
             show-word-limit
             :rows="6"
             :value="selectComponent.content"
-            @input="
+            @change="
               val =>
                 setSelectComponentProperty({
                   key: 'content',
@@ -30,7 +30,7 @@
           <el-col :span="9">
             <el-color-picker
               :value="_styles.color"
-              @input="
+              @change="
                 val =>
                   setSelectComponentProperty({
                     key: '_styles',
@@ -46,7 +46,7 @@
               controls-position="right"
               :min="10"
               :value="_styles.fontSize"
-              @input="
+              @change="
                 val =>
                   setSelectComponentProperty({
                     key: '_styles',
@@ -110,7 +110,7 @@
             <el-select
               style="width:88px;"
               :value="_styles.textAlign"
-              @input="
+              @change="
                 val =>
                   setSelectComponentProperty({
                     key: '_styles',

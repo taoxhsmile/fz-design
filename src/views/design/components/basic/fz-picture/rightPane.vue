@@ -1,23 +1,54 @@
 <template>
-  <div class="text-rightPane">
-    <el-tabs v-model="activeName">
-      <el-tab-pane label="文本组件" name="content">
-        <el-col>
-          文本内容
-        </el-col>
-        <el-col> </el-col>
+  <div class="picture-rightPane">
+    <el-tabs stretch type="card" v-model="activeName">
+      <el-tab-pane label="组件设置" name="content">
+        <rightPaneContent
+          :selectComponent="selectComponent"
+          :_styles="_styles"
+          :_customFeature="_customFeature"
+        ></rightPaneContent>
       </el-tab-pane>
-      <el-tab-pane label="组件样式" name="container">组件样式</el-tab-pane>
+
+      <el-tab-pane label="样式设置" name="container">
+        <rightPaneContainer
+          :selectComponent="selectComponent"
+          :_styles="_styles"
+          :_customFeature="_customFeature"
+        ></rightPaneContainer>
+      </el-tab-pane>
+
+      <el-tab-pane label="交互设置" name="behavior">
+        <rightPaneBehavior
+          :selectComponent="selectComponent"
+          :_styles="_styles"
+          :_customFeature="_customFeature"
+        ></rightPaneBehavior>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 <script>
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters } from "vuex";
+import rightPaneContent from "./rightPaneContent";
+import rightPaneContainer from "./rightPaneContainer";
+import rightPaneBehavior from "./rightPaneBehavior";
 export default {
+  components: {
+    rightPaneContent,
+    rightPaneContainer,
+    rightPaneBehavior
+  },
   data() {
     return {
-      activeName: "content",
-      defaultStyles: {}
+      activeName: "container",
+      defaultStyles: {
+        width: 375,
+        marginLeft: 0,
+        marginTop: 0,
+        borderStyle: "none",
+        borderWidth: 1,
+        borderColor: "rgba(0, 0, 0, 1)"
+      }
     };
   },
   computed: {
@@ -30,11 +61,11 @@ export default {
     _customFeature() {
       return this.selectComponent._customFeature;
     }
-  },
-  methods: {
-    ...mapMutations({
-      setSelectComponentProperty: "pageDesign/setSelectComponentProperty"
-    })
   }
 };
 </script>
+<style lang="less" scoped>
+.picture-rightPane {
+  height: 100%;
+}
+</style>

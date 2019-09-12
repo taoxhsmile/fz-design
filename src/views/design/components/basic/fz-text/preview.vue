@@ -1,20 +1,27 @@
 <template>
-  <div class="text-preview" :style="styles">
+  <div class="text-preview" :style="[styles]">
     <div class="inner-content">{{ data.content }}</div>
   </div>
 </template>
 <script>
 import { stylesConvert } from "@design/components/tools/stylesConvert";
 import previewMixins from "@design/components/basic/common/previewMixins";
+import { defaultStyles } from "./previewData";
 export default {
   name: "text-preview",
   mixins: [previewMixins],
+  data() {
+    return { defaultStyles };
+  },
   computed: {
     styles() {
       let {
-        _styles,
-        _customFeature: { useTextShadow, textShadow, useBoxShadow, boxShadow }
-      } = this.data;
+        defaultStyles,
+        data: {
+          _styles,
+          _customFeature: { useTextShadow, textShadow, useBoxShadow, boxShadow }
+        }
+      } = this;
 
       if (useTextShadow === 1) {
         _styles = {
@@ -35,7 +42,7 @@ export default {
       }
 
       return stylesConvert({
-        _styles
+        _styles: { ...defaultStyles, ..._styles }
       });
     }
   }

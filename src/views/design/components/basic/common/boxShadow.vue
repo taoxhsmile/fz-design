@@ -12,7 +12,7 @@
       <el-col :span="12">
         <el-radio
           :value="_customFeature.useBoxShadow"
-          @input="
+          @change="
             val =>
               setSelectComponentProperty({
                 key: '_customFeature',
@@ -26,7 +26,7 @@
       <el-col :span="12">
         <el-radio
           :value="_customFeature.useBoxShadow"
-          @input="
+          @change="
             val =>
               setSelectComponentProperty({
                 key: '_customFeature',
@@ -48,7 +48,7 @@
             controls-position="right"
             :min="0"
             :value="_customFeature.boxShadow.blur"
-            @input="
+            @change="
               val =>
                 setSelectComponentProperty({
                   key: '_customFeature.boxShadow',
@@ -61,7 +61,7 @@
         <el-col :span="7">
           <el-color-picker
             :value="_customFeature.boxShadow.color"
-            @input="
+            @change="
               val =>
                 setSelectComponentProperty({
                   key: '_customFeature.boxShadow',
@@ -80,7 +80,7 @@
             controls-position="right"
             :min="0"
             :value="_customFeature.boxShadow.hShadow"
-            @input="
+            @change="
               val =>
                 setSelectComponentProperty({
                   key: '_customFeature.boxShadow',
@@ -96,7 +96,7 @@
             controls-position="right"
             :min="0"
             :value="_customFeature.boxShadow.vShadow"
-            @input="
+            @change="
               val =>
                 setSelectComponentProperty({
                   key: '_customFeature.boxShadow',
