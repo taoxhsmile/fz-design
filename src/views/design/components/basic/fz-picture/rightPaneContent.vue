@@ -1,29 +1,39 @@
 <template>
   <el-collapse :value="['1', '2']">
-    <el-collapse-item title="文本内容" name="1">
+    <el-collapse-item title="属性设置" name="1">
       <div class="rightpane__content-wrap">
+        <el-row
+          class="rightpane__title"
+          type="flex"
+          justify="center"
+          align="middle"
+        >
+          <el-col>行列 </el-col>
+        </el-row>
         <el-row type="flex" justify="center" align="middle">
-          <el-input
-            type="textarea"
-            resize="none"
-            placeholder="请输入文本"
-            maxlength="500"
-            show-word-limit
-            :rows="6"
-            :value="selectComponent.content"
-            @change="
-              val =>
-                setSelectComponentProperty({
-                  key: 'content',
-                  value: val
-                })
-            "
-          >
-          </el-input>
+          <el-col :span="3">列数</el-col>
+          <el-col :span="9">
+            <el-input-number
+              style="width:88px;"
+              controls-position="right"
+              :min="1"
+              :max="5"
+              :value="_customFeature.column"
+              @change="
+                val =>
+                  setSelectComponentProperty({
+                    key: '_customFeature',
+                    value: { column: val }
+                  })
+              "
+            ></el-input-number>
+          </el-col>
+          <el-col :span="3"></el-col>
+          <el-col :span="9"></el-col>
         </el-row>
       </div>
     </el-collapse-item>
-    <el-collapse-item title="字体设置" name="2"> </el-collapse-item>
+    <el-collapse-item title="图片管理" name="2"> </el-collapse-item>
   </el-collapse>
 </template>
 <script>

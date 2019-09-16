@@ -1,7 +1,18 @@
 <template>
   <div class="fz-picture-preview" :style="styles">
-    <template v-if="src">
-      <img :src="src" @mousemove.prevent />
+    <template v-if="hasImage">
+      <div class="row" v-for="(r, i) in row" :key="i">
+        <div class="col" v-for="(c, j) in getCol(r)" :key="i * r + j">
+          <img :src="getImageData(i, j)" />
+        </div>
+        <template v-if="r === row">
+          <div
+            class="col"
+            v-for="(c, j) in blockLength"
+            :key="data.images.length + j"
+          ></div>
+        </template>
+      </div>
     </template>
     <!-- 没有上传图片 -->
     <template v-else>
@@ -26,17 +37,56 @@
 <script>
 import { stylesConvert } from "../../tools/stylesConvert.js";
 import previewMixins from "../common/previewMixins";
+import { defaultStyles } from "./previewData";
 export default {
   name: "fz-picture-preview",
   mixins: [previewMixins],
+  data() {
+    return { defaultStyles };
+  },
   computed: {
     styles() {
+      let {
+        defaultStyles,
+        data: { _styles }
+      } = this;
       return stylesConvert({
-        _styles: this.data._styles
+        _styles: { ...defaultStyles, ..._styles }
       });
     },
-    src() {
-      return this.data.src;
+    images() {
+      return this.data.images;
+    },
+    hasImage() {
+      return this.images && this.images.length;
+    },
+    imagesLength() {
+      return this.images.length;
+    },
+    column() {
+      return this.data._customFeature.column;
+    },
+    row() {
+      let { column, imagesLength } = this;
+      return Math.ceil(imagesLength / column);
+    },
+    blockLength() {
+      let { column, imagesLength, row } = this;
+      return row * column - imagesLength;
+    }
+  },
+  methods: {
+    getCol(r) {
+      let { row, column, imagesLength } = this;
+      if (r < row) {
+        return column;
+      } else {
+        return column - (row * column - imagesLength);
+      }
+    },
+    getImageData(i, j) {
+      let { images, column } = this;
+      return images[i * column + j].src;
     }
   }
 };
@@ -46,6 +96,7 @@ export default {
   cursor: default;
   height: 100%;
   overflow: hidden;
+  box-sizing: border-box;
   .img {
     display: flex;
     height: 100%;
@@ -58,6 +109,12 @@ export default {
     width: 100%;
     height: 100%;
     border-radius: inherit;
+  }
+  .row {
+    display: flex;
+    .col {
+      flex: 1;
+    }
   }
 }
 </style>

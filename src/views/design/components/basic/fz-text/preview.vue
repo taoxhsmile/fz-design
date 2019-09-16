@@ -54,6 +54,7 @@ export default {
   font-size: 12px;
   color: #101010;
   margin: 0 auto;
+  box-sizing: border-box;
   .inner-content {
     white-space: pre-wrap;
     word-break: break-all;

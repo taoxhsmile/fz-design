@@ -9,7 +9,7 @@ export default {
     __name__: name,
     _styles: {},
     _customFeature: {
-      align: "center",
+      align: "left",
       useTextShadow: 0,
       textShadow: {
         hShadow: 0,

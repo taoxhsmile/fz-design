@@ -63,6 +63,7 @@
               controls-position="right"
               :min="0"
               :value="_styles.marginLeft"
+              :disabled="_customFeature.align !== 'left'"
               @change="
                 val =>
                   setSelectComponentProperty({
