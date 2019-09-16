@@ -55,7 +55,9 @@ export default {
       });
     },
     //添加组件
-    addComponent(state, { componentData, index }) {
+    addComponent(state, { componentData, index, insertList }) {
+      insertList = insertList || this.getters["pageDesign/pageComponents"];
+
       if (state.pageActiveIndex < 0) {
         return Message({
           type: "error",
@@ -68,13 +70,9 @@ export default {
       componentData.__id__ = "component" + getRandomId();
 
       if (index >= 0) {
-        this.getters["pageDesign/pageComponents"].splice(
-          index,
-          0,
-          componentData
-        );
+        insertList.splice(index, 0, componentData);
       } else {
-        this.getters["pageDesign/pageComponents"].push(componentData);
+        insertList.push(componentData);
       }
     },
     //删除指定组件

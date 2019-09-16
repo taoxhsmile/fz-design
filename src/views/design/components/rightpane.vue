@@ -104,5 +104,9 @@ export default {
   & /deep/ .el-collapse-item__wrap {
     border-bottom: none;
   }
+
+  & /deep/ .rightPane-item {
+    height: 100%;
+  }
 }
 </style>

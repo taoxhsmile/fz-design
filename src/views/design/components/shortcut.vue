@@ -75,7 +75,7 @@ export default {
           //放在一个空容器里面
           if (!insertInfo.widgetView) {
             insertInfo.container.append(oInsertTemp);
-            insertList = insertInfo.container[0].__vue__.list;
+            insertList = insertInfo.container[0].__vue__.childrens;
           } else {
             insertList = insertInfo.widgetView[0].__vue__.list;
             insertIndex = insertInfo.widgetView[0].__vue__.index;
@@ -108,16 +108,24 @@ export default {
           if (insertList) {
             //放在一个空容器里面
             if (insertList.length === 0) {
-              this.addComponent({ componentData: data });
+              this.addComponent({
+                componentData: data,
+                insertList
+              });
               this.setSelectComponent(insertList[0]);
             } else {
               if (insertInsert === "top") {
-                this.addComponent({ componentData: data, index: insertIndex });
+                this.addComponent({
+                  componentData: data,
+                  index: insertIndex,
+                  insertList
+                });
                 this.setSelectComponent(insertList[insertIndex]);
               } else {
                 this.addComponent({
                   componentData: data,
-                  index: insertIndex + 1
+                  index: insertIndex + 1,
+                  insertList
                 });
                 this.setSelectComponent(insertList[insertIndex + 1]);
               }

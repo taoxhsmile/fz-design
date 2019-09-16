@@ -31,7 +31,6 @@ export default {
   },
   methods: {
     ...mapMutations({
-      setSelectComponentProperty: "pageDesign/setSelectComponentProperty",
       setHoverComponent: "pageDesign/setHoverComponent",
       setSelectComponent: "pageDesign/setSelectComponent",
       setDragComponent: "pageDesign/setDragComponent"
@@ -52,13 +51,5 @@ export default {
 .widget-view {
   position: relative;
   cursor: pointer;
-  // &:hover {
-  //   /deep/ .drag {
-  //     display: block;
-  //   }
-  //   /deep/ .del {
-  //     display: block;
-  //   }
-  // }
 }
 </style>

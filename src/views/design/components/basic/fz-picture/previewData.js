@@ -44,10 +44,13 @@ export default {
   }
 };
 export const defaultStyles = {
+  //大小
   width: 375,
+  //位置
+  marginLeft: 0,
+  marginTop: 0,
+  //边框
   borderStyle: "none",
   borderWidth: 1,
-  borderColor: "rgba(0, 0, 0, 1)",
-  marginLeft: 0,
-  marginTop: 0
+  borderColor: "rgba(0, 0, 0, 1)"
 };

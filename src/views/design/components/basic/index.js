@@ -1,4 +1,4 @@
-const componentNames = ["fz-text", "fz-picture"];
+const componentNames = ["fz-text", "fz-picture", "fz-free-vessel"];
 
 //将单词第一个字母大写
 export function firstLetterToUpper(name) {

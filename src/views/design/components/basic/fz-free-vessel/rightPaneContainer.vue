@@ -2,23 +2,13 @@
   <el-collapse :value="['1', '2']">
     <el-collapse-item title="组件设置" name="1">
       <!-- 大小 -->
-      <rSize
-        :_styles="_styles"
-        :_customFeature="_customFeature"
-        :isLineHeight="true"
-      />
+      <rSize :_styles="_styles" :_customFeature="_customFeature"></rSize>
       <!-- 位置 -->
       <rPosition :_styles="_styles" :_customFeature="_customFeature" />
-
       <!-- 背景 -->
       <rBackground :_styles="_styles" :_customFeature="_customFeature" />
-
-      <!-- 字体阴影 -->
-      <rTextShadow :_styles="_styles" :_customFeature="_customFeature" />
     </el-collapse-item>
     <el-collapse-item title="边框设置" name="2">
-      <!-- 边框 -->
-      <rBorder :_styles="_styles" :_customFeature="_customFeature" />
       <rBoxShadow :_customFeature="_customFeature" />
     </el-collapse-item>
   </el-collapse>
@@ -28,8 +18,6 @@ import { mapMutations } from "vuex";
 import rSize from "../common/rSize";
 import rPosition from "../common/rPosition";
 import rBackground from "../common/rBackground";
-import rTextShadow from "../common/rTextShadow";
-import rBorder from "../common/rBorder";
 import rBoxShadow from "../common/rBoxShadow";
 export default {
   props: ["selectComponent", "_styles", "_customFeature"],
@@ -37,12 +25,30 @@ export default {
     rSize,
     rPosition,
     rBackground,
-    rTextShadow,
-    rBorder,
     rBoxShadow
   },
   data() {
-    return {};
+    return {
+      color: "red",
+      borderStyleOptions: [
+        {
+          label: "无",
+          value: "none"
+        },
+        {
+          label: "实线",
+          value: "solid"
+        },
+        {
+          label: "点线",
+          value: "dotted"
+        },
+        {
+          label: "虚线",
+          value: "dashed"
+        }
+      ]
+    };
   },
   methods: {
     ...mapMutations({
@@ -60,6 +66,10 @@ export default {
           marginRight: val === "right" ? 0 : "auto"
         }
       });
+    },
+    handleClick() {
+      this.color = "green";
+      console.log("111");
     }
   }
 };

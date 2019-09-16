@@ -73,7 +73,7 @@ export default {
           if (!insertInfo) return;
           //放在一个空容器里面
           if (!insertInfo.widgetView) {
-            insertList = insertInfo.container[0].__vue__.list;
+            insertList = insertInfo.container[0].__vue__.childrens;
             insertInfo.container.append(oInsertTemp);
           } else {
             insertList = insertInfo.widgetView[0].__vue__.list;

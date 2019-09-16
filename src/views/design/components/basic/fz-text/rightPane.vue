@@ -1,5 +1,5 @@
 <template>
-  <div class="text-rightPane">
+  <div class="rightPane-item">
     <el-tabs stretch type="card" v-model="activeName">
       <el-tab-pane label="组件设置" name="content">
         <rightPaneContent
@@ -16,14 +16,6 @@
           :_customFeature="_customFeature"
         ></rightPaneContainer>
       </el-tab-pane>
-
-      <el-tab-pane label="交互设置" name="behavior">
-        <rightPaneBehavior
-          :selectComponent="selectComponent"
-          :_styles="_styles"
-          :_customFeature="_customFeature"
-        ></rightPaneBehavior>
-      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -31,13 +23,11 @@
 import { mapGetters } from "vuex";
 import rightPaneContent from "./rightPaneContent";
 import rightPaneContainer from "./rightPaneContainer";
-import rightPaneBehavior from "./rightPaneBehavior";
 import { defaultStyles } from "./previewData";
 export default {
   components: {
     rightPaneContent,
-    rightPaneContainer,
-    rightPaneBehavior
+    rightPaneContainer
   },
   data() {
     return {
@@ -58,8 +48,3 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
-.text-rightPane {
-  height: 100%;
-}
-</style>

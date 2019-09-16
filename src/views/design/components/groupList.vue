@@ -1,7 +1,7 @@
 <template>
   <div class="group-list component-container">
     <!-- 预览数据列表 -->
-    <preview :list="list"></preview>
+    <preview :childrens="childrens"></preview>
   </div>
 </template>
 <script>
@@ -13,7 +13,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      list: "pageDesign/pageComponents"
+      childrens: "pageDesign/pageComponents"
     })
   }
 };

@@ -30,17 +30,23 @@ export default {
 };
 
 export const defaultStyles = {
+  //字体设置
   fontSize: 12,
   textAlign: "left",
+  textDecoration: "",
+  color: "#101010",
+  //大小
   lineHeight: 25,
   width: 375,
+  //背景颜色
   backgroundColor: "rgba(0,0,0,0)",
+  //边框
   borderStyle: "none",
   borderWidth: 1,
   borderColor: "rgba(0, 0, 0, 1)",
-  color: "#101010",
-  textDecoration: "",
+  //字体阴影
   textShadow: "rgb(245, 53, 48) 1px 1px 5px",
+  //位置
   marginLeft: 0,
   marginTop: 0
 };

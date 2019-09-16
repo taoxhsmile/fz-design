@@ -9,7 +9,7 @@ export let createGetInsertContainerAndWidgetView = ({
   function getInsertContainerAndWidgetView({ container, pageX, pageY }) {
     //初始根容器
     if (container == null) {
-      container = $(`.${containerClassName}`);
+      container = $(`.${containerClassName}`).eq(0);
     }
     let position = container.offset();
     //判断鼠标是否在该容器内
@@ -38,12 +38,17 @@ export let createGetInsertContainerAndWidgetView = ({
       for (let i = 0; i < widgetViews.length; i++) {
         let widgetView = widgetViews.eq(i);
         //递归
-        if (widgetView.find(`.${containerClassName}`).length) {
-          return getInsertContainerAndWidgetView({
+        if (
+          widgetViews[i] !== dragTarget &&
+          widgetView.find(`.${containerClassName}`).length
+        ) {
+          //递归只有找到结果才返回
+          let result = getInsertContainerAndWidgetView({
             container: widgetView.find(`.${containerClassName}`),
             pageX,
             pageY
           });
+          if (result) return result;
         }
         position = widgetView.offset();
         //判断鼠标是否在子项里面【不能是自己】
