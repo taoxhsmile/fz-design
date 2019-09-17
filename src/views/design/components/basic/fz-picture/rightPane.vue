@@ -45,6 +45,11 @@ export default {
     _customFeature() {
       return this.selectComponent._customFeature;
     }
+  },
+  provide() {
+    return {
+      rightPane: this
+    };
   }
 };
 </script>
