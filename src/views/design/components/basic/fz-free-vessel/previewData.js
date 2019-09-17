@@ -18,7 +18,7 @@ export default {
 };
 
 //组件基本信息
-export const basicInfo = {
+export const componentInfo = {
   name,
   icon: "iconziyoumianban",
   kind: "layout"

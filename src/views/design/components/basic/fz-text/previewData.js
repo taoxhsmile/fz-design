@@ -26,7 +26,7 @@ export default {
 };
 
 //组件基本属性
-export const basicInfo = {
+export const componentInfo = {
   name,
   icon: "iconwenben",
   kind: "basic"

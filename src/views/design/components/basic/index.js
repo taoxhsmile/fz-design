@@ -27,9 +27,9 @@ export function getPreviewDataByKind(kind) {
     //todo
     try {
       let previewData = require(`./${componentName}/previewData`),
-        { basicInfo } = previewData;
+        { componentInfo } = previewData;
 
-      if (basicInfo.kind === kind) {
+      if (componentInfo.kind === kind) {
         result.push(previewData);
       }
     } catch (e) {

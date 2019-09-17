@@ -5,8 +5,8 @@
       <li v-for="(basicPreviewData, i) in basicPreviewDatas" :key="i">
         <shortcut :basicPreviewData="basicPreviewData">
           <div class="content">
-            <fz-icon :name="basicPreviewData.basicInfo.icon"></fz-icon>
-            <p>{{ basicPreviewData.basicInfo.name }}</p>
+            <fz-icon :name="basicPreviewData.componentInfo.icon"></fz-icon>
+            <p>{{ basicPreviewData.componentInfo.name }}</p>
           </div>
         </shortcut>
       </li>
