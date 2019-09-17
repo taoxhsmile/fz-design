@@ -1,4 +1,4 @@
-const name = "图片列表";
+const name = "图片";
 
 export default {
   __type__: "fz-picture",
@@ -47,8 +47,6 @@ export const componentInfo = {
 };
 
 export const defaultStyles = {
-  //大小
-  width: 375,
   //位置
   marginLeft: 0,
   marginTop: 0,

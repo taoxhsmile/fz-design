@@ -31,6 +31,5 @@ export const defaultStyles = {
   //背景颜色
   backgroundColor: "rgba(0,0,0,0)",
   //大小
-  width: 375,
   height: 175
 };

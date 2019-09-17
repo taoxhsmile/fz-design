@@ -30,19 +30,26 @@ export default {
       } = this;
       //文本阴影
       if (useTextShadow === 1) {
-        _styles.textShadow = `${textShadow.hShadow} ${textShadow.vShadow} ${
-          textShadow.blur
-        } ${textShadow.color}`;
+        _styles = {
+          ..._styles,
+          textShadow: `${textShadow.hShadow} ${textShadow.vShadow} ${
+            textShadow.blur
+          } ${textShadow.color}`
+        };
       }
       //box阴影
       if (useBoxShadow === 1) {
-        _styles.boxShadow = `${boxShadow.hShadow} ${boxShadow.vShadow} ${
-          boxShadow.blur
-        } ${boxShadow.color}`;
+        _styles = {
+          ..._styles,
+          boxShadow: `${boxShadow.hShadow} ${boxShadow.vShadow} ${
+            boxShadow.blur
+          } ${boxShadow.color}`
+        };
       }
 
       _styles = { ...defaultStyles, ..._styles };
 
+      //放在free-vessel
       if (inFreeVessel) {
         ["width", "marginTop", "marginLeft", "top", "left", "position"].forEach(
           key => {
@@ -60,10 +67,6 @@ export default {
 </script>
 <style lang="less" scoped>
 .text-preview {
-  line-height: 25px;
-  font-size: 12px;
-  color: #101010;
-  margin: 0 auto;
   box-sizing: border-box;
   .inner-content {
     white-space: pre-wrap;
