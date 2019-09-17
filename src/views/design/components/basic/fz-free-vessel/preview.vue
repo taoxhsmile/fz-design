@@ -38,10 +38,25 @@ export default {
     styles() {
       let {
         defaultStyles,
-        data: { _styles }
+        data: {
+          _styles,
+          _customFeature: { useBoxShadow, boxShadow }
+        }
       } = this;
+      //box阴影
+      if (useBoxShadow === 1) {
+        _styles = {
+          ..._styles,
+          boxShadow: `${boxShadow.hShadow} ${boxShadow.vShadow} ${
+            boxShadow.blur
+          } ${boxShadow.color}`
+        };
+      }
+
+      _styles = { ...defaultStyles, ..._styles };
+
       return stylesConvert({
-        _styles: { ...defaultStyles, ..._styles }
+        _styles
       });
     },
     childrens() {
