@@ -1,8 +1,21 @@
 <template>
   <div class="free-vessel-preview component-container" :style="[styles]">
-    自由面板
-    {{ childrens }}
-    <freeWidgetView></freeWidgetView>
+    <template v-for="(componentData, i) in childrens">
+      <freeWidgetView
+        :key="componentData.__id__"
+        :data="componentData"
+        :list="childrens"
+        :index="i"
+      >
+        <component
+          :is="componentData.__type__"
+          :data-cid="componentData.__id__"
+          :data="componentData"
+          :list="childrens"
+          :index="i"
+        ></component>
+      </freeWidgetView>
+    </template>
   </div>
 </template>
 <script>
@@ -37,3 +50,9 @@ export default {
   }
 };
 </script>
+<style lang="less" scoped>
+.free-vessel-preview {
+  position: relative;
+  overflow: hidden;
+}
+</style>

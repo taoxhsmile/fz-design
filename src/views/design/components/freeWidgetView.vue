@@ -2,9 +2,12 @@
   <div
     ref="freeWidgetView"
     class="free-widget-view"
+    :class="[data.__type__]"
     @mousedown.stop="mousedown"
-    @mouseenter.stop="mouseenter"
-    @mouseleave.stop="mouseleave"
+    @mouseover.stop="mouseover"
+    @mouseout.stop="mouseout"
+    @click.stop
+    :style="[styles]"
   >
     <slot></slot>
     <freeWidgetViewBorder :data="data"></freeWidgetViewBorder>
@@ -20,6 +23,7 @@ import $ from "jquery";
 import { mapMutations } from "vuex";
 import freeWidgetViewBorder from "./freeWidgetViewBorder";
 import freeWidgetViewDel from "./freeWidgetViewDel";
+import { stylesConvert } from "@design/components/tools/stylesConvert";
 export default {
   name: "free-widget-view",
   components: {
@@ -31,25 +35,60 @@ export default {
     list: Array,
     index: Number
   },
+  computed: {
+    styles() {
+      let {
+          data: { _styles }
+        } = this,
+        styles = {};
+      ["position", "left", "top", "width"].forEach(key => {
+        styles[key] = _styles[key];
+      });
+      return stylesConvert({
+        _styles: styles
+      });
+    }
+  },
   methods: {
     ...mapMutations({
       setHoverComponent: "pageDesign/setHoverComponent",
       setSelectComponent: "pageDesign/setSelectComponent",
-      setDragComponent: "pageDesign/setDragComponent"
+      setDragComponent: "pageDesign/setDragComponent",
+      setComponentProperty: "pageDesign/setComponentProperty"
     }),
-    mouseenter() {
+    mouseover() {
       this.setHoverComponent(this.data);
     },
-    mouseleave() {
+    mouseout() {
       this.setHoverComponent(null);
     },
     mousedown({ clientX: startX, clientY: startY, currentTarget: dragTarget }) {
-      let { left, top } = $(dragTarget).position(); //拖拽物体的初始位置
-      let mousemoveFn = ({ clientX: endX, clientY: endY }) => {
-          let nLeft = endX - startX + left,
-            nTop = endY - startY + top;
+      let $parent = $(dragTarget).parent(),
+        parentWidth = $parent.width(),
+        parentHeight = $parent.height(),
+        dragTargetWidth = $(dragTarget).width(),
+        dragTargetHeight = $(dragTarget).height(),
+        {
+          _styles: { left: oldLeft, top: oldTop }
+        } = this.data,
+        nLeft = oldLeft,
+        nTop = oldTop; //拖拽物体的初始位置
 
-          //设置样式
+      let mousemoveFn = ({ clientX: endX, clientY: endY }) => {
+          nLeft = endX - startX + oldLeft;
+          nTop = endY - startY + oldTop;
+
+          if (nLeft < 0) {
+            nLeft = 0;
+          } else if (nLeft + dragTargetWidth > parentWidth) {
+            nLeft = parentWidth - dragTargetWidth;
+          }
+          if (nTop < 0) {
+            nTop = 0;
+          } else if (nTop + dragTargetHeight > parentHeight) {
+            nTop = parentHeight - dragTargetHeight;
+          }
+
           $(dragTarget).css({
             left: `${nLeft}px`,
             top: `${nTop}px`
@@ -60,6 +99,15 @@ export default {
           this.setDragComponent(null);
           //设置选中组件
           this.setSelectComponent(this.data);
+
+          this.setComponentProperty({
+            component: this.data,
+            key: "_styles",
+            value: {
+              left: nLeft,
+              top: nTop
+            }
+          });
 
           $(document).off("mousemove", mousemoveFn);
           $(document).off("mouseup", mouseupFn);
@@ -75,5 +123,15 @@ export default {
 .free-widget-view {
   position: relative;
   cursor: pointer;
+  overflow: hidden;
+  position: absolute;
+  &.fz-text {
+    max-width: 100%;
+    min-height: 10px;
+    line-height: 1.4em;
+    white-space: pre-wrap;
+    word-break: break-all;
+    height: auto !important;
+  }
 }
 </style>

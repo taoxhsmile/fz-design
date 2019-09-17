@@ -3,8 +3,8 @@
     ref="widgetView"
     class="widget-view"
     @click.stop="handleClick"
-    @mouseenter.stop="mouseenter"
-    @mouseleave.stop="mouseleave"
+    @mouseover.stop="mouseover"
+    @mouseout="mouseout"
   >
     <slot></slot>
     <widgetViewBorder :data="data"></widgetViewBorder>
@@ -35,10 +35,10 @@ export default {
       setSelectComponent: "pageDesign/setSelectComponent",
       setDragComponent: "pageDesign/setDragComponent"
     }),
-    mouseenter() {
+    mouseover() {
       this.setHoverComponent(this.data);
     },
-    mouseleave() {
+    mouseout() {
       this.setHoverComponent(null);
     },
     handleClick() {

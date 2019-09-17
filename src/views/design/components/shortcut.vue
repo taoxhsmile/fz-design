@@ -1,5 +1,5 @@
 <template>
-  <div class="shortcut" @click.stop="_addComponent" @mousedown="mousedown">
+  <div class="shortcut" @click.stop="_addComponent" @mousedown.stop="mousedown">
     <slot></slot>
   </div>
 </template>
@@ -16,21 +16,25 @@ export default {
   methods: {
     ...mapMutations({
       addComponent: "pageDesign/addComponent",
-      setSelectComponent: "pageDesign/setSelectComponent"
+      setSelectComponent: "pageDesign/setSelectComponent",
+      setSelectComponentProperty: "pageDesign/setSelectComponentProperty"
     }),
+    //点击添加组件
     _addComponent() {
-      let {
-        basicPreviewData: { data }
-      } = this;
-      this.addComponent({ componentData: data });
+      this.addComponent({ componentData: this.basicPreviewData.default });
     },
     mousedown({ currentTarget }) {
-      let dragTarget = $(currentTarget).clone()[0],
+      let dragTarget = $("<div></div>").append(
+          $(currentTarget)
+            .find(".icon")
+            .clone()
+        )[0],
+        insertInfo = null,
         insertIndex = null,
         insertList = null,
-        insertInsert = null,
-        { offsetWidth, offsetHeight } = currentTarget;
-
+        insertDirection = null,
+        dragTargetWidth = 82,
+        dragTargetHeight = 52;
       //获取【放在这里】
       let oInsertTemp = getInsertTempBlock();
 
@@ -44,54 +48,53 @@ export default {
             $(dragTarget)
               .css({
                 position: "absolute",
-                width: `${offsetWidth}px`,
-                height: `${offsetHeight}px`,
+                width: `${dragTargetWidth}px`,
+                height: `${dragTargetHeight}px`,
+                lineHeight: `${dragTargetHeight}px`,
                 zIndex: 1000,
                 background: "white",
-                borderRadius: "10px",
-                border: "1px solid #ccc",
-                justifyContent: "center",
-                display: "flex",
-                alignItems: "center"
+                borderRadius: "5px",
+                border: "1px solid #F2F3F7",
+                textAlign: "center"
               })
               .appendTo(document.body);
           }
           //设置样式
           $(dragTarget).css({
-            left: `${pageX - offsetWidth / 2}px`,
-            top: `${pageY - offsetHeight / 2}px`
+            left: `${pageX - dragTargetWidth / 2}px`,
+            top: `${pageY - dragTargetHeight / 1.5}px`
           });
 
-          let insertInfo = getInsertContainerAndWidgetView({ pageX, pageY });
+          insertInfo = getInsertContainerAndWidgetView({ pageX, pageY });
 
           if (!insertInfo) {
             //移除【放在这里】
             if (oInsertTemp && oInsertTemp.parentNode) {
               oInsertTemp.parentNode.removeChild(oInsertTemp);
             }
-            insertList = insertIndex = insertInsert = null;
+            insertList = insertIndex = insertDirection = null;
             return;
           }
-          //放在一个空容器里面
-          if (!insertInfo.widgetView) {
-            insertInfo.container.append(oInsertTemp);
-            insertList = insertInfo.container[0].__vue__.childrens;
-          } else {
-            insertList = insertInfo.widgetView[0].__vue__.list;
-            insertIndex = insertInfo.widgetView[0].__vue__.index;
-            insertInsert = insertInfo.insert;
 
-            if (insertInfo.insert === "top") {
-              insertInfo.widgetView.before(oInsertTemp);
+          if (!insertInfo.$widgetView) {
+            //放在一个空容器里面
+            insertInfo.$container.append(oInsertTemp);
+            insertList = insertInfo.$container[0].__vue__.childrens;
+            insertIndex = insertDirection = null;
+          } else {
+            insertList = insertInfo.$widgetView[0].__vue__.list;
+            insertIndex = insertInfo.$widgetView[0].__vue__.index;
+            insertDirection = insertInfo.direction;
+
+            if (insertDirection === "top") {
+              insertInfo.$widgetView.before(oInsertTemp);
             } else {
-              insertInfo.widgetView.after(oInsertTemp);
+              insertInfo.$widgetView.after(oInsertTemp);
             }
           }
         },
-        mouseupFn = () => {
-          let {
-            basicPreviewData: { data }
-          } = this;
+        mouseupFn = ({ clientX: endX, clientY: endY }) => {
+          let { basicPreviewData } = this;
 
           //清空样式
           dragTarget.style = "";
@@ -106,32 +109,63 @@ export default {
           }
 
           if (insertList) {
+            //判断是否放在free-vessel-preview中
+            let inFreeVessel = insertInfo.$container.hasClass(
+                "free-vessel-preview"
+              ),
+              selectComponent = null;
+
             //放在一个空容器里面
-            if (insertList.length === 0) {
+            if (insertList.length === 0 || !insertDirection) {
               this.addComponent({
-                componentData: data,
-                insertList
+                componentData: basicPreviewData.default,
+                insertList,
+                inFreeVessel
               });
-              this.setSelectComponent(insertList[0]);
+              selectComponent = insertList[insertList.length - 1];
             } else {
-              if (insertInsert === "top") {
+              if (insertDirection === "top") {
                 this.addComponent({
-                  componentData: data,
+                  componentData: basicPreviewData.default,
                   index: insertIndex,
-                  insertList
+                  insertList,
+                  inFreeVessel
                 });
-                this.setSelectComponent(insertList[insertIndex]);
+                selectComponent = insertList[insertIndex];
               } else {
                 this.addComponent({
-                  componentData: data,
+                  componentData: basicPreviewData.default,
                   index: insertIndex + 1,
-                  insertList
+                  insertList,
+                  inFreeVessel
                 });
-                this.setSelectComponent(insertList[insertIndex + 1]);
+                selectComponent = insertList[insertIndex + 1];
               }
+            }
+
+            this.setSelectComponent(selectComponent);
+
+            //计算位置
+            if (inFreeVessel) {
+              let {
+                left: containerLeft,
+                top: containerTop
+              } = insertInfo.$container.offset();
+
+              console.log("selectComponent=", selectComponent);
+
+              this.setSelectComponentProperty({
+                key: "_styles",
+                value: {
+                  left: endX - containerLeft,
+                  top: endY - containerTop,
+                  position: "absolue"
+                }
+              });
             }
           }
 
+          //移除事件
           $(document).off("mousemove", mousemoveFn);
           $(document).off("mouseup", mouseupFn);
         };

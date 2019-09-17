@@ -55,7 +55,10 @@ export default {
       });
     },
     //添加组件
-    addComponent(state, { componentData, index, insertList }) {
+    addComponent(
+      state,
+      { componentData, index, insertList, inFreeVessel = false }
+    ) {
       insertList = insertList || this.getters["pageDesign/pageComponents"];
 
       if (state.pageActiveIndex < 0) {
@@ -68,6 +71,7 @@ export default {
       //深拷贝一份
       componentData = JSON.parse(JSON.stringify(componentData));
       componentData.__id__ = "component" + getRandomId();
+      componentData.inFreeVessel = inFreeVessel;
 
       if (index >= 0) {
         insertList.splice(index, 0, componentData);
@@ -100,7 +104,16 @@ export default {
     },
     // 设置选中组件的数据 传入 key和value
     setSelectComponentProperty({ selectComponent }, { key, value }) {
-      let oldValue = selectComponent;
+      this.commit("pageDesign/setComponentProperty", {
+        component: selectComponent,
+        key,
+        value
+      });
+    },
+    setComponentProperty(state, { component, key, value }) {
+      component = component || state.selectComponent;
+
+      let oldValue = component;
       key = key.split(".");
       key.forEach(k => {
         oldValue = oldValue[k];
@@ -115,9 +128,9 @@ export default {
 
       let _key = key.pop();
       key.forEach(k => {
-        selectComponent = selectComponent[k];
+        component = component[k];
       });
-      selectComponent[_key] = value;
+      component[_key] = value;
     },
     setDragComponent(state, dragComponent) {
       state.dragComponent = dragComponent;

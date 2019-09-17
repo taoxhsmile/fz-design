@@ -8,7 +8,7 @@ import { stylesConvert } from "@design/components/tools/stylesConvert";
 import previewMixins from "@design/components/basic/common/previewMixins";
 import { defaultStyles } from "./previewData";
 export default {
-  name: "text-preview",
+  name: "fz-text-preview",
   mixins: [previewMixins],
   data() {
     return { defaultStyles };
@@ -19,30 +19,40 @@ export default {
         defaultStyles,
         data: {
           _styles,
-          _customFeature: { useTextShadow, textShadow, useBoxShadow, boxShadow }
+          _customFeature: {
+            useTextShadow,
+            textShadow,
+            useBoxShadow,
+            boxShadow
+          },
+          inFreeVessel
         }
       } = this;
-
+      //文本阴影
       if (useTextShadow === 1) {
-        _styles = {
-          ..._styles,
-          textShadow: `${textShadow.hShadow} ${textShadow.vShadow} ${
-            textShadow.blur
-          } ${textShadow.color}`
-        };
+        _styles.textShadow = `${textShadow.hShadow} ${textShadow.vShadow} ${
+          textShadow.blur
+        } ${textShadow.color}`;
+      }
+      //box阴影
+      if (useBoxShadow === 1) {
+        _styles.boxShadow = `${boxShadow.hShadow} ${boxShadow.vShadow} ${
+          boxShadow.blur
+        } ${boxShadow.color}`;
       }
 
-      if (useBoxShadow === 1) {
-        _styles = {
-          ..._styles,
-          boxShadow: `${boxShadow.hShadow} ${boxShadow.vShadow} ${
-            boxShadow.blur
-          } ${boxShadow.color}`
-        };
+      _styles = { ...defaultStyles, ..._styles };
+
+      if (inFreeVessel) {
+        ["width", "marginTop", "marginLeft", "top", "left", "position"].forEach(
+          key => {
+            delete _styles[key];
+          }
+        );
       }
 
       return stylesConvert({
-        _styles: { ...defaultStyles, ..._styles }
+        _styles
       });
     }
   }

@@ -12,7 +12,7 @@
       <el-col :span="12">
         <el-radio
           :value="_customFeature.useBoxShadow"
-          @change="
+          @input="
             val =>
               setSelectComponentProperty({
                 key: '_customFeature',
@@ -26,7 +26,7 @@
       <el-col :span="12">
         <el-radio
           :value="_customFeature.useBoxShadow"
-          @change="
+          @input="
             val =>
               setSelectComponentProperty({
                 key: '_customFeature',

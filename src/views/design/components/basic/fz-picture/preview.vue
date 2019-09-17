@@ -3,7 +3,7 @@
     <template v-if="hasImage">
       <div class="row" v-for="(r, i) in row" :key="i">
         <div class="col" v-for="(c, j) in getCol(r)" :key="i * r + j">
-          <img :src="getImageData(i, j)" />
+          <img :src="getImageData(i, j)" @mousedown.prevent />
         </div>
         <template v-if="r === row">
           <div

@@ -11,7 +11,7 @@
             show-word-limit
             :rows="6"
             :value="selectComponent.content"
-            @change="
+            @input="
               val =>
                 setSelectComponentProperty({
                   key: 'content',

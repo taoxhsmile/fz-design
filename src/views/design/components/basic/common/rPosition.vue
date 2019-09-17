@@ -74,7 +74,29 @@ export default {
   methods: {
     ...mapMutations({
       setSelectComponentProperty: "pageDesign/setSelectComponentProperty"
-    })
+    }),
+    setStylesAlign(val) {
+      this.setSelectComponentProperty({
+        key: "_customFeature",
+        value: { align: val }
+      });
+      this.setSelectComponentProperty({
+        key: "_styles",
+        value: {
+          marginLeft: val === "left" ? 0 : "auto",
+          marginRight: val === "right" ? 0 : "auto"
+        }
+      });
+    }
   }
 };
 </script>
+<style lang="less" scoped>
+.align-btns {
+  & /deep/ .el-button {
+    width: 84px;
+    font-size: 14px;
+    font-weight: normal;
+  }
+}
+</style>

@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     ...mapMutations({
-      setSelectComponentProperty: "pageDesign/setSelectComponentProperty",
+      setComponentProperty: "pageDesign/setComponentProperty",
       setSelectComponent: "pageDesign/setSelectComponent",
       setDragComponent: "pageDesign/setDragComponent"
     }),
@@ -31,11 +31,13 @@ export default {
     mousedown({ clientX: startX, clientY: startY, currentTarget }) {
       let dragTarget = currentTarget.parentNode,
         isMove = false, //是否移动过
+        insertInfo = null,
         insertIndex = this.index,
         insertList = this.list,
-        insertInsert = "top",
+        insertDirection = "top",
         { left, top } = $(dragTarget).position(), //拖拽物体的初始位置
-        { offsetWidth, offsetHeight } = dragTarget; //拖拽物体的初始大小
+        dragTargetWidth = $(dragTarget).width(),
+        dragTargetHeight = $(dragTarget).height(); //拖拽物体的初始大小
 
       //获取【放在这里】
       let oInsertTemp = getInsertTempBlock();
@@ -45,22 +47,23 @@ export default {
       );
 
       let mousemoveFn = ({ clientX: endX, clientY: endY, pageX, pageY }) => {
-          let nLeft = endX - startX + left,
-            nTop = endY - startY + top;
-
           if (isMove === false) {
             isMove = true;
+
             this.setDragComponent(this.data);
             //刚开始拖动的时候插入[放在这里]
             $(dragTarget)
               .css({
                 position: "absolute",
-                width: `${offsetWidth}px`,
-                height: `${offsetHeight}px`,
+                width: `${dragTargetWidth}px`,
+                height: `${dragTargetHeight}px`,
                 zIndex: 1000
               })
               .before(oInsertTemp);
           }
+
+          let nLeft = endX - startX + left,
+            nTop = endY - startY + top;
 
           //设置样式
           $(dragTarget).css({
@@ -68,28 +71,29 @@ export default {
             top: `${nTop}px`
           });
 
-          let insertInfo = getInsertContainerAndWidgetView({ pageX, pageY });
+          insertInfo = getInsertContainerAndWidgetView({ pageX, pageY });
           //如果insertInfo为null，保持原来的位置
           if (!insertInfo) return;
-          //放在一个空容器里面
-          if (!insertInfo.widgetView) {
-            insertList = insertInfo.container[0].__vue__.childrens;
-            insertInfo.container.append(oInsertTemp);
+          if (!insertInfo.$widgetView) {
+            //放在一个空容器里面
+            insertList = insertInfo.$container[0].__vue__.childrens;
+            insertInfo.$container.append(oInsertTemp);
           } else {
-            insertList = insertInfo.widgetView[0].__vue__.list;
-            insertIndex = insertInfo.widgetView[0].__vue__.index;
-            insertInsert = insertInfo.insert;
+            insertList = insertInfo.$widgetView[0].__vue__.list;
+            insertIndex = insertInfo.$widgetView[0].__vue__.index;
+            insertDirection = insertInfo.direction;
 
-            if (insertInfo.insert === "top") {
-              insertInfo.widgetView.before(oInsertTemp);
+            if (insertDirection === "top") {
+              insertInfo.$widgetView.before(oInsertTemp);
             } else {
-              insertInfo.widgetView.after(oInsertTemp);
+              insertInfo.$widgetView.after(oInsertTemp);
             }
           }
         },
-        mouseupFn = () => {
+        mouseupFn = ({ clientX: endX, clientY: endY }) => {
           //重置状态
           isMove = false;
+
           this.setDragComponent(null);
           //设置选中组件
           this.setSelectComponent(this.data);
@@ -100,9 +104,13 @@ export default {
           if (oInsertTemp && oInsertTemp.parentNode) {
             oInsertTemp.parentNode.removeChild(oInsertTemp);
           }
+
+          //判断是否放在free-vessel-preview中
+          let inFreeVessel =
+            insertInfo && insertInfo.$container.hasClass("free-vessel-preview");
           //在原来的容器中 只是改变顺序
           if (this.list === insertList) {
-            if (insertInsert === "top") {
+            if (insertDirection === "top") {
               insertList.splice(insertIndex, 0, this.data);
             } else {
               insertList.splice(insertIndex + 1, 0, this.data);
@@ -117,7 +125,7 @@ export default {
             if (insertList.length === 0) {
               insertList.push(this.data);
             } else {
-              if (insertInsert === "top") {
+              if (insertDirection === "top") {
                 insertList.splice(insertIndex, 0, this.data);
               } else {
                 insertList.splice(insertIndex + 1, 0, this.data);
@@ -126,6 +134,30 @@ export default {
             this.list.splice(this.index, 1);
           }
 
+          if (inFreeVessel) {
+            //设置inFreeVessel
+            this.setComponentProperty({
+              component: this.data,
+              key: "inFreeVessel",
+              value: true
+            });
+            //计算位置
+            let {
+              left: containerLeft,
+              top: containerTop
+            } = insertInfo.$container.offset();
+
+            this.setComponentProperty({
+              component: this.data,
+              key: "_styles",
+              value: {
+                left: endX - containerLeft,
+                top: endY - containerTop,
+                position: "absolue"
+              }
+            });
+          }
+          //移除事件
           $(document).off("mousemove", mousemoveFn);
           $(document).off("mouseup", mouseupFn);
         };

@@ -13,9 +13,9 @@ export default function getComponents(type) {
   componentNames.forEach(componentName => {
     //todo
     try {
-      components[componentName] = require(`./${componentName}/${type}`).default;
+      components[componentName] = () => import(`./${componentName}/${type}`);
     } catch (e) {
-      //e
+      console.log(e);
     }
   });
   return components;
@@ -26,8 +26,10 @@ export function getPreviewDataByKind(kind) {
   componentNames.forEach(componentName => {
     //todo
     try {
-      let previewData = require(`./${componentName}/previewData`).default;
-      if (previewData.kind === kind) {
+      let previewData = require(`./${componentName}/previewData`),
+        { basicInfo } = previewData;
+
+      if (basicInfo.kind === kind) {
         result.push(previewData);
       }
     } catch (e) {

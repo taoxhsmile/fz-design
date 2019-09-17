@@ -1,15 +1,32 @@
 <template>
   <div class="group-list component-container">
     <!-- 预览数据列表 -->
-    <preview :childrens="childrens"></preview>
+    <template v-for="(componentData, i) in childrens">
+      <widgetView
+        :key="componentData.__id__"
+        :data="componentData"
+        :list="childrens"
+        :index="i"
+      >
+        <component
+          :is="componentData.__type__"
+          :data-cid="componentData.__id__"
+          :data="componentData"
+          :list="childrens"
+          :index="i"
+        ></component>
+      </widgetView>
+    </template>
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
-import preview from "./preview.vue";
+import getComponents from "./basic/index.js";
+import widgetView from "./widgetView";
 export default {
   components: {
-    preview
+    ...getComponents("preview"),
+    widgetView
   },
   computed: {
     ...mapGetters({
