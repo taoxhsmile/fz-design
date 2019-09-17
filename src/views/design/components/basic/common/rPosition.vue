@@ -68,13 +68,10 @@
   </div>
 </template>
 <script>
-import { mapMutations } from "vuex";
+import rMixins from "./rMixins";
 export default {
-  props: ["_styles", "_customFeature"],
+  mixins: [rMixins],
   methods: {
-    ...mapMutations({
-      setSelectComponentProperty: "pageDesign/setSelectComponentProperty"
-    }),
     setStylesAlign(val) {
       this.setSelectComponentProperty({
         key: "_customFeature",

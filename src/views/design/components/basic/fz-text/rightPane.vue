@@ -2,19 +2,11 @@
   <div class="rightPane-item">
     <el-tabs stretch type="card" v-model="activeName">
       <el-tab-pane label="组件设置" name="content">
-        <rightPaneContent
-          :selectComponent="selectComponent"
-          :_styles="_styles"
-          :_customFeature="_customFeature"
-        ></rightPaneContent>
+        <rightPaneContent />
       </el-tab-pane>
 
       <el-tab-pane label="样式设置" name="container">
-        <rightPaneContainer
-          :selectComponent="selectComponent"
-          :_styles="_styles"
-          :_customFeature="_customFeature"
-        ></rightPaneContainer>
+        <rightPaneContainer />
       </el-tab-pane>
     </el-tabs>
   </div>

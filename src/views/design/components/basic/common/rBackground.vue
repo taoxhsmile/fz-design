@@ -30,13 +30,8 @@
   </div>
 </template>
 <script>
-import { mapMutations } from "vuex";
+import rMixins from "./rMixins";
 export default {
-  props: ["_styles", "_customFeature"],
-  methods: {
-    ...mapMutations({
-      setSelectComponentProperty: "pageDesign/setSelectComponentProperty"
-    })
-  }
+  mixins: [rMixins]
 };
 </script>

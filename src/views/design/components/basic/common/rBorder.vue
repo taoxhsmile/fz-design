@@ -69,9 +69,9 @@
   </div>
 </template>
 <script>
-import { mapMutations } from "vuex";
+import rMixins from "./rMixins";
 export default {
-  props: ["_styles", "_customFeature"],
+  mixins: [rMixins],
   data() {
     return {
       borderStyleOptions: [
@@ -93,11 +93,6 @@ export default {
         }
       ]
     };
-  },
-  methods: {
-    ...mapMutations({
-      setSelectComponentProperty: "pageDesign/setSelectComponentProperty"
-    })
   }
 };
 </script>

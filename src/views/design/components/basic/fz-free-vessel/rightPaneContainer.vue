@@ -2,14 +2,14 @@
   <el-collapse :value="['1', '2']">
     <el-collapse-item title="组件设置" name="1">
       <!-- 大小 -->
-      <rSize :_styles="_styles" :_customFeature="_customFeature"></rSize>
+      <rSize></rSize>
       <!-- 位置 -->
-      <rPosition :_styles="_styles" :_customFeature="_customFeature" />
+      <rPosition />
       <!-- 背景 -->
-      <rBackground :_styles="_styles" :_customFeature="_customFeature" />
+      <rBackground />
     </el-collapse-item>
     <el-collapse-item title="边框设置" name="2">
-      <rBoxShadow :_customFeature="_customFeature" />
+      <rBoxShadow />
     </el-collapse-item>
   </el-collapse>
 </template>
@@ -20,7 +20,6 @@ import rPosition from "../common/rPosition";
 import rBackground from "../common/rBackground";
 import rBoxShadow from "../common/rBoxShadow";
 export default {
-  props: ["selectComponent", "_styles", "_customFeature"],
   components: {
     rSize,
     rPosition,

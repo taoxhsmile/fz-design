@@ -39,7 +39,7 @@
 <script>
 import { mapMutations } from "vuex";
 export default {
-  props: ["selectComponent", "_styles", "_customFeature"],
+  inject: ["rightPane"],
   data() {
     return {
       textAlignOptions: [
@@ -57,6 +57,11 @@ export default {
         }
       ]
     };
+  },
+  computed: {
+    _customFeature() {
+      return this.rightPane._customFeature;
+    }
   },
   methods: {
     ...mapMutations({

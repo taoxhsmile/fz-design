@@ -136,7 +136,7 @@
 <script>
 import { mapMutations } from "vuex";
 export default {
-  props: ["selectComponent", "_styles", "_customFeature"],
+  inject: ["rightPane"],
   data() {
     return {
       textAlignOptions: [
@@ -154,6 +154,14 @@ export default {
         }
       ]
     };
+  },
+  computed: {
+    _styles() {
+      return this.rightPane._styles;
+    },
+    selectComponent() {
+      return this.rightPane.selectComponent;
+    }
   },
   methods: {
     ...mapMutations({
