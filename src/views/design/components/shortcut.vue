@@ -36,7 +36,8 @@ export default {
         insertList = null,
         insertDirection = null,
         dragTargetWidth = 82,
-        dragTargetHeight = 52;
+        dragTargetHeight = 52,
+        { basicPreviewData } = this;
       //获取【放在这里】
       let oInsertTemp = getInsertTempBlock();
 
@@ -77,6 +78,7 @@ export default {
             if (oInsertTemp && oInsertTemp.parentNode) {
               oInsertTemp.parentNode.removeChild(oInsertTemp);
             }
+            //清除数据
             insertList = insertIndex = insertDirection = null;
             return;
           }
@@ -98,23 +100,37 @@ export default {
             }
           }
         },
+        changeData = ({ inFreeVessel }) => {
+          let component, index;
+          if (insertDirection === "top") {
+            index = insertIndex;
+          } else if (insertDirection === "bottom") {
+            index = insertIndex + 1;
+          }
+          this.addComponent({
+            componentData: basicPreviewData.default,
+            index,
+            insertList,
+            inFreeVessel,
+            cb: _component => {
+              component = _component;
+            }
+          });
+          return component;
+        },
         mouseupFn = ({ clientX: endX, clientY: endY }) => {
-          let { basicPreviewData } = this;
-
           isMoving = false;
 
-          //清空样式
-          dragTarget.style = "";
-
-          //移除放在这里
+          //移除【放在这里】
           if (oInsertTemp && oInsertTemp.parentNode) {
             oInsertTemp.parentNode.removeChild(oInsertTemp);
           }
           //移除clone的dragTarget
-          if (dragTarget.parentNode) {
+          if (dragTarget && dragTarget.parentNode) {
             dragTarget.parentNode.removeChild(dragTarget);
           }
 
+          //需要添加新的组件
           if (insertList) {
             //判断是否放在free-vessel-preview中
             let inFreeVessel = insertInfo.$container.hasClass(
@@ -122,33 +138,8 @@ export default {
               ),
               component = null;
 
-            //放在一个空容器里面
-            if (insertList.length === 0 || !insertDirection) {
-              this.addComponent({
-                componentData: basicPreviewData.default,
-                insertList,
-                inFreeVessel
-              });
-              component = insertList[insertList.length - 1];
-            } else {
-              if (insertDirection === "top") {
-                this.addComponent({
-                  componentData: basicPreviewData.default,
-                  index: insertIndex,
-                  insertList,
-                  inFreeVessel
-                });
-                component = insertList[insertIndex];
-              } else {
-                this.addComponent({
-                  componentData: basicPreviewData.default,
-                  index: insertIndex + 1,
-                  insertList,
-                  inFreeVessel
-                });
-                component = insertList[insertIndex + 1];
-              }
-            }
+            //修改数据并返回新添加的数据
+            component = changeData({ inFreeVessel });
 
             this.setSelectComponent(component);
 

@@ -88,24 +88,7 @@ export default {
             }
           }
         },
-        mouseupFn = ({ clientX: endX, clientY: endY }) => {
-          //重置状态
-          isMoving = false;
-
-          this.setDragComponent(null);
-          //设置选中组件
-          this.setSelectComponent(this.data);
-          //清空样式
-          dragTarget.style = "";
-
-          //移除【放在这里】
-          if (oInsertTemp && oInsertTemp.parentNode) {
-            oInsertTemp.parentNode.removeChild(oInsertTemp);
-          }
-
-          //判断是否放在free-vessel-preview中
-          let inFreeVessel =
-            insertInfo && insertInfo.$container.hasClass("free-vessel-preview");
+        changeData = () => {
           //在原来的容器中 只是改变顺序
           if (this.list === insertList) {
             if (insertDirection === "top") {
@@ -131,9 +114,31 @@ export default {
             }
             this.list.splice(this.index, 1);
           }
+        },
+        mouseupFn = ({ clientX: endX, clientY: endY }) => {
+          //重置状态
+          isMoving = false;
+
+          this.setDragComponent(null);
+          //设置选中组件
+          this.setSelectComponent(this.data);
+          //清空样式
+          dragTarget.style = "";
+
+          //移除【放在这里】
+          if (oInsertTemp && oInsertTemp.parentNode) {
+            oInsertTemp.parentNode.removeChild(oInsertTemp);
+          }
+
+          //判断是否放在free-vessel-preview中
+          let inFreeVessel =
+            insertInfo && insertInfo.$container.hasClass("free-vessel-preview");
+
+          //修改数据
+          changeData();
 
           if (inFreeVessel) {
-            //设置inFreeVessel
+            //设置inFreeVessel为true
             this.setComponentProperty({
               component: this.data,
               key: "inFreeVessel",

@@ -57,7 +57,7 @@ export default {
     //添加组件
     addComponent(
       state,
-      { componentData, index, insertList, inFreeVessel = false }
+      { componentData, index, insertList, inFreeVessel = false, cb }
     ) {
       insertList = insertList || this.getters["pageDesign/pageComponents"];
 
@@ -78,6 +78,7 @@ export default {
       } else {
         insertList.push(componentData);
       }
+      cb && cb(componentData);
     },
     //删除指定组件
     delComponent(state, { list, index }) {

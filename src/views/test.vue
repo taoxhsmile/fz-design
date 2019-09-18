@@ -11,14 +11,23 @@
 </template>
 <script>
 import $ from "jquery";
+import { mapMutations } from "vuex";
 export default {
-  mounted() {
+  async mounted() {
     let $container = $(".container"),
       $widgetItems = $container.find("> .widget-item");
 
     for (let i = 0; i < $widgetItems.length; i++) {
       $widgetItems.eq(i).css({ border: "1px solid red" });
     }
+
+    let a = await this.test();
+    console.log(a);
+  },
+  methods: {
+    ...mapMutations({
+      test: "pageDesign/test"
+    })
   }
 };
 </script>
