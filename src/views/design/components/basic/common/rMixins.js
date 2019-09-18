@@ -11,6 +11,9 @@ export default {
     },
     _customFeature() {
       return this.rightPane._customFeature;
+    },
+    inFreeVessel() {
+      return this.selectComponent.inFreeVessel;
     }
   },
   methods: {

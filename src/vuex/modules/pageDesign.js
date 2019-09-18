@@ -49,7 +49,7 @@ export default {
     //新增页面
     addPage(state) {
       state.pages.push({
-        __id__: "page" + getRandomId(),
+        __id__: "page_" + getRandomId(),
         __name__: `页面${state.pages.length + 1}`,
         _components: []
       });
@@ -70,7 +70,7 @@ export default {
       }
       //深拷贝一份
       componentData = JSON.parse(JSON.stringify(componentData));
-      componentData.__id__ = "component" + getRandomId();
+      componentData.__id__ = "component_" + getRandomId();
       componentData.inFreeVessel = inFreeVessel;
 
       if (index >= 0) {

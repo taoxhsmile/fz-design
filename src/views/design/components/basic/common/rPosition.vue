@@ -11,36 +11,70 @@
     <el-row type="flex" justify="center" align="middle">
       <el-col :span="3">左边</el-col>
       <el-col :span="9">
-        <el-input-number
-          style="width:88px;"
-          controls-position="right"
-          :min="0"
-          :value="_styles.marginLeft"
-          :disabled="_customFeature.align !== 'left'"
-          @change="
-            val =>
-              setSelectComponentProperty({
-                key: '_styles',
-                value: { marginLeft: val }
-              })
-          "
-        ></el-input-number>
+        <template v-if="inFreeVessel">
+          <el-input-number
+            style="width:88px;"
+            controls-position="right"
+            :min="0"
+            :value="_styles.left"
+            @change="
+              val =>
+                setSelectComponentProperty({
+                  key: '_styles',
+                  value: { left: val }
+                })
+            "
+          />
+        </template>
+        <template v-else>
+          <el-input-number
+            style="width:88px;"
+            controls-position="right"
+            :min="0"
+            :value="_styles.marginLeft"
+            :disabled="_customFeature.align !== 'left'"
+            @change="
+              val =>
+                setSelectComponentProperty({
+                  key: '_styles',
+                  value: { marginLeft: val }
+                })
+            "
+          />
+        </template>
       </el-col>
       <el-col :span="3">上边</el-col>
       <el-col :span="9">
-        <el-input-number
-          style="width:88px;"
-          controls-position="right"
-          :min="0"
-          :value="_styles.marginTop"
-          @change="
-            val =>
-              setSelectComponentProperty({
-                key: '_styles',
-                value: { marginTop: val }
-              })
-          "
-        ></el-input-number>
+        <template v-if="inFreeVessel">
+          <el-input-number
+            style="width:88px;"
+            controls-position="right"
+            :min="0"
+            :value="_styles.top"
+            @change="
+              val =>
+                setSelectComponentProperty({
+                  key: '_styles',
+                  value: { top: val }
+                })
+            "
+          />
+        </template>
+        <template v-else>
+          <el-input-number
+            style="width:88px;"
+            controls-position="right"
+            :min="0"
+            :value="_styles.marginTop"
+            @change="
+              val =>
+                setSelectComponentProperty({
+                  key: '_styles',
+                  value: { marginTop: val }
+                })
+            "
+          ></el-input-number>
+        </template>
       </el-col>
     </el-row>
     <el-row type="flex" justify="center" align="middle">
@@ -69,6 +103,7 @@
 </template>
 <script>
 import rMixins from "./rMixins";
+import $ from "jquery";
 export default {
   mixins: [rMixins],
   methods: {
@@ -77,13 +112,36 @@ export default {
         key: "_customFeature",
         value: { align: val }
       });
-      this.setSelectComponentProperty({
-        key: "_styles",
-        value: {
-          marginLeft: val === "left" ? 0 : "auto",
-          marginRight: val === "right" ? 0 : "auto"
+
+      if (this.inFreeVessel) {
+        let left = null,
+          $preview = $(`[data-cid='${this.selectComponent.__id__}']`),
+          $previewWidth = $preview.width(),
+          $freeVesselPreview = $preview.parents(".free-vessel-preview").eq(0),
+          $freeVesselPreviewWidth = $freeVesselPreview.width();
+
+        if (val === "left") {
+          left = 0;
+        } else if (val === "center") {
+          left = ($freeVesselPreviewWidth - $previewWidth) / 2;
+        } else if (val === "right") {
+          left = $freeVesselPreviewWidth - $previewWidth;
         }
-      });
+        this.setSelectComponentProperty({
+          key: "_styles",
+          value: {
+            left
+          }
+        });
+      } else {
+        this.setSelectComponentProperty({
+          key: "_styles",
+          value: {
+            marginLeft: val === "left" ? 0 : "auto",
+            marginRight: val === "right" ? 0 : "auto"
+          }
+        });
+      }
     }
   }
 };

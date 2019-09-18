@@ -29,8 +29,8 @@ export default {
   top: 0;
   right: 0;
   i {
-    color: #2b8cff;
-    font-size: 22px;
+    color: #f56c6c;
+    font-size: 14px;
   }
 }
 </style>
