@@ -11,7 +11,8 @@ import $ from "jquery";
 import { mapMutations, mapGetters } from "vuex";
 import {
   createGetInsertContainerAndWidgetView,
-  getInsertTempBlock
+  getInsertTempBlock,
+  setPosition
 } from "@design/components/tools/drag";
 
 export default {
@@ -62,13 +63,10 @@ export default {
               .before(oInsertTemp);
           }
 
-          let nLeft = endX - startX + left,
-            nTop = endY - startY + top;
-
           //设置样式
           $(dragTarget).css({
-            left: `${nLeft}px`,
-            top: `${nTop}px`
+            left: `${endX - startX + left}px`,
+            top: `${endY - startY + top}px`
           });
 
           insertInfo = getInsertContainerAndWidgetView({ pageX, pageY });
@@ -142,19 +140,13 @@ export default {
               value: true
             });
             //计算位置
-            let {
-              left: containerLeft,
-              top: containerTop
-            } = insertInfo.$container.offset();
-
-            this.setComponentProperty({
-              component: this.data,
-              key: "_styles",
-              value: {
-                left: endX - containerLeft,
-                top: endY - containerTop,
-                position: "absolue"
-              }
+            let { setComponentProperty } = this;
+            setPosition({
+              insertInfo,
+              endX,
+              endY,
+              setComponentProperty,
+              component: this.data
             });
           }
           //移除事件

@@ -8,7 +8,8 @@ import { mapMutations } from "vuex";
 import $ from "jquery";
 import {
   createGetInsertContainerAndWidgetView,
-  getInsertTempBlock
+  getInsertTempBlock,
+  setPosition
 } from "@design/components/tools/drag";
 
 export default {
@@ -17,7 +18,7 @@ export default {
     ...mapMutations({
       addComponent: "pageDesign/addComponent",
       setSelectComponent: "pageDesign/setSelectComponent",
-      setSelectComponentProperty: "pageDesign/setSelectComponentProperty"
+      setComponentProperty: "pageDesign/setComponentProperty"
     }),
     //点击添加组件
     _addComponent() {
@@ -47,6 +48,7 @@ export default {
           //第一次移动把clone出来的dragTarget放到body里面
           if (isMoving === false) {
             isMoving = true;
+            //插入拖拽元素
             $(dragTarget)
               .css({
                 position: "absolute",
@@ -57,11 +59,12 @@ export default {
                 background: "white",
                 borderRadius: "5px",
                 border: "1px solid #F2F3F7",
-                textAlign: "center"
+                textAlign: "center",
+                color: "##696A6F"
               })
               .appendTo(document.body);
           }
-          //设置样式
+          //设置拖拽元素的样式
           $(dragTarget).css({
             left: `${pageX - dragTargetWidth / 2}px`,
             top: `${pageY - dragTargetHeight / 1.5}px`
@@ -117,7 +120,7 @@ export default {
             let inFreeVessel = insertInfo.$container.hasClass(
                 "free-vessel-preview"
               ),
-              selectComponent = null;
+              component = null;
 
             //放在一个空容器里面
             if (insertList.length === 0 || !insertDirection) {
@@ -126,7 +129,7 @@ export default {
                 insertList,
                 inFreeVessel
               });
-              selectComponent = insertList[insertList.length - 1];
+              component = insertList[insertList.length - 1];
             } else {
               if (insertDirection === "top") {
                 this.addComponent({
@@ -135,7 +138,7 @@ export default {
                   insertList,
                   inFreeVessel
                 });
-                selectComponent = insertList[insertIndex];
+                component = insertList[insertIndex];
               } else {
                 this.addComponent({
                   componentData: basicPreviewData.default,
@@ -143,28 +146,22 @@ export default {
                   insertList,
                   inFreeVessel
                 });
-                selectComponent = insertList[insertIndex + 1];
+                component = insertList[insertIndex + 1];
               }
             }
 
-            this.setSelectComponent(selectComponent);
+            this.setSelectComponent(component);
 
-            //计算位置
+            //如果放在自由面板里面要计算位置
             if (inFreeVessel) {
-              let {
-                left: containerLeft,
-                top: containerTop
-              } = insertInfo.$container.offset();
-
-              console.log("selectComponent=", selectComponent);
-
-              this.setSelectComponentProperty({
-                key: "_styles",
-                value: {
-                  left: endX - containerLeft,
-                  top: endY - containerTop,
-                  position: "absolue"
-                }
+              //计算位置
+              let { setComponentProperty } = this;
+              setPosition({
+                insertInfo,
+                endX,
+                endY,
+                setComponentProperty,
+                component
               });
             }
           }

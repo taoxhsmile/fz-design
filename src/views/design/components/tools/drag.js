@@ -109,3 +109,26 @@ export function getInsertTempBlock() {
   }
   return oInsertTempBlock;
 }
+
+export function setPosition({
+  insertInfo,
+  endX,
+  endY,
+  component,
+  setComponentProperty
+}) {
+  let {
+    left: containerLeft,
+    top: containerTop
+  } = insertInfo.$container.offset();
+
+  setComponentProperty({
+    component,
+    key: "_styles",
+    value: {
+      left: endX - containerLeft,
+      top: endY - containerTop,
+      position: "absolue"
+    }
+  });
+}
