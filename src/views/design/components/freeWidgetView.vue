@@ -16,6 +16,7 @@
       :list="list"
       :index="index"
     ></freeWidgetViewDel>
+    <freeWidgetViewControl :data="data"></freeWidgetViewControl>
   </div>
 </template>
 <script>
@@ -23,12 +24,14 @@ import $ from "jquery";
 import { mapMutations } from "vuex";
 import freeWidgetViewBorder from "./freeWidgetViewBorder";
 import freeWidgetViewDel from "./freeWidgetViewDel";
+import freeWidgetViewControl from "./freeWidgetViewControl";
 import { stylesConvert } from "@design/components/tools/stylesConvert";
 export default {
   name: "free-widget-view",
   components: {
     freeWidgetViewBorder,
-    freeWidgetViewDel
+    freeWidgetViewDel,
+    freeWidgetViewControl
   },
   props: {
     data: Object,
@@ -64,10 +67,10 @@ export default {
     },
     mousedown({ clientX: startX, clientY: startY, currentTarget: dragTarget }) {
       let $parent = $(dragTarget).parent(),
-        parentWidth = $parent.width(),
-        parentHeight = $parent.height(),
-        dragTargetWidth = $(dragTarget).width(),
-        dragTargetHeight = $(dragTarget).height(),
+        $parentWidth = $parent.width(),
+        $parentHeight = $parent.height(),
+        $dragTargetWidth = $(dragTarget).width(),
+        $dragTargetHeight = $(dragTarget).height(),
         {
           _styles: { left: oldLeft, top: oldTop }
         } = this.data,
@@ -80,13 +83,13 @@ export default {
 
           if (nLeft < 0) {
             nLeft = 0;
-          } else if (nLeft + dragTargetWidth > parentWidth) {
-            nLeft = parentWidth - dragTargetWidth;
+          } else if (nLeft + $dragTargetWidth > $parentWidth) {
+            nLeft = $parentWidth - $dragTargetWidth;
           }
           if (nTop < 0) {
             nTop = 0;
-          } else if (nTop + dragTargetHeight > parentHeight) {
-            nTop = parentHeight - dragTargetHeight;
+          } else if (nTop + $dragTargetHeight > $parentHeight) {
+            nTop = $parentHeight - $dragTargetHeight;
           }
 
           $(dragTarget).css({
@@ -121,9 +124,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .free-widget-view {
-  position: relative;
   cursor: pointer;
-  overflow: hidden;
   position: absolute;
   &.fz-text {
     max-width: 100%;

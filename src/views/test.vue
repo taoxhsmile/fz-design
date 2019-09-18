@@ -1,101 +1,30 @@
 <template>
-  <div class="contain">
-    <div class="column left">
-      <ul>
-        <draggable v-model="list" :move="onMove" group="list">
-          <li v-for="item in list" :key="item.order">{{ item.name }}</li>
-          <button slot="footer">Add</button>
-        </draggable>
-      </ul>
+  <div class="container">
+    <div class="widget-item">
+      1
+      <div class="widget-item">1-1</div>
     </div>
-    <div class="column center">
-      <ul>
-        <draggable v-model="list2" :move="onMove" group="list">
-          <li v-for="item in list2" :key="item.order">{{ item.name }}</li>
-          <button slot="header">update</button>
-        </draggable>
-      </ul>
-    </div>
-    <div class="column right">
-      <pre>{{ list1String }}</pre>
-    </div>
-    <div class="column right">
-      <pre>{{ list2String }}</pre>
-    </div>
+    <div class="widget-item">2</div>
+    <div class="widget-item">3</div>
+    <div class="widget-item">4</div>
   </div>
 </template>
 <script>
-const message = [
-  "vue.draggable",
-  "draggable",
-  "component",
-  "for",
-  "vue.js 2.0",
-  "based",
-  "on",
-  "Sortablejs"
-];
-import draggable from "vuedraggable";
+import $ from "jquery";
 export default {
-  components: {
-    draggable
-  },
-  data() {
-    return {
-      list: message.map((name, index) => {
-        return { name, order: index + 1, fixed: false };
-      }),
-      list2: message.map((name, index) => {
-        return { name, order: index + 1 + "-1", fixed: false };
-      })
-    };
-  },
-  computed: {
-    list1String() {
-      return JSON.stringify(this.list, null, 2);
-    },
-    list2String() {
-      return JSON.stringify(this.list2, null, 2);
-    }
-  },
-  methods: {
-    onMove({ relatedContext, draggedContext }) {
-      console.log(relatedContext, draggedContext);
-      const relatedElement = relatedContext.element;
-      const draggedElement = draggedContext.element;
-      return (
-        (!relatedElement || !relatedElement.fixed) && !draggedElement.fixed
-      );
+  mounted() {
+    let $container = $(".container"),
+      $widgetItems = $container.find("> .widget-item");
+
+    for (let i = 0; i < $widgetItems.length; i++) {
+      $widgetItems.eq(i).css({ border: "1px solid red" });
     }
   }
 };
 </script>
-
 <style lang="less" scoped>
-.contain {
-  display: flex;
-  div.column {
-    border: 1px solid black;
-    min-height: 500px;
-  }
-  .left {
-    flex: 0 0 300px;
-  }
-  .center {
-    flex: 0 0 300px;
-  }
-  .right {
-    flex: 0 0 300px;
-  }
-  ul {
-    border: 1px solid red;
-    min-height: 100px;
-    li {
-      border: 1px solid black;
-      height: 30px;
-      line-height: 30px;
-      text-align: center;
-    }
-  }
+.widget-item {
+  min-height: 20px;
+  padding: 5px;
 }
 </style>

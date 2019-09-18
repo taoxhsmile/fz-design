@@ -12,7 +12,10 @@ export let createGetInsertContainerAndWidgetView = ({
     if ($container == null) {
       $container = $(`.${containerClassName}`).eq(0);
     }
-    let position = $container.offset();
+
+    let isFreeVessel = $container.hasClass("free-vessel-preview"),
+      position = $container.offset();
+
     //判断鼠标是否在该容器内
     if (
       pageX > position.left &&
@@ -21,7 +24,13 @@ export let createGetInsertContainerAndWidgetView = ({
       pageY < position.top + $container.height()
     ) {
       //找到容器内部所有的子项
-      let $widgetViews = $container.find(".widget-view");
+      let $widgetViews = null;
+
+      if (isFreeVessel) {
+        $widgetViews = $container.find("> .free-widget-view");
+      } else {
+        $widgetViews = $container.find("> .widget-view");
+      }
 
       //容器是空的则直接返回当前容器
       if ($widgetViews.length === 0) {
@@ -41,11 +50,11 @@ export let createGetInsertContainerAndWidgetView = ({
         //递归
         if (
           $widgetViews[i] !== dragTarget &&
-          $widgetView.find(`.${containerClassName}`).length
+          $widgetView.find(`> .${containerClassName}`).length
         ) {
           //递归只有找到结果才返回
           let result = getInsertContainerAndWidgetView({
-            $container: $widgetView.find(`.${containerClassName}`).eq(0),
+            $container: $widgetView.find(`> .${containerClassName}`).eq(0),
             pageX,
             pageY
           });
@@ -96,7 +105,7 @@ export function getInsertTempBlock() {
     oInsertTempBlock = document.createElement("div");
     //创建放在这里dom元素
     oInsertTempBlock.innerHTML = "放在这里";
-    oInsertTempBlock.style = `height:54px;line-height:54px;border:1px solid #F56C6C;background:#FEF0F0;font-size:16px;color:#F56C6C;text-align:center`;
+    oInsertTempBlock.style = `height:54px;line-height:54px;border:1px solid #F56C6C;background:#FEF0F0;font-size:16px;color:#F56C6C;text-align:center;z-index:1000;position:relative;`;
   }
   return oInsertTempBlock;
 }

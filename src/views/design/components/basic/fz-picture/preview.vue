@@ -35,7 +35,6 @@
   </div>
 </template>
 <script>
-import { stylesConvert } from "../../tools/stylesConvert.js";
 import previewMixins from "../common/previewMixins";
 import { defaultStyles } from "./previewData";
 export default {
@@ -45,30 +44,6 @@ export default {
     return { defaultStyles };
   },
   computed: {
-    styles() {
-      let {
-        defaultStyles,
-        data: {
-          _styles,
-          _customFeature: { useBoxShadow, boxShadow }
-        }
-      } = this;
-      //box阴影
-      if (useBoxShadow === 1) {
-        _styles = {
-          ..._styles,
-          boxShadow: `${boxShadow.hShadow} ${boxShadow.vShadow} ${
-            boxShadow.blur
-          } ${boxShadow.color}`
-        };
-      }
-
-      _styles = { ...defaultStyles, ..._styles };
-
-      return stylesConvert({
-        _styles
-      });
-    },
     images() {
       return this.data.images;
     },

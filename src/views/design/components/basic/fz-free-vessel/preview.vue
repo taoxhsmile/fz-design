@@ -19,11 +19,11 @@
   </div>
 </template>
 <script>
-import { stylesConvert } from "@design/components/tools/stylesConvert";
 import previewMixins from "@design/components/basic/common/previewMixins";
-import { defaultStyles } from "./previewData";
 import freeWidgetView from "@design/components/freeWidgetView";
 import getComponents from "@design/components/basic/index.js";
+import { defaultStyles } from "./previewData";
+
 export default {
   name: "free-vessel-preview",
   mixins: [previewMixins],
@@ -35,30 +35,6 @@ export default {
     return { defaultStyles };
   },
   computed: {
-    styles() {
-      let {
-        defaultStyles,
-        data: {
-          _styles,
-          _customFeature: { useBoxShadow, boxShadow }
-        }
-      } = this;
-      //box阴影
-      if (useBoxShadow === 1) {
-        _styles = {
-          ..._styles,
-          boxShadow: `${boxShadow.hShadow} ${boxShadow.vShadow} ${
-            boxShadow.blur
-          } ${boxShadow.color}`
-        };
-      }
-
-      _styles = { ...defaultStyles, ..._styles };
-
-      return stylesConvert({
-        _styles
-      });
-    },
     childrens() {
       return this.data._slots;
     }
