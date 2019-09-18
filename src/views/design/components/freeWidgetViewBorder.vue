@@ -1,7 +1,7 @@
 <template>
   <div
     class="border"
-    v-show="data === hoverComponent || data === selectComponent"
+    :class="{ active: data === hoverComponent || data === selectComponent }"
   >
     <div class="border-left"></div>
     <div class="border-top"></div>
@@ -23,6 +23,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .border {
+  @border-color: #cccccc;
   div {
     position: absolute;
   }
@@ -30,25 +31,40 @@ export default {
     left: 0;
     top: 0;
     height: 100%;
-    border-left: 1px dashed #f56c6c;
+    border-left: 1px dashed @border-color;
   }
   .border-top {
     left: 0;
     top: 0;
     width: 100%;
-    border-top: 1px dashed #f56c6c;
+    border-top: 1px dashed @border-color;
   }
   .border-right {
     right: 0;
     top: 0;
     height: 100%;
-    border-right: 1px dashed #f56c6c;
+    border-right: 1px dashed @border-color;
   }
   .border-bottom {
     left: 0;
     bottom: 0;
     width: 100%;
-    border-bottom: 1px dashed #f56c6c;
+    border-bottom: 1px dashed @border-color;
+  }
+  &.active {
+    @border-color: #f56c6c;
+    .border-left {
+      border-left: 1px dashed @border-color;
+    }
+    .border-top {
+      border-top: 1px dashed @border-color;
+    }
+    .border-right {
+      border-right: 1px dashed @border-color;
+    }
+    .border-bottom {
+      border-bottom: 1px dashed @border-color;
+    }
   }
 }
 </style>

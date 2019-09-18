@@ -20,14 +20,9 @@ export default {
     for (let i = 0; i < $widgetItems.length; i++) {
       $widgetItems.eq(i).css({ border: "1px solid red" });
     }
-
-    let a = await this.test();
-    console.log(a);
   },
   methods: {
-    ...mapMutations({
-      test: "pageDesign/test"
-    })
+    ...mapMutations({})
   }
 };
 </script>

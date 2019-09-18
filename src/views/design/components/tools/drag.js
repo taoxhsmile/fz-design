@@ -117,18 +117,25 @@ export function setPosition({
   component,
   setComponentProperty
 }) {
-  let {
-    left: containerLeft,
-    top: containerTop
-  } = insertInfo.$container.offset();
+  let { $container } = insertInfo,
+    { left: containerLeft, top: containerTop } = $container.offset(),
+    value = {
+      left: endX - containerLeft,
+      top: endY - containerTop,
+      position: "absolue"
+    };
+  //如果嵌套自由面板自动生成 高度和宽度值
+  if (
+    component.__type__ === "fz-free-vessel" &&
+    $container[0].__vue__.data.__type__ === "fz-free-vessel"
+  ) {
+    value.width = $container.width() - 15;
+    value.height = $container.height() - 15;
+  }
 
   setComponentProperty({
     component,
     key: "_styles",
-    value: {
-      left: endX - containerLeft,
-      top: endY - containerTop,
-      position: "absolue"
-    }
+    value
   });
 }
