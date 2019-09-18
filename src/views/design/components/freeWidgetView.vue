@@ -3,7 +3,7 @@
     ref="freeWidgetView"
     class="free-widget-view"
     :class="[data.__type__]"
-    @mousedown.stop="mousedown"
+    @mousedown.left.stop="mousedown"
     @mouseover.stop="mouseover"
     @mouseout.stop="mouseout"
     @click.stop
@@ -26,6 +26,7 @@ import freeWidgetViewBorder from "./freeWidgetViewBorder";
 import freeWidgetViewDel from "./freeWidgetViewDel";
 import freeWidgetViewControl from "./freeWidgetViewControl";
 import { stylesConvert } from "@design/components/tools/stylesConvert";
+import { getPreviewDataByComponentName } from "@design/components/basic/index.js";
 export default {
   name: "free-widget-view",
   components: {
@@ -41,10 +42,14 @@ export default {
   computed: {
     styles() {
       let {
-          data: { _styles }
+          data: { _styles, __type__ }
         } = this,
-        styles = {};
-      ["position", "left", "top", "width"].forEach(key => {
+        styles = {},
+        { defaultStyles } = getPreviewDataByComponentName(__type__);
+
+      _styles = { ...defaultStyles, ..._styles };
+
+      ["position", "left", "top", "width", "height"].forEach(key => {
         styles[key] = _styles[key];
       });
       return stylesConvert({

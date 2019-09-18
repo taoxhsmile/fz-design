@@ -1,5 +1,9 @@
 <template>
-  <div class="shortcut" @click.stop="_addComponent" @mousedown.stop="mousedown">
+  <div
+    class="shortcut"
+    @click.stop="_addComponent"
+    @mousedown.left.stop="mousedown"
+  >
     <slot></slot>
   </div>
 </template>

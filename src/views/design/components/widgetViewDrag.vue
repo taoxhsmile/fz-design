@@ -3,7 +3,7 @@
     class="drag"
     v-show="data === hoverComponent"
     @click.stop
-    @mousedown.stop="mousedown"
+    @mousedown.left.stop="mousedown"
   ></div>
 </template>
 <script>

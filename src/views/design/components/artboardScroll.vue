@@ -6,7 +6,7 @@
         class="handler"
         data-axis="x"
         :style="`width: 33.3333%; left: ${xLeft * 100}%;`"
-        @mousedown="handleDragX"
+        @mousedown.left="handleDragX"
       >
         <div class="thumb"></div>
       </div>
@@ -17,7 +17,7 @@
         class="handler y-handler"
         data-axis="y"
         :style="`height: 33.3333%; top: ${yTop * 100}%;`"
-        @mousedown="handleDragY"
+        @mousedown.left="handleDragY"
       >
         <div class="thumb"></div>
       </div>

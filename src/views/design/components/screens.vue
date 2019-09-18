@@ -3,7 +3,7 @@
     id="screens"
     @click="handleClick"
     @mousewheel.stop.prevent="handleMousewheel"
-    @mousedown.stop="mousedown"
+    @mousedown.left.stop="mousedown"
     ref="screens"
   >
     <screenViewport />

@@ -4,46 +4,46 @@
       <div
         class="t resizable-handler"
         style="cursor: n-resize;"
-        @mousedown.stop="doResize('t', $event)"
+        @mousedown.left.stop="doResize('t', $event)"
       ></div>
       <div
         class="b resizable-handler"
         style="cursor: s-resize;"
-        @mousedown.stop="doResize('b', $event)"
+        @mousedown.left.stop="doResize('b', $event)"
       ></div>
     </template>
 
     <div
       class="r resizable-handler"
       style="cursor: e-resize;"
-      @mousedown.stop="doResize('r', $event)"
+      @mousedown.left.stop="doResize('r', $event)"
     ></div>
     <div
       class="l resizable-handler"
       style="cursor: w-resize;"
-      @mousedown.stop="doResize('l', $event)"
+      @mousedown.left.stop="doResize('l', $event)"
     ></div>
 
     <template v-if="resizeV">
       <div
         class="tr resizable-handler"
         style="cursor: ne-resize;"
-        @mousedown.stop="doResize('tr', $event)"
+        @mousedown.left.stop="doResize('tr', $event)"
       ></div>
       <div
         class="tl resizable-handler"
         style="cursor: nw-resize;"
-        @mousedown.stop="doResize('tl', $event)"
+        @mousedown.left.stop="doResize('tl', $event)"
       ></div>
       <div
         class="br resizable-handler"
         style="cursor: se-resize;"
-        @mousedown.stop="doResize('br', $event)"
+        @mousedown.left.stop="doResize('br', $event)"
       ></div>
       <div
         class="bl resizable-handler"
         style="cursor: sw-resize;"
-        @mousedown.stop="doResize('bl', $event)"
+        @mousedown.left.stop="doResize('bl', $event)"
       ></div>
     </template>
 

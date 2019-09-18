@@ -40,11 +40,17 @@ export default {
 
       //放在free-vessel
       if (inFreeVessel) {
-        ["width", "marginTop", "marginLeft", "top", "left", "position"].forEach(
-          key => {
-            delete _styles[key];
-          }
-        );
+        [
+          "width",
+          "height",
+          "marginTop",
+          "marginLeft",
+          "top",
+          "left",
+          "position"
+        ].forEach(key => {
+          delete _styles[key];
+        });
       }
 
       return stylesConvert({

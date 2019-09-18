@@ -24,5 +24,7 @@ export default {
   margin-right: auto;
   display: block;
   outline: none;
+  width: 100%;
+  height: 100%;
 }
 </style>

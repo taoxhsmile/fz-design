@@ -38,3 +38,13 @@ export function getPreviewDataByKind(kind) {
   });
   return result;
 }
+
+export function getPreviewDataByComponentName(componentName) {
+  let previewData = null;
+  try {
+    previewData = require(`./${componentName}/previewData`);
+  } catch (e) {
+    //e
+  }
+  return previewData;
+}
