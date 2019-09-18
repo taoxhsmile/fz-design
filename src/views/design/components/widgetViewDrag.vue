@@ -30,7 +30,7 @@ export default {
     // 拖拽preview
     mousedown({ clientX: startX, clientY: startY, currentTarget }) {
       let dragTarget = currentTarget.parentNode,
-        isMove = false, //是否移动过
+        isMoving = false, //是否移动过
         insertInfo = null,
         insertIndex = this.index,
         insertList = this.list,
@@ -47,8 +47,8 @@ export default {
       );
 
       let mousemoveFn = ({ clientX: endX, clientY: endY, pageX, pageY }) => {
-          if (isMove === false) {
-            isMove = true;
+          if (isMoving === false) {
+            isMoving = true;
 
             this.setDragComponent(this.data);
             //刚开始拖动的时候插入[放在这里]
@@ -92,7 +92,7 @@ export default {
         },
         mouseupFn = ({ clientX: endX, clientY: endY }) => {
           //重置状态
-          isMove = false;
+          isMoving = false;
 
           this.setDragComponent(null);
           //设置选中组件

@@ -29,6 +29,7 @@ export default {
             .find(".icon")
             .clone()
         )[0],
+        isMoving = false, //是否移动过
         insertInfo = null,
         insertIndex = null,
         insertList = null,
@@ -44,7 +45,8 @@ export default {
 
       let mousemoveFn = ({ pageX, pageY }) => {
           //第一次移动把clone出来的dragTarget放到body里面
-          if (!dragTarget.parentNode) {
+          if (isMoving === false) {
+            isMoving = true;
             $(dragTarget)
               .css({
                 position: "absolute",
@@ -95,6 +97,8 @@ export default {
         },
         mouseupFn = ({ clientX: endX, clientY: endY }) => {
           let { basicPreviewData } = this;
+
+          isMoving = false;
 
           //清空样式
           dragTarget.style = "";
