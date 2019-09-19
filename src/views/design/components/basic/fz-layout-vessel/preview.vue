@@ -6,13 +6,13 @@
   >
     <div class="cell cell-left" :style="[cellLeftStyle]">
       <widgetComponentContainer
-        style="min-height:30px;"
+        style="min-height:30px;height:100%;"
         :childrens="data._leftSlots"
       />
     </div>
     <div class="cell cell-right" :style="[cellLineStyle]">
       <widgetComponentContainer
-        style="min-height:30px;"
+        style="min-height:30px;height:100%;"
         :childrens="data._rightSlots"
       />
     </div>
@@ -151,9 +151,7 @@ export default {
   min-height: 50px;
   display: flex;
   .cell {
-    &.cell-right {
-      flex: auto;
-    }
+    flex: 1;
   }
   .cell-drag {
     position: absolute;

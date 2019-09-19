@@ -1,97 +1,140 @@
 import $ from "jquery";
+import { Enum } from "@design/components/tools/util";
 
 //容器classname
 const containerClassName = "component-container";
+const previewTypes = Enum([
+  "widgetPreview",
+  "freeVesselPreview",
+  "layoutVesselPreview"
+]);
+
+function getPreviewType({ $container }) {
+  let previewType = null;
+  if ($container.hasClass("widget-preview")) {
+    previewType = previewTypes.widgetPreview;
+  } else if ($container.hasClass("free-vessel-preview")) {
+    previewType = previewTypes.freeVesselPreview;
+  } else if ($container.hasClass("layout-vessel-preview")) {
+    previewType = previewTypes.layoutVesselPreview;
+  }
+  return previewType;
+}
+
+function mouseInDom({ pageX, pageY, position, dom }) {
+  return (
+    pageX > position.left &&
+    pageX < position.left + dom.width() &&
+    pageY > position.top &&
+    pageY < position.top + dom.height()
+  );
+}
+
 //获取Container和WidgetView
 export let createGetInsertContainerAndWidgetView = ({
-  dragTarget, //拖拽对象
-  isCreate = false //是否为新建
+  dragTarget //拖拽对象
+  // isCreate = false //是否为新建
 }) => {
+  let result = null;
   function getInsertContainerAndWidgetView({ $container, pageX, pageY }) {
     //初始化根容器
     if ($container == null) {
       $container = $(`.${containerClassName}`).eq(0);
     }
 
-    let isFreeVessel = $container.hasClass("free-vessel-preview"),
+    let previewType = getPreviewType({ $container }),
       position = $container.offset();
 
     //判断鼠标是否在该容器内
-    if (
-      pageX > position.left &&
-      pageX < position.left + $container.width() &&
-      pageY > position.top &&
-      pageY < position.top + $container.height()
-    ) {
+    if (mouseInDom({ dom: $container, pageX, pageY, position })) {
       //找到容器内部所有的子项
       let $widgetViews = null;
 
-      if (isFreeVessel) {
-        $widgetViews = $container.find("> .free-widget-view");
-      } else {
+      if (previewType === previewTypes.widgetPreview) {
+        //面板+root
         $widgetViews = $container.find("> .widget-view");
-      }
-
-      //容器是空的则直接返回当前容器
-      if ($widgetViews.length === 0) {
-        return { $container };
-      }
-      //拖拽并且容器只有一个子项并且是当前拖拽的子项直接返回当前容器
-      if (
-        isCreate === false &&
-        ($widgetViews.length === 1 && $widgetViews[0] === dragTarget)
-      ) {
-        return { $container };
-      }
-
-      //循环判断鼠标是否在widgetViews的某一个元素里面
-      for (let i = 0; i < $widgetViews.length; i++) {
-        let $widgetView = $widgetViews.eq(i);
-        //递归
-        if (
-          $widgetViews[i] !== dragTarget &&
-          $widgetView.find(`> .${containerClassName}`).length
-        ) {
-          //递归只有找到结果才返回
-          let result = getInsertContainerAndWidgetView({
-            $container: $widgetView.find(`> .${containerClassName}`).eq(0),
+      } else if (previewType === previewTypes.freeVesselPreview) {
+        //自由面板
+        $widgetViews = $container.find("> .free-widget-view");
+      } else if (previewType === previewTypes.layoutVesselPreview) {
+        //双栏
+        let $containers = $container.find(`.cell > .${containerClassName}`);
+        for (let i = 0; i < $containers.length; i++) {
+          result = getInsertContainerAndWidgetView({
+            $container: $containers.eq(i),
             pageX,
             pageY
           });
-
           if (result) return result;
         }
-        position = $widgetView.offset();
-        //判断鼠标是否在子项里面【不能是自己】
+      }
+
+      //（面板||自由面板）容器是空的则直接返回当前容器
+      if (
+        previewType === previewTypes.widgetPreview ||
+        previewType === previewTypes.freeVesselPreview
+      ) {
         if (
-          $widgetViews[i] !== dragTarget &&
-          pageX > position.left &&
-          pageX < position.left + $widgetView.width() &&
-          pageY > position.top &&
-          pageY < position.top + $widgetView.height()
+          $widgetViews.length === 0 ||
+          ($widgetViews.length === 1 && $widgetViews[0] === dragTarget)
         ) {
-          //判断鼠标在元素的偏上方还是偏下方
-          return {
-            $container,
-            $widgetView,
-            direction:
-              pageY < position.top + $widgetView.height() / 2
-                ? "top"
-                : "bottom",
-            index: i
-          };
+          return { $container };
         }
-        //如果鼠标在【放在这里】上面
-        if (pageY < position.top) {
-          return {
-            $container,
-            $widgetView,
-            direction: "top",
-            index: i
-          };
+        //循环判断鼠标是否在widgetViews的某一个元素里面
+        for (let i = 0; i < $widgetViews.length; i++) {
+          let $widgetView = $widgetViews.eq(i);
+          //递归
+          if (
+            $widgetViews[i] !== dragTarget &&
+            $widgetView.find(`> .${containerClassName}`).length
+          ) {
+            //递归只有找到结果才返回
+            result = getInsertContainerAndWidgetView({
+              $container: $widgetView.find(`> .${containerClassName}`).eq(0),
+              pageX,
+              pageY
+            });
+
+            if (result) return result;
+          }
+          position = $widgetView.offset();
+          //判断鼠标是否在子项里面【不能是自己】
+          if (
+            $widgetViews[i] !== dragTarget &&
+            mouseInDom({ dom: $widgetView, pageX, pageY, position })
+          ) {
+            //判断鼠标在元素的偏上方还是偏下方
+            return {
+              $container,
+              $widgetView,
+              direction:
+                pageY < position.top + $widgetView.height() / 2
+                  ? "top"
+                  : "bottom",
+              index: i
+            };
+          }
+          //如果鼠标在【放在这里】上面
+          if (
+            previewType === previewTypes.widgetPreview &&
+            pageY < position.top
+          ) {
+            return {
+              $container,
+              $widgetView,
+              direction: "top",
+              index: i
+            };
+          }
         }
       }
-      return { $container };
+
+      if (
+        previewType === previewTypes.widgetPreview ||
+        previewType === previewTypes.freeVesselPreview
+      ) {
+        return { $container };
+      }
     }
     return null;
   }
