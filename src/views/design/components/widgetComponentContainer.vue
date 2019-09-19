@@ -1,5 +1,5 @@
 <template>
-  <div class="group-list component-container">
+  <div class="widget-component-container component-container">
     <!-- 预览数据列表 -->
     <template v-for="(componentData, i) in childrens">
       <widgetView
@@ -20,25 +20,19 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
 import getComponents from "./basic/index.js";
 import widgetView from "./widgetView";
 export default {
+  props: ["childrens"],
   components: {
     ...getComponents("preview"),
     widgetView
-  },
-  computed: {
-    ...mapGetters({
-      childrens: "pageDesign/pageComponents"
-    })
   }
 };
 </script>
 <style lang="less" scoped>
-.group-list {
+.widget-component-container {
   position: relative;
   z-index: 1;
-  min-height: 667px;
 }
 </style>

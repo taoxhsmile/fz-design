@@ -3,7 +3,7 @@
     class="drag"
     v-show="data === hoverComponent"
     @click.stop
-    @mousedown.left.stop="mousedown"
+    @mousedown.left.stop="mousedownFn"
   ></div>
 </template>
 <script>
@@ -29,7 +29,7 @@ export default {
       setDragComponent: "pageDesign/setDragComponent"
     }),
     // 拖拽preview
-    mousedown({ clientX: startX, clientY: startY, currentTarget }) {
+    mousedownFn({ clientX: startX, clientY: startY, currentTarget }) {
       let dragTarget = currentTarget.parentNode,
         isMoving = false, //是否移动过
         insertInfo = null,

@@ -6,16 +6,25 @@
         style="width: 375px;  background: none; "
         @mousewheel.stop
       >
-        <groupList />
+        <widgetComponentContainer
+          style="min-height: 667px;"
+          :childrens="list"
+        />
       </div>
     </div>
   </div>
 </template>
 <script>
-import groupList from "./groupList";
+import { mapGetters } from "vuex";
+import widgetComponentContainer from "./widgetComponentContainer";
 export default {
   components: {
-    groupList
+    widgetComponentContainer
+  },
+  computed: {
+    ...mapGetters({
+      list: "pageDesign/pageComponents"
+    })
   }
 };
 </script>

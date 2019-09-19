@@ -1,18 +1,18 @@
 <template>
-  <el-collapse :value="['1', '2']">
+  <el-collapse :value="['1']">
     <el-collapse-item title="点击事件" name="1">
-      <div class="rightpane__content-wrap">
-        <el-row type="flex" justify="center" align="middle">
-          <el-button type="primary">添加点击事件</el-button>
-        </el-row>
-      </div>
+      <rEventClick />
     </el-collapse-item>
   </el-collapse>
 </template>
 <script>
 import { mapMutations } from "vuex";
+import rEventClick from "../common/rEventClick";
 export default {
   inject: ["rightPane"],
+  components: {
+    rEventClick
+  },
   data() {
     return {};
   },

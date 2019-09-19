@@ -2,7 +2,7 @@
   <div
     class="shortcut"
     @click.stop="_addComponent"
-    @mousedown.left.stop="mousedown"
+    @mousedown.left.stop="mousedownFn"
   >
     <slot></slot>
   </div>
@@ -28,7 +28,7 @@ export default {
     _addComponent() {
       this.addComponent({ componentData: this.basicPreviewData.default });
     },
-    mousedown({ currentTarget }) {
+    mousedownFn({ currentTarget }) {
       let dragTarget = $("<div></div>").append(
           $(currentTarget)
             .find(".icon")

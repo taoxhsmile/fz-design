@@ -26,29 +26,6 @@ export default {
     rBackground,
     rBoxShadow
   },
-  data() {
-    return {
-      color: "red",
-      borderStyleOptions: [
-        {
-          label: "无",
-          value: "none"
-        },
-        {
-          label: "实线",
-          value: "solid"
-        },
-        {
-          label: "点线",
-          value: "dotted"
-        },
-        {
-          label: "虚线",
-          value: "dashed"
-        }
-      ]
-    };
-  },
   methods: {
     ...mapMutations({
       setSelectComponentProperty: "pageDesign/setSelectComponentProperty"
@@ -65,10 +42,6 @@ export default {
           marginRight: val === "right" ? 0 : "auto"
         }
       });
-    },
-    handleClick() {
-      this.color = "green";
-      console.log("111");
     }
   }
 };
