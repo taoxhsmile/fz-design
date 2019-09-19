@@ -33,6 +33,5 @@ export default {
 <style lang="less" scoped>
 .widget-component-container {
   position: relative;
-  z-index: 1;
 }
 </style>
