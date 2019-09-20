@@ -3,7 +3,8 @@ const componentNames = [
   "fz-picture",
   "fz-button",
   "fz-free-vessel",
-  "fz-layout-vessel"
+  "fz-layout-vessel",
+  "fz-static-vessel"
 ];
 
 //将单词第一个字母大写

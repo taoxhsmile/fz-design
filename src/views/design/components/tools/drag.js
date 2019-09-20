@@ -6,7 +6,8 @@ const containerClassName = "component-container";
 const previewTypes = Enum([
   "widgetPreview",
   "freeVesselPreview",
-  "layoutVesselPreview"
+  "layoutVesselPreview",
+  "staticVesselPreview"
 ]);
 
 function getPreviewType({ $container }) {
@@ -17,6 +18,8 @@ function getPreviewType({ $container }) {
     previewType = previewTypes.freeVesselPreview;
   } else if ($container.hasClass("layout-vessel-preview")) {
     previewType = previewTypes.layoutVesselPreview;
+  } else if ($container.hasClass("static-vessel-preview")) {
+    previewType = previewTypes.staticVesselPreview;
   }
   return previewType;
 }
@@ -50,13 +53,7 @@ export let createGetInsertContainerAndWidgetView = ({
       //找到容器内部所有的子项
       let $widgetViews = null;
 
-      if (previewType === previewTypes.widgetPreview) {
-        //面板+root
-        $widgetViews = $container.find("> .widget-view");
-      } else if (previewType === previewTypes.freeVesselPreview) {
-        //自由面板
-        $widgetViews = $container.find("> .free-widget-view");
-      } else if (previewType === previewTypes.layoutVesselPreview) {
+      if (previewType === previewTypes.layoutVesselPreview) {
         //双栏
         let $containers = $container.find(`.cell > .${containerClassName}`);
         for (let i = 0; i < $containers.length; i++) {
@@ -67,6 +64,23 @@ export let createGetInsertContainerAndWidgetView = ({
           });
           if (result) return result;
         }
+      } else if (previewType === previewTypes.staticVesselPreview) {
+        //面板
+        let $containers = $container.find(`.${containerClassName}`);
+        for (let i = 0; i < $containers.length; i++) {
+          result = getInsertContainerAndWidgetView({
+            $container: $containers.eq(i),
+            pageX,
+            pageY
+          });
+          if (result) return result;
+        }
+      } else if (previewType === previewTypes.widgetPreview) {
+        //面板+root
+        $widgetViews = $container.find("> .widget-view");
+      } else if (previewType === previewTypes.freeVesselPreview) {
+        //自由面板
+        $widgetViews = $container.find("> .free-widget-view");
       }
 
       //（面板||自由面板）容器是空的则直接返回当前容器

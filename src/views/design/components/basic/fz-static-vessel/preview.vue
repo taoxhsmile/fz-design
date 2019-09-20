@@ -1,29 +1,13 @@
 <template>
   <div
-    class="layout-vessel-preview component-container"
+    class="static-vessel-preview component-container"
     :style="[styles]"
-    ref="layout-vessel-preview"
+    ref="static-vessel-preview"
   >
-    <div class="cell cell-left" :style="[cellLeftStyle]">
-      <widgetComponentContainer
-        style="min-height:30px;height:100%;"
-        :childrens="data._leftSlots"
-      />
-    </div>
-    <div class="cell cell-right" :style="[cellLineStyle]">
-      <widgetComponentContainer
-        style="min-height:30px;height:100%;"
-        :childrens="data._rightSlots"
-      />
-    </div>
-    <div
-      class="cell-drag"
-      :class="{ 'has-border': hasBorder, 'no-border': !hasBorder }"
-      :style="[cellDragStyle]"
-      @mousedown.left.stop="mousedownFn"
-    >
-      <span></span>
-    </div>
+    <widgetComponentContainer
+      style="min-height:30px;border:1px solid green;"
+      :childrens="data._slots"
+    />
   </div>
 </template>
 <script>
@@ -35,7 +19,7 @@ import widgetComponentContainer from "@design/components/widgetComponentContaine
 import { stylesConvert } from "@design/components/tools/stylesConvert";
 
 export default {
-  name: "layout-vessel-preview",
+  name: "static-vessel-preview",
   mixins: [previewMixins],
   components: {
     widgetComponentContainer
@@ -111,7 +95,7 @@ export default {
       setComponentProperty: "pageDesign/setComponentProperty"
     }),
     mousedownFn({ clientX: startX, currentTarget }) {
-      let oLayoutVesselPreview = this.$refs["layout-vessel-preview"],
+      let oLayoutVesselPreview = this.$refs["static-vessel-preview"],
         oldLeft = $(currentTarget).position().left,
         min = 0,
         max = $(oLayoutVesselPreview).width() * 0.99,
@@ -144,37 +128,9 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.layout-vessel-preview {
+.static-vessel-preview {
   position: relative;
   overflow: hidden;
   padding-top: 10px;
-  min-height: 50px;
-  display: flex;
-  .cell {
-    flex: 1;
-  }
-  .cell-drag {
-    position: absolute;
-    z-index: 9;
-    width: 1px;
-    top: 0;
-    bottom: 0;
-    cursor: ew-resize;
-    transform: translateX(-50%);
-    background: #93c4ff;
-    span {
-      position: absolute;
-      top: 50%;
-      width: 5px;
-      height: 22px;
-      border-radius: 3px;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #93c4ff;
-    }
-    &.has-border {
-      opacity: 0;
-    }
-  }
 }
 </style>
