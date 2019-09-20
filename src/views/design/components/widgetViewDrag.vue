@@ -29,16 +29,19 @@ export default {
       setDragComponent: "pageDesign/setDragComponent"
     }),
     // 拖拽preview
-    mousedownFn({ clientX: startX, clientY: startY, currentTarget }) {
+    mousedownFn({ pageX, pageY, currentTarget }) {
       let dragTarget = currentTarget.parentNode,
         isMoving = false, //是否移动过
         insertInfo = null,
         insertIndex = this.index,
         insertList = this.list,
         insertDirection = "top",
-        { left, top } = $(dragTarget).position(), //拖拽物体的初始位置
+        { left: oldLeft, top: oldTop } = $(dragTarget).offset(), //拖拽物体的初始位置
         dragTargetWidth = $(dragTarget).width(),
-        dragTargetHeight = $(dragTarget).height(); //拖拽物体的初始大小
+        dragTargetHeight = $(dragTarget).height(), //拖拽物体的初始大小
+        { left: zoomAreaLeft, top: zoomAreaTop } = $(".zoom-area").offset(),
+        layerX = pageX - oldLeft,
+        layerY = pageY - oldTop;
 
       //获取【放在这里】
       let oInsertTemp = getInsertTempBlock();
@@ -47,7 +50,7 @@ export default {
         { dragTarget }
       );
 
-      let mousemoveFn = ({ clientX: endX, clientY: endY, pageX, pageY }) => {
+      let mousemoveFn = ({ pageX, pageY }) => {
           if (isMoving === false) {
             isMoving = true;
 
@@ -55,18 +58,17 @@ export default {
             //刚开始拖动的时候插入[放在这里]
             $(dragTarget)
               .css({
-                position: "absolute",
+                position: "fixed",
                 width: `${dragTargetWidth}px`,
                 height: `${dragTargetHeight}px`,
                 zIndex: 1000
               })
               .before(oInsertTemp);
           }
-
           //设置样式
           $(dragTarget).css({
-            left: `${endX - startX + left}px`,
-            top: `${endY - startY + top}px`
+            left: `${pageX - zoomAreaLeft - layerX}px`,
+            top: `${pageY - zoomAreaTop - layerY}px`
           });
 
           insertInfo = getInsertContainerAndWidgetView({ pageX, pageY });

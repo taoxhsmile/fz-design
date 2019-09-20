@@ -6,13 +6,13 @@
   >
     <div class="cell cell-left" :style="[cellLeftStyle]">
       <widgetComponentContainer
-        style="min-height:30px;height:100%;"
+        style="min-height:30px;height:100%;border:1px solid green;"
         :childrens="data._leftSlots"
       />
     </div>
     <div class="cell cell-right" :style="[cellLineStyle]">
       <widgetComponentContainer
-        style="min-height:30px;height:100%;"
+        style="min-height:30px;height:100%;border:1px solid green;"
         :childrens="data._rightSlots"
       />
     </div>

@@ -148,7 +148,7 @@ export function getInsertTempBlock() {
     oInsertTempBlock = document.createElement("div");
     //创建放在这里dom元素
     oInsertTempBlock.innerHTML = "放在这里";
-    oInsertTempBlock.style = `height:54px;line-height:54px;border:1px solid #F56C6C;background:#FEF0F0;font-size:16px;color:#F56C6C;text-align:center;z-index:999;position:relative;`;
+    oInsertTempBlock.style = `height:54px;line-height:54px;border:1px solid #F56C6C;background:#FEF0F0;font-size:16px;color:#F56C6C;text-align:center;position:relative;`;
   }
   return oInsertTempBlock;
 }
