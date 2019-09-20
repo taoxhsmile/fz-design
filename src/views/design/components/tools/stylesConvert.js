@@ -39,6 +39,15 @@ const converter = {
   borderLeftWidth(value) {
     return addUnit(value);
   },
+  borderTopWidth(value) {
+    return addUnit(value);
+  },
+  borderRightWidth(value) {
+    return addUnit(value);
+  },
+  borderBottomWidth(value) {
+    return addUnit(value);
+  },
   textShadow(value) {
     let result = /((?:\d+\s*){3})(.*)/.exec(value),
       val = result[1],
