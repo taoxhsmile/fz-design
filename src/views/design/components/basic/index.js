@@ -2,6 +2,7 @@ const componentNames = [
   "fz-text",
   "fz-picture",
   "fz-button",
+  "fz-video",
   "fz-free-vessel",
   "fz-layout-vessel",
   "fz-static-vessel",
