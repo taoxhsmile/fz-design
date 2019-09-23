@@ -4,7 +4,7 @@
       <!-- 大小 -->
       <rSize />
       <!-- 位置 -->
-      <rPosition />
+      <rMargin />
       <!-- 背景 -->
       <rBackground />
     </el-collapse-item>
@@ -16,27 +16,18 @@
   </el-collapse>
 </template>
 <script>
-import { mapMutations } from "vuex";
 import rSize from "../common/rSize";
-import rPosition from "../common/rPosition";
+import rMargin from "../common/rMargin";
 import rBackground from "../common/rBackground";
 import rBorder from "../common/rBorder";
 import rBoxShadow from "../common/rBoxShadow";
 export default {
   components: {
     rSize,
-    rPosition,
+    rMargin,
     rBackground,
     rBorder,
     rBoxShadow
-  },
-  data() {
-    return {};
-  },
-  methods: {
-    ...mapMutations({
-      setSelectComponentProperty: "pageDesign/setSelectComponentProperty"
-    })
   }
 };
 </script>

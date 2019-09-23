@@ -6,11 +6,11 @@
           <el-col :span="4">位置</el-col>
           <el-col :span="12">
             <el-slider
-              :value="_customFeature.centerWidth"
+              :value="customFeature.centerWidth"
               @input="
                 val =>
                   setSelectComponentProperty({
-                    key: '_customFeature',
+                    key: 'customFeature',
                     value: { centerWidth: val }
                   })
               "
@@ -22,11 +22,11 @@
               controls-position="right"
               :min="0"
               :max="99"
-              :value="_customFeature.centerWidth"
+              :value="customFeature.centerWidth"
               @change="
                 val =>
                   setSelectComponentProperty({
-                    key: '_customFeature',
+                    key: 'customFeature',
                     value: { centerWidth: val }
                   })
               "
@@ -52,8 +52,8 @@ export default {
     return {};
   },
   computed: {
-    _customFeature() {
-      return this.rightPane._customFeature;
+    customFeature() {
+      return this.rightPane.customFeature;
     }
   },
   methods: {

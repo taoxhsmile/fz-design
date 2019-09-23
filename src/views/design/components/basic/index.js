@@ -3,6 +3,7 @@ const componentNames = [
   "fz-picture",
   "fz-button",
   "fz-video",
+  "fz-carousel",
   "fz-free-vessel",
   "fz-layout-vessel",
   "fz-static-vessel",

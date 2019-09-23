@@ -18,11 +18,11 @@
               controls-position="right"
               :min="1"
               :max="5"
-              :value="_customFeature.column"
+              :value="customFeature.column"
               @change="
                 val =>
                   setSelectComponentProperty({
-                    key: '_customFeature',
+                    key: 'customFeature',
                     value: { column: val }
                   })
               "
@@ -59,8 +59,8 @@ export default {
     };
   },
   computed: {
-    _customFeature() {
-      return this.rightPane._customFeature;
+    customFeature() {
+      return this.rightPane.customFeature;
     }
   },
   methods: {

@@ -4,7 +4,7 @@ export default {
   __type__: "fz-free-vessel",
   __name__: name,
   _styles: {},
-  _customFeature: {
+  customFeature: {
     align: "left",
     useBoxShadow: 0,
     boxShadow: {

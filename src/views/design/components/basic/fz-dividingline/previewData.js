@@ -4,7 +4,7 @@ export default {
   __type__: "fz-dividingline",
   __name__: name,
   _styles: {},
-  _customFeature: {
+  customFeature: {
     align: "left",
     //边框
     borderBottomStyle: "solid",

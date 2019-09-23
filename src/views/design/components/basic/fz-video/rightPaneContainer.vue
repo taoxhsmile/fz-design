@@ -4,17 +4,17 @@
       <!-- 大小 -->
       <rSize />
       <!-- 位置 -->
-      <rPosition />
+      <rMargin />
     </el-collapse-item>
   </el-collapse>
 </template>
 <script>
 import rSize from "../common/rSize";
-import rPosition from "../common/rPosition";
+import rMargin from "../common/rMargin";
 export default {
   components: {
     rSize,
-    rPosition
+    rMargin
   }
 };
 </script>

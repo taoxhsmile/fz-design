@@ -28,6 +28,7 @@ export default {
   position: absolute;
   top: 0;
   right: 0;
+  z-index: 900;
   i {
     color: #2b8cff;
     font-size: 22px;

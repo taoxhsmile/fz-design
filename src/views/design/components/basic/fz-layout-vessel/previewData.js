@@ -4,7 +4,7 @@ export default {
   __type__: "fz-layout-vessel",
   __name__: name,
   _styles: {},
-  _customFeature: {
+  customFeature: {
     centerWidth: 50,
     cellBorderColor: "rgb(102, 102, 102)",
     cellBorderStyle: "none",

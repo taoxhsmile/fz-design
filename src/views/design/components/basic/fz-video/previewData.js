@@ -4,10 +4,10 @@ export default {
   __type__: "fz-video",
   __name__: name,
   _styles: {},
-  _customFeature: {
+  customFeature: {
     align: "left"
   },
-  src: ""
+  src: "https://staticimg.ngmm365.com/6xrWnnMMXg1EoBBoj98CZrvXhTCrXxfL.mp4"
 };
 
 //组件基本信息

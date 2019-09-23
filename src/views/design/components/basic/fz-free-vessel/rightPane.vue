@@ -12,35 +12,19 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import rightPaneMixins from "../common/rightPaneMixins";
 import rightPaneContent from "./rightPaneContent";
 import rightPaneContainer from "./rightPaneContainer";
 import { defaultStyles } from "./previewData";
 export default {
+  mixins: [rightPaneMixins(defaultStyles)],
   components: {
     rightPaneContent,
     rightPaneContainer
   },
   data() {
     return {
-      activeName: "container",
-      defaultStyles
-    };
-  },
-  computed: {
-    ...mapGetters({
-      selectComponent: "pageDesign/selectComponent"
-    }),
-    _styles() {
-      return { ...this.defaultStyles, ...this.selectComponent._styles };
-    },
-    _customFeature() {
-      return this.selectComponent._customFeature;
-    }
-  },
-  provide() {
-    return {
-      rightPane: this
+      activeName: "container"
     };
   }
 };

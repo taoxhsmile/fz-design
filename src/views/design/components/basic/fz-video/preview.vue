@@ -13,10 +13,7 @@ import previewMixins from "../common/previewMixins";
 import { defaultStyles } from "./previewData";
 export default {
   name: "fz-video-preview",
-  mixins: [previewMixins],
-  data() {
-    return { defaultStyles };
-  },
+  mixins: [previewMixins({ defaultStyles })],
   computed: {
     src() {
       return this.data.src;

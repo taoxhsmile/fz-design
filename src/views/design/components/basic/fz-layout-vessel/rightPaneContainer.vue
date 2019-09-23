@@ -2,40 +2,7 @@
   <el-collapse :value="['1', '2']">
     <el-collapse-item title="组件设置" name="1">
       <!-- 位置 -->
-      <div class="rightpane__content-wrap border">
-        <el-row
-          class="rightpane__title"
-          type="flex"
-          justify="center"
-          align="middle"
-        >
-          <el-col>间距</el-col>
-        </el-row>
-        <el-row
-          class="rightpane__title"
-          type="flex"
-          justify="center"
-          align="middle"
-        >
-          <el-col :span="3">上边</el-col>
-          <el-col :span="9">
-            <el-input-number
-              style="width:88px;"
-              controls-position="right"
-              :min="0"
-              :value="_styles.marginTop"
-              @change="
-                val =>
-                  setSelectComponentProperty({
-                    key: '_styles',
-                    value: { marginTop: val }
-                  })
-              "
-            ></el-input-number>
-          </el-col>
-          <el-col :span="12"></el-col>
-        </el-row>
-      </div>
+      <rMargin :type="2" />
       <!-- 背景 -->
       <rBackground />
     </el-collapse-item>
@@ -54,11 +21,11 @@
           <el-col :span="9">
             <el-select
               style="width:88px;"
-              :value="_customFeature.cellBorderStyle"
+              :value="customFeature.cellBorderStyle"
               @change="
                 val =>
                   setSelectComponentProperty({
-                    key: '_customFeature',
+                    key: 'customFeature',
                     value: { cellBorderStyle: val }
                   })
               "
@@ -79,11 +46,11 @@
               style="width:88px;"
               controls-position="right"
               :min="0"
-              :value="_customFeature.cellBorderWidth"
+              :value="customFeature.cellBorderWidth"
               @change="
                 val =>
                   setSelectComponentProperty({
-                    key: '_customFeature',
+                    key: 'customFeature',
                     value: { cellBorderWidth: val }
                   })
               "
@@ -94,11 +61,11 @@
           <el-col :span="3">颜色</el-col>
           <el-col :span="9">
             <el-color-picker
-              :value="_customFeature.cellBorderColor"
-              @change="
+              :value="customFeature.cellBorderColor"
+              @active-change="
                 val =>
                   setSelectComponentProperty({
-                    key: '_customFeature',
+                    key: 'customFeature',
                     value: { cellBorderColor: val }
                   })
               "
@@ -113,10 +80,12 @@
 </template>
 <script>
 import { mapMutations } from "vuex";
+import rMargin from "../common/rMargin";
 import rBackground from "../common/rBackground";
 export default {
   inject: ["rightPane"],
   components: {
+    rMargin,
     rBackground
   },
   data() {
@@ -145,8 +114,8 @@ export default {
     _styles() {
       return this.rightPane._styles;
     },
-    _customFeature() {
-      return this.rightPane._customFeature;
+    customFeature() {
+      return this.rightPane.customFeature;
     }
   },
   methods: {

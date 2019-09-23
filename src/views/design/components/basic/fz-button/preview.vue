@@ -1,5 +1,5 @@
 <template>
-  <button class="button-preview" :style="[styles]">
+  <button class="fz-button-preview" :style="[styles]">
     {{ data.content }}
   </button>
 </template>
@@ -8,14 +8,11 @@ import previewMixins from "@design/components/basic/common/previewMixins";
 import { defaultStyles } from "./previewData";
 export default {
   name: "fz-button-preview",
-  mixins: [previewMixins],
-  data() {
-    return { defaultStyles };
-  }
+  mixins: [previewMixins({ defaultStyles })]
 };
 </script>
 <style lang="less" scoped>
-.button-preview {
+.fz-button-preview {
   box-sizing: border-box;
   overflow: hidden;
   text-overflow: ellipsis;

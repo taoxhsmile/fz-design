@@ -4,7 +4,7 @@
       <!-- 大小 -->
       <rSize :isLineHeight="true" />
       <!-- 位置 -->
-      <rPosition />
+      <rMargin />
 
       <!-- 背景 -->
       <rBackground />
@@ -20,9 +20,8 @@
   </el-collapse>
 </template>
 <script>
-import { mapMutations } from "vuex";
 import rSize from "../common/rSize";
-import rPosition from "../common/rPosition";
+import rMargin from "../common/rMargin";
 import rBackground from "../common/rBackground";
 import rTextShadow from "../common/rTextShadow";
 import rBorder from "../common/rBorder";
@@ -30,19 +29,11 @@ import rBoxShadow from "../common/rBoxShadow";
 export default {
   components: {
     rSize,
-    rPosition,
+    rMargin,
     rBackground,
     rTextShadow,
     rBorder,
     rBoxShadow
-  },
-  data() {
-    return {};
-  },
-  methods: {
-    ...mapMutations({
-      setSelectComponentProperty: "pageDesign/setSelectComponentProperty"
-    })
   }
 };
 </script>

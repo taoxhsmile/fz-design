@@ -11,11 +11,11 @@
     <el-row type="flex" justify="center" align="middle">
       <el-col :span="12">
         <el-radio
-          :value="_customFeature.useTextShadow"
+          :value="customFeature.useTextShadow"
           @input="
             val =>
               setSelectComponentProperty({
-                key: '_customFeature',
+                key: 'customFeature',
                 value: { useTextShadow: val }
               })
           "
@@ -25,11 +25,11 @@
       </el-col>
       <el-col :span="12">
         <el-radio
-          :value="_customFeature.useTextShadow"
+          :value="customFeature.useTextShadow"
           @input="
             val =>
               setSelectComponentProperty({
-                key: '_customFeature',
+                key: 'customFeature',
                 value: { useTextShadow: val }
               })
           "
@@ -39,7 +39,7 @@
       </el-col>
     </el-row>
 
-    <div v-show="_customFeature.useTextShadow === 1">
+    <div v-show="customFeature.useTextShadow === 1">
       <el-row type="flex" justify="center" align="middle">
         <el-col :span="5">模糊半径</el-col>
         <el-col :span="7">
@@ -47,11 +47,11 @@
             style="width:68px;"
             controls-position="right"
             :min="0"
-            :value="_customFeature.textShadow.blur"
+            :value="customFeature.textShadow.blur"
             @change="
               val =>
                 setSelectComponentProperty({
-                  key: '_customFeature.textShadow',
+                  key: 'customFeature.textShadow',
                   value: { blur: val }
                 })
             "
@@ -60,11 +60,11 @@
         <el-col :span="5">阴影颜色</el-col>
         <el-col :span="7">
           <el-color-picker
-            :value="_customFeature.textShadow.color"
-            @change="
+            :value="customFeature.textShadow.color"
+            @active-change="
               val =>
                 setSelectComponentProperty({
-                  key: '_customFeature.textShadow',
+                  key: 'customFeature.textShadow',
                   value: { color: val }
                 })
             "
@@ -79,11 +79,11 @@
             style="width:68px;"
             controls-position="right"
             :min="0"
-            :value="_customFeature.textShadow.hShadow"
+            :value="customFeature.textShadow.hShadow"
             @change="
               val =>
                 setSelectComponentProperty({
-                  key: '_customFeature.textShadow',
+                  key: 'customFeature.textShadow',
                   value: { hShadow: val }
                 })
             "
@@ -95,11 +95,11 @@
             style="width:68px;"
             controls-position="right"
             :min="0"
-            :value="_customFeature.textShadow.vShadow"
+            :value="customFeature.textShadow.vShadow"
             @change="
               val =>
                 setSelectComponentProperty({
-                  key: '_customFeature.textShadow',
+                  key: 'customFeature.textShadow',
                   value: { vShadow: val }
                 })
             "

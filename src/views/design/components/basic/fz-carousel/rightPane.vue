@@ -1,18 +1,18 @@
 <template>
   <div class="rightPane-item">
     <el-tabs stretch type="card" v-model="activeName">
-      <el-tab-pane label="分割线组件" name="content">
+      <el-tab-pane label="组件设置" name="content">
         <rightPaneContent />
       </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 <script>
-import rightPaneMixins from "../common/rightPaneMixins";
+import rightpaneMixins from "../common/rightPaneMixins";
 import rightPaneContent from "./rightPaneContent";
 import { defaultStyles } from "./previewData";
 export default {
-  mixins: [rightPaneMixins(defaultStyles)],
+  mixins: [rightpaneMixins(defaultStyles)],
   components: {
     rightPaneContent
   },

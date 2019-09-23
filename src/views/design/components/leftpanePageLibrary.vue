@@ -5,7 +5,7 @@
       <li
         v-for="(page, i) in pages"
         :key="page.__id__"
-        @click="setPageActiveIndex(i)"
+        @click="setPagesActiveIndex(i)"
       >
         {{ page.__name__ }}
         <dl class="tools">
@@ -34,13 +34,13 @@ export default {
     ...mapGetters({
       leftPaneActiveIndex: "pageDesign/leftPaneActiveIndex",
       pages: "pageDesign/pages",
-      pageActiveIndex: "pageDesign/pageActiveIndex"
+      pagesActiveIndex: "pageDesign/pagesActiveIndex"
     })
   },
   methods: {
     ...mapMutations({
       addPage: "pageDesign/addPage",
-      setPageActiveIndex: "pageDesign/setPageActiveIndex"
+      setPagesActiveIndex: "pageDesign/setPagesActiveIndex"
     })
   }
 };

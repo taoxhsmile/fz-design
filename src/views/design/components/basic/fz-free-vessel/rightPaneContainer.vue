@@ -4,11 +4,12 @@
       <!-- 大小 -->
       <rSize></rSize>
       <!-- 位置 -->
-      <rPosition />
+      <rMargin />
       <!-- 背景 -->
       <rBackground />
     </el-collapse-item>
     <el-collapse-item title="边框设置" name="2">
+      <!-- 阴影 -->
       <rBoxShadow />
     </el-collapse-item>
   </el-collapse>
@@ -16,13 +17,13 @@
 <script>
 import { mapMutations } from "vuex";
 import rSize from "../common/rSize";
-import rPosition from "../common/rPosition";
+import rMargin from "../common/rMargin";
 import rBackground from "../common/rBackground";
 import rBoxShadow from "../common/rBoxShadow";
 export default {
   components: {
     rSize,
-    rPosition,
+    rMargin,
     rBackground,
     rBoxShadow
   },
@@ -32,7 +33,7 @@ export default {
     }),
     setStylesAlign(val) {
       this.setSelectComponentProperty({
-        key: "_customFeature",
+        key: "customFeature",
         value: { align: val }
       });
       this.setSelectComponentProperty({

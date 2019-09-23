@@ -2,7 +2,7 @@
   <el-collapse :value="['1', '2']">
     <el-collapse-item title="组件设置" name="1">
       <!-- 位置 -->
-      <rPosition />
+      <rMargin />
       <!-- 背景 -->
       <rBackground />
       <!-- 效果 -->
@@ -11,14 +11,14 @@
   </el-collapse>
 </template>
 <script>
-import rPosition from "../common/rPosition";
+import rMargin from "../common/rMargin";
 import rBackground from "../common/rBackground";
 import rBoxShadow from "../common/rBoxShadow";
 
 export default {
   inject: ["rightPane"],
   components: {
-    rPosition,
+    rMargin,
     rBackground,
     rBoxShadow
   }

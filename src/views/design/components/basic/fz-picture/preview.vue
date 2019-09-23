@@ -39,10 +39,7 @@ import previewMixins from "../common/previewMixins";
 import { defaultStyles } from "./previewData";
 export default {
   name: "fz-picture-preview",
-  mixins: [previewMixins],
-  data() {
-    return { defaultStyles };
-  },
+  mixins: [previewMixins({ defaultStyles })],
   computed: {
     images() {
       return this.data.images;
@@ -54,7 +51,7 @@ export default {
       return this.images.length;
     },
     column() {
-      return this.data._customFeature.column;
+      return this.data.customFeature.column;
     },
     row() {
       let { column, imagesLength } = this;

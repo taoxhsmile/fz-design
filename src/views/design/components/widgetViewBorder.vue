@@ -25,6 +25,7 @@ export default {
 .border {
   div {
     position: absolute;
+    z-index: 900;
   }
   .border-left {
     left: 0;

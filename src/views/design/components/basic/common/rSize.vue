@@ -9,22 +9,25 @@
       <el-col>大小</el-col>
     </el-row>
     <el-row type="flex" justify="center" align="middle">
-      <el-col :span="3">宽度</el-col>
-      <el-col :span="9">
-        <el-input-number
-          style="width:88px;"
-          controls-position="right"
-          :min="0"
-          :value="_styles.width"
-          @change="
-            val =>
-              setSelectComponentProperty({
-                key: '_styles',
-                value: { width: val }
-              })
-          "
-        ></el-input-number>
-      </el-col>
+      <template v-if="type !== 2">
+        <el-col :span="3">宽度</el-col>
+        <el-col :span="9">
+          <el-input-number
+            style="width:88px;"
+            controls-position="right"
+            :min="0"
+            :value="_styles.width"
+            @change="
+              val =>
+                setSelectComponentProperty({
+                  key: '_styles',
+                  value: { width: val }
+                })
+            "
+          ></el-input-number>
+        </el-col>
+      </template>
+
       <el-col :span="3">{{ isLineHeight ? "行高" : "高度" }}</el-col>
       <el-col :span="9">
         <!-- 行高 -->
@@ -60,6 +63,10 @@
           ></el-input-number>
         </template>
       </el-col>
+
+      <template v-if="type === 2">
+        <el-col :span="12"></el-col>
+      </template>
     </el-row>
   </div>
 </template>
@@ -67,6 +74,16 @@
 import rMixins from "./rMixins";
 export default {
   mixins: [rMixins],
-  props: ["isLineHeight"]
+  props: {
+    isLineHeight: {
+      type: Boolean,
+      default: false
+    },
+    type: {
+      // 1、只要宽度
+      type: Number,
+      default: 0
+    }
+  }
 };
 </script>

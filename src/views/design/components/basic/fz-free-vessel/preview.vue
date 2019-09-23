@@ -1,5 +1,5 @@
 <template>
-  <div class="free-vessel-preview component-container" :style="[styles]">
+  <div class="fz-free-vessel-preview component-container" :style="[styles]">
     <template v-for="(componentData, i) in childrens">
       <freeWidgetView
         :key="componentData.__id__"
@@ -25,14 +25,11 @@ import getComponents from "@design/components/basic/index.js";
 import { defaultStyles } from "./previewData";
 
 export default {
-  name: "free-vessel-preview",
-  mixins: [previewMixins],
+  name: "fz-free-vessel-preview",
+  mixins: [previewMixins({ defaultStyles })],
   components: {
     ...getComponents("preview"),
     freeWidgetView
-  },
-  data() {
-    return { defaultStyles };
   },
   computed: {
     childrens() {
@@ -42,7 +39,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.free-vessel-preview {
+.fz-free-vessel-preview {
   position: relative;
   overflow: hidden;
 }

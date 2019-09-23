@@ -11,11 +11,11 @@
     <el-row type="flex" justify="center" align="middle">
       <el-col :span="12">
         <el-radio
-          :value="_customFeature.useBoxShadow"
+          :value="customFeature.useBoxShadow"
           @input="
             val =>
               setSelectComponentProperty({
-                key: '_customFeature',
+                key: 'customFeature',
                 value: { useBoxShadow: val }
               })
           "
@@ -25,11 +25,11 @@
       </el-col>
       <el-col :span="12">
         <el-radio
-          :value="_customFeature.useBoxShadow"
+          :value="customFeature.useBoxShadow"
           @input="
             val =>
               setSelectComponentProperty({
-                key: '_customFeature',
+                key: 'customFeature',
                 value: { useBoxShadow: val }
               })
           "
@@ -39,7 +39,7 @@
       </el-col>
     </el-row>
 
-    <div v-show="_customFeature.useBoxShadow === 1">
+    <div v-show="customFeature.useBoxShadow === 1">
       <el-row type="flex" justify="center" align="middle">
         <el-col :span="5">模糊半径</el-col>
         <el-col :span="7">
@@ -47,11 +47,11 @@
             style="width:68px;"
             controls-position="right"
             :min="0"
-            :value="_customFeature.boxShadow.blur"
+            :value="customFeature.boxShadow.blur"
             @change="
               val =>
                 setSelectComponentProperty({
-                  key: '_customFeature.boxShadow',
+                  key: 'customFeature.boxShadow',
                   value: { blur: val }
                 })
             "
@@ -60,11 +60,11 @@
         <el-col :span="5">阴影颜色</el-col>
         <el-col :span="7">
           <el-color-picker
-            :value="_customFeature.boxShadow.color"
-            @change="
+            :value="customFeature.boxShadow.color"
+            @active-change="
               val =>
                 setSelectComponentProperty({
-                  key: '_customFeature.boxShadow',
+                  key: 'customFeature.boxShadow',
                   value: { color: val }
                 })
             "
@@ -79,11 +79,11 @@
             style="width:68px;"
             controls-position="right"
             :min="0"
-            :value="_customFeature.boxShadow.hShadow"
+            :value="customFeature.boxShadow.hShadow"
             @change="
               val =>
                 setSelectComponentProperty({
-                  key: '_customFeature.boxShadow',
+                  key: 'customFeature.boxShadow',
                   value: { hShadow: val }
                 })
             "
@@ -95,11 +95,11 @@
             style="width:68px;"
             controls-position="right"
             :min="0"
-            :value="_customFeature.boxShadow.vShadow"
+            :value="customFeature.boxShadow.vShadow"
             @change="
               val =>
                 setSelectComponentProperty({
-                  key: '_customFeature.boxShadow',
+                  key: 'customFeature.boxShadow',
                   value: { vShadow: val }
                 })
             "

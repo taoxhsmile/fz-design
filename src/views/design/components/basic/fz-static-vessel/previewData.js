@@ -4,7 +4,7 @@ export default {
   __type__: "fz-static-vessel",
   __name__: name,
   _styles: {},
-  _customFeature: {
+  customFeature: {
     //位置
     align: "left",
     //阴影

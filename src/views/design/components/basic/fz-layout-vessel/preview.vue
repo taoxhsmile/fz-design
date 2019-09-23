@@ -1,8 +1,8 @@
 <template>
   <div
-    class="layout-vessel-preview component-container"
+    class="fz-layout-vessel-preview component-container"
     :style="[styles]"
-    ref="layout-vessel-preview"
+    ref="fz-layout-vessel-preview"
   >
     <div class="cell cell-left" :style="[cellLeftStyle]">
       <widgetComponentContainer
@@ -35,24 +35,21 @@ import widgetComponentContainer from "@design/components/widgetComponentContaine
 import { stylesConvert } from "@design/components/tools/stylesConvert";
 
 export default {
-  name: "layout-vessel-preview",
-  mixins: [previewMixins],
+  name: "fz-layout-vessel-preview",
+  mixins: [previewMixins({ defaultStyles })],
   components: {
     widgetComponentContainer
-  },
-  data() {
-    return { defaultStyles };
   },
   computed: {
     hasBorder() {
       let {
-        _customFeature: { cellBorderWidth, cellBorderStyle }
+        customFeature: { cellBorderWidth, cellBorderStyle }
       } = this.data;
       return cellBorderWidth > 0 && cellBorderStyle !== "none";
     },
     cellLeftStyle() {
       let {
-        _customFeature: { centerWidth }
+        customFeature: { centerWidth }
       } = this.data;
       return {
         flex: `${centerWidth / (100 - centerWidth)} 1 0%`
@@ -61,11 +58,7 @@ export default {
     cellLineStyle() {
       let {
           data: {
-            _customFeature: {
-              cellBorderColor,
-              cellBorderStyle,
-              cellBorderWidth
-            }
+            customFeature: { cellBorderColor, cellBorderStyle, cellBorderWidth }
           },
           hasBorder
         } = this,
@@ -84,7 +77,7 @@ export default {
     cellDragStyle() {
       let {
           data: {
-            _customFeature: { centerWidth, cellBorderWidth }
+            customFeature: { centerWidth, cellBorderWidth }
           },
           hasBorder
         } = this,
@@ -111,7 +104,7 @@ export default {
       setComponentProperty: "pageDesign/setComponentProperty"
     }),
     mousedownFn({ clientX: startX, currentTarget }) {
-      let oLayoutVesselPreview = this.$refs["layout-vessel-preview"],
+      let oLayoutVesselPreview = this.$refs["fz-layout-vessel-preview"],
         oldLeft = $(currentTarget).position().left,
         min = 0,
         max = $(oLayoutVesselPreview).width() * 0.99,
@@ -126,7 +119,7 @@ export default {
           }
           this.setComponentProperty({
             component: this.data,
-            key: "_customFeature",
+            key: "customFeature",
             value: {
               centerWidth: Math.round((nLeft / max) * 100)
             }
@@ -144,7 +137,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.layout-vessel-preview {
+.fz-layout-vessel-preview {
   position: relative;
   overflow: hidden;
   padding-top: 10px;

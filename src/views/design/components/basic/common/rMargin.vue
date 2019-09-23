@@ -32,7 +32,7 @@
             controls-position="right"
             :min="0"
             :value="_styles.marginLeft"
-            :disabled="_customFeature.align !== 'left'"
+            :disabled="customFeature.align !== 'left'"
             @change="
               val =>
                 setSelectComponentProperty({
@@ -43,62 +43,71 @@
           />
         </template>
       </el-col>
-      <el-col :span="3">上边</el-col>
-      <el-col :span="9">
-        <template v-if="inFreeVessel">
-          <el-input-number
-            style="width:88px;"
-            controls-position="right"
-            :min="0"
-            :value="_styles.top"
-            @change="
-              val =>
-                setSelectComponentProperty({
-                  key: '_styles',
-                  value: { top: val }
-                })
-            "
-          />
-        </template>
-        <template v-else>
-          <el-input-number
-            style="width:88px;"
-            controls-position="right"
-            :min="0"
-            :value="_styles.marginTop"
-            @change="
-              val =>
-                setSelectComponentProperty({
-                  key: '_styles',
-                  value: { marginTop: val }
-                })
-            "
-          ></el-input-number>
-        </template>
-      </el-col>
+
+      <template v-if="type === 1">
+        <el-col :span="12"></el-col>
+      </template>
+
+      <template v-if="type !== 1">
+        <el-col :span="3">上边</el-col>
+        <el-col :span="9">
+          <template v-if="inFreeVessel">
+            <el-input-number
+              style="width:88px;"
+              controls-position="right"
+              :min="0"
+              :value="_styles.top"
+              @change="
+                val =>
+                  setSelectComponentProperty({
+                    key: '_styles',
+                    value: { top: val }
+                  })
+              "
+            />
+          </template>
+          <template v-else>
+            <el-input-number
+              style="width:88px;"
+              controls-position="right"
+              :min="0"
+              :value="_styles.marginTop"
+              @change="
+                val =>
+                  setSelectComponentProperty({
+                    key: '_styles',
+                    value: { marginTop: val }
+                  })
+              "
+            ></el-input-number>
+          </template>
+        </el-col>
+      </template>
     </el-row>
-    <el-row type="flex" justify="center" align="middle">
-      <el-col class="align-btns">
-        <el-button
-          :type="_customFeature.align === 'left' ? 'primary' : ''"
-          @click="setStylesAlign('left')"
-        >
-          置左
-        </el-button>
-        <el-button
-          :type="_customFeature.align === 'center' ? 'primary' : ''"
-          @click="setStylesAlign('center')"
-        >
-          居中
-        </el-button>
-        <el-button
-          :type="_customFeature.align === 'right' ? 'primary' : ''"
-          @click="setStylesAlign('right')"
-        >
-          置右
-        </el-button>
-      </el-col>
-    </el-row>
+    <template v-if="type !== 1">
+      <el-row type="flex" justify="center" align="middle">
+        <el-col class="align-btns">
+          <el-button
+            :type="customFeature.align === 'left' ? 'primary' : ''"
+            @click="setStylesAlign('left')"
+          >
+            置左
+          </el-button>
+          <el-button
+            :type="customFeature.align === 'center' ? 'primary' : ''"
+            @click="setStylesAlign('center')"
+          >
+            居中
+          </el-button>
+          <el-button
+            :type="customFeature.align === 'right' ? 'primary' : ''"
+            @click="setStylesAlign('right')"
+          >
+            置右
+          </el-button>
+        </el-col>
+      </el-row>
+    </template>
   </div>
 </template>
 <script>
@@ -106,10 +115,17 @@ import rMixins from "./rMixins";
 import $ from "jquery";
 export default {
   mixins: [rMixins],
+  props: {
+    type: {
+      //1、只要marginLeft
+      type: Number,
+      default: 0
+    }
+  },
   methods: {
     setStylesAlign(val) {
       this.setSelectComponentProperty({
-        key: "_customFeature",
+        key: "customFeature",
         value: { align: val }
       });
 

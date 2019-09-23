@@ -5,7 +5,7 @@ export default {
   __type__: "fz-button",
   __name__: name,
   _styles: {},
-  _customFeature: {
+  customFeature: {
     align: "center",
     useBoxShadow: 0,
     boxShadow: {

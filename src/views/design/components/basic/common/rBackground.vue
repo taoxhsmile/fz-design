@@ -13,7 +13,7 @@
       <el-col :span="9">
         <el-color-picker
           :value="_styles.backgroundColor"
-          @change="
+          @active-change="
             val =>
               setSelectComponentProperty({
                 key: '_styles',

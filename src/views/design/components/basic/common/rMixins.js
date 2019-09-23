@@ -9,8 +9,8 @@ export default {
     _styles() {
       return this.rightPane._styles;
     },
-    _customFeature() {
-      return this.rightPane._customFeature;
+    customFeature() {
+      return this.rightPane.customFeature;
     },
     inFreeVessel() {
       return this.selectComponent.inFreeVessel;

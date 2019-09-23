@@ -10,17 +10,14 @@ import { stylesConvert } from "@design/components/tools/stylesConvert";
 
 export default {
   name: "fz-dividingline-preview",
-  mixins: [previewMixins],
-  data() {
-    return { defaultStyles };
-  },
+  mixins: [previewMixins({ defaultStyles })],
   computed: {
-    _customFeature() {
-      return this.data._customFeature;
+    customFeature() {
+      return this.data.customFeature;
     },
     innerContentStyle() {
       let {
-        _customFeature: {
+        customFeature: {
           borderBottomStyle,
           borderBottomWidth,
           borderBottomColor

@@ -1,5 +1,5 @@
 <template>
-  <div class="widget-preview component-container">
+  <div class="fz-widget-preview component-container">
     <!-- 预览数据列表 -->
     <template v-for="(componentData, i) in childrens">
       <widgetView
@@ -31,7 +31,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.widget-preview {
+.fz-widget-preview {
   position: relative;
 }
 </style>

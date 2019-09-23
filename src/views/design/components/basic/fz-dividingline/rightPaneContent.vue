@@ -16,11 +16,11 @@
           <el-col :span="9">
             <el-select
               style="width:88px;"
-              :value="_customFeature.borderBottomStyle"
+              :value="customFeature.borderBottomStyle"
               @change="
                 val =>
                   setSelectComponentProperty({
-                    key: '_customFeature',
+                    key: 'customFeature',
                     value: { borderBottomStyle: val }
                   })
               "
@@ -41,11 +41,11 @@
               style="width:88px;"
               controls-position="right"
               :min="0"
-              :value="_customFeature.borderBottomWidth"
+              :value="customFeature.borderBottomWidth"
               @change="
                 val =>
                   setSelectComponentProperty({
-                    key: '_customFeature',
+                    key: 'customFeature',
                     value: { borderBottomWidth: val }
                   })
               "
@@ -56,11 +56,11 @@
           <el-col :span="3">颜色</el-col>
           <el-col :span="9">
             <el-color-picker
-              :value="_customFeature.borderBottomColor"
-              @change="
+              :value="customFeature.borderBottomColor"
+              @active-change="
                 val =>
                   setSelectComponentProperty({
-                    key: '_customFeature',
+                    key: 'customFeature',
                     value: { borderBottomColor: val }
                   })
               "
@@ -70,48 +70,23 @@
           <el-col :span="12"></el-col>
         </el-row>
       </div>
-
-      <div class="rightpane__content-wrap border">
-        <el-row
-          class="rightpane__title"
-          type="flex"
-          justify="center"
-          align="middle"
-        >
-          <el-col>大小</el-col>
-        </el-row>
-        <el-row type="flex" justify="center" align="middle">
-          <el-col :span="3">宽度</el-col>
-          <el-col :span="9">
-            <el-input-number
-              style="width:88px;"
-              controls-position="right"
-              :min="0"
-              :value="_styles.width"
-              @change="
-                val =>
-                  setSelectComponentProperty({
-                    key: '_styles',
-                    value: { width: val }
-                  })
-              "
-            ></el-input-number>
-          </el-col>
-          <el-col :span="12"></el-col>
-        </el-row>
-      </div>
+      <!-- 大小 -->
+      <rSize :type="1" />
       <!-- 位置 -->
-      <rPosition />
+      <rMargin />
     </el-collapse-item>
   </el-collapse>
 </template>
 <script>
 import { mapMutations } from "vuex";
-import rPosition from "../common/rPosition";
+import rSize from "../common/rSize";
+import rMargin from "../common/rMargin";
+
 export default {
   inject: ["rightPane"],
   components: {
-    rPosition
+    rSize,
+    rMargin
   },
   data() {
     return {
@@ -136,8 +111,8 @@ export default {
     };
   },
   computed: {
-    _customFeature() {
-      return this.rightPane._customFeature;
+    customFeature() {
+      return this.rightPane.customFeature;
     },
     _styles() {
       return this.rightPane._styles;

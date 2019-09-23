@@ -5,7 +5,7 @@ export default {
   __type__: "fz-text",
   __name__: name,
   _styles: {},
-  _customFeature: {
+  customFeature: {
     align: "left",
     useTextShadow: 0,
     textShadow: {

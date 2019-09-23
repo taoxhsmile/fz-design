@@ -54,7 +54,7 @@
       <el-col :span="9">
         <el-color-picker
           :value="_styles.borderColor"
-          @change="
+          @active-change="
             val =>
               setSelectComponentProperty({
                 key: '_styles',

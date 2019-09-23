@@ -1,5 +1,5 @@
 <template>
-  <div class="text-preview" :style="[styles]">
+  <div class="fz-text-preview" :style="[styles]">
     <div class="inner-content">{{ data.content }}</div>
   </div>
 </template>
@@ -8,14 +8,11 @@ import previewMixins from "@design/components/basic/common/previewMixins";
 import { defaultStyles } from "./previewData";
 export default {
   name: "fz-text-preview",
-  mixins: [previewMixins],
-  data() {
-    return { defaultStyles };
-  }
+  mixins: [previewMixins({ defaultStyles })]
 };
 </script>
 <style lang="less" scoped>
-.text-preview {
+.fz-text-preview {
   box-sizing: border-box;
   .inner-content {
     white-space: pre-wrap;
