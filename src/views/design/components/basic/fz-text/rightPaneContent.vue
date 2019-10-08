@@ -30,6 +30,7 @@
   </el-collapse>
 </template>
 <script>
+import { mapMutations } from "vuex";
 import rFont from "../common/rFont.vue";
 
 export default {
@@ -41,6 +42,11 @@ export default {
     selectComponent() {
       return this.rightPane.selectComponent;
     }
+  },
+  methods: {
+    ...mapMutations({
+      setSelectComponentProperty: "pageDesign/setSelectComponentProperty"
+    })
   }
 };
 </script>

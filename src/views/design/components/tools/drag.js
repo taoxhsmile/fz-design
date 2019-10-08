@@ -224,6 +224,7 @@ export function drag({
     layerX,
     layerY; //鼠标距离拖拽物体左上角的位置
 
+  //初始化拖拽参数
   if (!isCreate) {
     let dragTargetOffset = $(dragTarget).offset(),
       zoomAreaOffset = $(".zoom-area").offset();
@@ -312,27 +313,30 @@ export function drag({
         }
         return;
       }
-      //放在一个空容器里面 || 容器的末尾
+
       if (!insertInfo.$widgetView) {
-        insertInfo.$container.append(oInsertTemp);
+        //放在一个空容器里面 || 容器的末尾
         insertList = insertInfo.$container[0].__vue__.childrens;
         insertIndex = insertDirection = null;
+        insertInfo.$container.append(oInsertTemp);
       } else {
         insertList = insertInfo.$widgetView[0].__vue__.list;
         insertIndex = insertInfo.$widgetView[0].__vue__.index;
         insertDirection = insertInfo.direction;
         if (insertDirection === "top") {
           insertInfo.$widgetView.before(oInsertTemp);
-        } else {
+        } else if (insertDirection === "bottom") {
           insertInfo.$widgetView.after(oInsertTemp);
+        } else {
+          //暂时没有这种情况
         }
       }
     },
     changeDataAndReturnComponent = ({ inFreeVessel }) => {
       let component;
       if (isCreate) {
-        //存在insertList的时候才添加新的组件
         if (insertList) {
+          //存在insertList的时候才添加新的组件
           this.addComponent({
             componentData: basicPreviewData.default,
             index:
@@ -354,28 +358,30 @@ export function drag({
         if (componentList === insertList) {
           if (insertDirection === "top") {
             insertList.splice(insertIndex, 0, component);
-          } else if (insertDirection === "bototm") {
+          } else if (insertDirection === "bottom") {
             insertList.splice(insertIndex + 1, 0, component);
           } else {
             //拖动到容器末尾
             insertList.push(component);
           }
           if (componentIndex < insertIndex || insertIndex == null) {
+            //元素从上面拖到下面
             componentList.splice(componentIndex, 1);
           } else {
             componentList.splice(componentIndex + 1, 1);
           }
         } else {
           //移动到新的容器里面
-          if (insertList.length === 0 || !insertDirection) {
+          if (insertList.length === 0 || insertIndex == null) {
             insertList.push(component);
           } else {
             if (insertDirection === "top") {
               insertList.splice(insertIndex, 0, component);
-            } else if (insertDirection === "bototm") {
+            } else if (insertDirection === "bottom") {
               insertList.splice(insertIndex + 1, 0, component);
             }
           }
+          //在原来的数组里面移除 该组件
           componentList.splice(componentIndex, 1);
         }
       }
