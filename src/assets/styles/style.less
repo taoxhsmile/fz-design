@@ -25,3 +25,17 @@ ul, li{
 }
 
 .clearfixed:after{content:'';clear:both;height:0px;zoom:1;overflow:hidden;display:block;}
+
+.scrollbar-measure {
+	width: 100px;
+	height: 100px;
+	overflow: scroll;
+	position: absolute;
+	top: -9999px;
+}
+
+.support-edit-scrollbar-measure{
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+}

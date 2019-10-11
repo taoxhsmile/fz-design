@@ -64,6 +64,27 @@
           </template>
         </ul>
       </el-tab-pane>
+      <el-tab-pane label="全局组件" name="global">
+        <ul>
+          <template v-for="(basicPreviewData, i) in globalPreviewDatas">
+            <li class="item" :key="i">
+              <shortcut :basicPreviewData="basicPreviewData">
+                <div class="content">
+                  <fz-icon
+                    :name="basicPreviewData.componentInfo.icon"
+                  ></fz-icon>
+                  <p>{{ basicPreviewData.componentInfo.name }}</p>
+                </div>
+              </shortcut>
+            </li>
+            <li
+              class="line"
+              :key="i + 'line'"
+              v-if="showLine(i, globalPreviewDatas)"
+            ></li>
+          </template>
+        </ul>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -79,7 +100,8 @@ export default {
       activeName: "basic",
       basicPreviewDatas: getPreviewDataByKind("basic"),
       layoutPreviewDatas: getPreviewDataByKind("layout"),
-      functionalPreviewDatas: getPreviewDataByKind("functional")
+      functionalPreviewDatas: getPreviewDataByKind("functional"),
+      globalPreviewDatas: getPreviewDataByKind("global")
     };
   },
   methods: {

@@ -1,13 +1,36 @@
 <template>
   <el-collapse :value="['1', '2', '3']">
     <el-collapse-item title="上传图片" name="1">
-      <ul class="clearfixed">
+      <ul class="img-list">
         <li v-for="item in contents" :key="item._t">
-          <div class="img" :style="{ 'background-image': `url(${item.src})` }">
-            <span class="tools"></span>
+          <div class="content">
+            <div class="_left">
+              <div
+                class="img"
+                :style="{ 'background-image': `url(${item.src})` }"
+              >
+                <span class="tools"></span>
+              </div>
+            </div>
+            <div class="_right">
+              <div class="title-wrap">
+                图片名称
+              </div>
+              <div class="link-wrap">
+                页面路径
+                <fz-icon name="iconguanbi"></fz-icon>
+              </div>
+              <el-button type="primary" plain>点击事件</el-button>
+            </div>
+            <fz-icon name="iconguanbi"></fz-icon>
           </div>
         </li>
       </ul>
+      <div class="add-btn-wrap">
+        <el-button type="primary">
+          添加图片
+        </el-button>
+      </div>
     </el-collapse-item>
     <el-collapse-item title="播放设置" name="2">
       <div class="rightpane__content-wrap">
@@ -112,30 +135,66 @@ export default {
 </script>
 <style lang="less" scoped>
 ul {
-  padding-left: 20px;
-  padding-top: 24px;
   li {
-    float: left;
-    margin-right: 16px;
-    margin-bottom: 16px;
     box-sizing: border-box;
-    border: 4px solid white;
-    width: 90px;
-    height: 90px;
-    &:hover {
-      border-radius: 5px;
-      border: 4px solid rgba(64, 158, 255, 1);
+    padding: 20px 10px;
+    .content {
+      position: relative;
+      padding: 20px 10px;
+      border: 2px dashed #c0c4cc;
+      border-radius: 3px;
+      display: flex;
+      & > ._left {
+        flex: 0 0 90px;
+        width: 90px;
+      }
+      & > ._right {
+        flex: auto;
+        min-width: 0;
+        margin-left: 18px;
+        .title-wrap {
+          border: 1px solid #eef0f3;
+          border-radius: 4px;
+        }
+        .link-wrap {
+          border: 1px solid #409eff;
+          border-radius: 4px;
+          position: relative;
+          & > i {
+            position: absolute;
+            top: 0;
+            right: 0;
+            transform: translate(50%, -50%);
+            color: #9ecdff;
+            font-size: 14px;
+          }
+        }
+      }
+      & > i {
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(50%, -50%);
+        color: #97999c;
+      }
     }
     .img {
-      width: 100%;
-      height: 100%;
+      width: 90px;
+      height: 90px;
+      border-radius: 3px;
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center center;
     }
-    &:nth-child(3n) {
-      margin-right: 0;
-    }
+  }
+}
+.add-btn-wrap {
+  padding: 20px 0;
+  & /deep/ .el-button {
+    width: 276px;
+    height: 40px;
+    display: block;
+    margin: 0 auto;
   }
 }
 </style>

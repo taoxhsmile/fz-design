@@ -340,6 +340,13 @@
       "font_class": "genghuantupian",
       "unicode": "e639",
       "unicode_decimal": 58937
+    },
+    {
+      "icon_id": "11168403",
+      "name": "关闭",
+      "font_class": "guanbi",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
     }
   ]
 }

@@ -22,7 +22,7 @@ export default {
   top: -13px;
   left: -13px;
   padding: 12px;
-  padding-bottom: 34px;
+  // padding-bottom: 34px;
   background: #fff;
   box-sizing: content-box;
   box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.1);

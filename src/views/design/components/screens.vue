@@ -2,11 +2,11 @@
   <div
     id="screens"
     @click="handleClick"
-    @mousewheel.stop.prevent="handleMousewheel"
-    @wheel.stop.prevent="handleMousewheel"
     @mousedown.left.stop="mousedown"
     ref="screens"
   >
+    <!-- @mousewheel.stop.prevent="handleMousewheel"
+    @wheel.stop.prevent="handleMousewheel" -->
     <screenViewport />
   </div>
 </template>

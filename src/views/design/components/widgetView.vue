@@ -8,8 +8,14 @@
   >
     <slot></slot>
     <widgetViewBorder :data="data"></widgetViewBorder>
-    <widgetViewDrag :data="data" :list="list" :index="index"></widgetViewDrag>
-    <widgetViewDel :data="data" :list="list" :index="index"></widgetViewDel>
+
+    <template v-if="canMove">
+      <widgetViewDrag :data="data" :list="list" :index="index"></widgetViewDrag>
+    </template>
+
+    <template v-if="canDel">
+      <widgetViewDel :data="data" :list="list" :index="index"></widgetViewDel>
+    </template>
   </div>
 </template>
 <script>
@@ -27,7 +33,15 @@ export default {
   props: {
     data: Object,
     list: Array,
-    index: Number
+    index: Number,
+    canMove: {
+      type: Boolean,
+      default: true
+    },
+    canDel: {
+      type: Boolean,
+      default: true
+    }
   },
   methods: {
     ...mapMutations({
