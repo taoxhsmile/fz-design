@@ -1,8 +1,8 @@
 <template>
-  <div class="canvas-wrap">
+  <div class="canvas-wrap" id="canvas">
     <div class="canvas-header">
       标题
-      <!-- 标题右上角的按钮 -->
+      <!-- 标题右上角的按钮-s -->
       <div class="top-nav-right-section">
         <div class="ellipsis-container">
           <span
@@ -25,19 +25,11 @@
           </div>
         </div>
       </div>
+      <!-- 标题右上角的按钮-e -->
     </div>
     <div class="canvas-content">
       <div class="canvas-scroll" :style="canvasScrollStyle">
-        <div
-          id="canvas"
-          style="width: 375px;  background: none; height:100%;"
-          @mousewheel.stop
-        >
-          <widgetComponentContainer
-            style="min-height: 100%"
-            :childrens="list"
-          />
-        </div>
+        <widgetComponentContainer :childrens="list" />
       </div>
     </div>
     <div class="canvas-footer">
@@ -91,13 +83,13 @@ export default {
 </script>
 <style lang="less" scoped>
 .canvas-wrap {
-  width: 377px;
-  height: 669px;
+  width: 375px;
+  height: 667px;
   position: relative;
   box-sizing: border-box;
   overflow: hidden;
   padding: 1px;
-  margin-left: -1px;
+  //边框线
   &::after {
     content: "";
     position: absolute;

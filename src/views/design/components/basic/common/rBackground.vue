@@ -24,7 +24,7 @@
         ></el-color-picker>
       </el-col>
       <el-col :span="12">
-        <el-button type="text">设置背景图</el-button>
+        <!-- <el-button type="text">设置背景图</el-button> -->
       </el-col>
     </el-row>
   </div>

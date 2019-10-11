@@ -7,12 +7,14 @@
     @mouseout="mouseout"
   >
     <slot></slot>
+    <!-- 边框线 -->
     <widgetViewBorder :data="data"></widgetViewBorder>
 
+    <!-- 是否支持移动 -->
     <template v-if="canMove">
       <widgetViewDrag :data="data" :list="list" :index="index"></widgetViewDrag>
     </template>
-
+    <!-- 是否支持删除 -->
     <template v-if="canDel">
       <widgetViewDel :data="data" :list="list" :index="index"></widgetViewDel>
     </template>

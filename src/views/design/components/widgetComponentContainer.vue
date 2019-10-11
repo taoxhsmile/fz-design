@@ -33,5 +33,6 @@ export default {
 <style lang="less" scoped>
 .fz-widget-preview {
   position: relative;
+  min-height: 100%;
 }
 </style>
