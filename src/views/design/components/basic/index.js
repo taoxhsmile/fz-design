@@ -8,6 +8,7 @@ const componentNames = [
   "fz-layout-vessel",
   "fz-static-vessel",
   "fz-dividingline",
+  "fz-empty",
   "fz-tab-bar"
 ];
 

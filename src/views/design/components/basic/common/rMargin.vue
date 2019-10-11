@@ -8,83 +8,90 @@
     >
       <el-col>位置</el-col>
     </el-row>
-    <el-row type="flex" justify="center" align="middle">
-      <el-col :span="3">左边</el-col>
-      <el-col :span="9">
-        <template v-if="inFreeVessel">
-          <el-input-number
-            style="width:88px;"
-            controls-position="right"
-            :min="0"
-            :value="_styles.left"
-            @change="
-              val =>
-                setSelectComponentProperty({
-                  key: '_styles',
-                  value: { left: val }
-                })
-            "
-          />
-        </template>
-        <template v-else>
-          <el-input-number
-            style="width:88px;"
-            controls-position="right"
-            :min="0"
-            :value="_styles.marginLeft"
-            :disabled="customFeature.align !== 'left'"
-            @change="
-              val =>
-                setSelectComponentProperty({
-                  key: '_styles',
-                  value: { marginLeft: val }
-                })
-            "
-          />
-        </template>
-      </el-col>
 
-      <template v-if="type === 1">
-        <el-col :span="12"></el-col>
-      </template>
+    <template v-if="type !== 5">
+      <el-row type="flex" justify="center" align="middle">
+        <template v-if="showMarginLeft">
+          <el-col :span="3">左边</el-col>
+          <el-col :span="9">
+            <template v-if="inFreeVessel">
+              <el-input-number
+                style="width:88px;"
+                controls-position="right"
+                :min="0"
+                :value="_styles.left"
+                @change="
+                  val =>
+                    setSelectComponentProperty({
+                      key: '_styles',
+                      value: { left: val }
+                    })
+                "
+              />
+            </template>
+            <template v-else>
+              <el-input-number
+                style="width:88px;"
+                controls-position="right"
+                :min="0"
+                :value="_styles.marginLeft"
+                :disabled="customFeature.align !== 'left'"
+                @change="
+                  val =>
+                    setSelectComponentProperty({
+                      key: '_styles',
+                      value: { marginLeft: val }
+                    })
+                "
+              />
+            </template>
+          </el-col>
+        </template>
 
-      <template v-if="type !== 1">
-        <el-col :span="3">上边</el-col>
-        <el-col :span="9">
-          <template v-if="inFreeVessel">
-            <el-input-number
-              style="width:88px;"
-              controls-position="right"
-              :min="0"
-              :value="_styles.top"
-              @change="
-                val =>
-                  setSelectComponentProperty({
-                    key: '_styles',
-                    value: { top: val }
-                  })
-              "
-            />
-          </template>
-          <template v-else>
-            <el-input-number
-              style="width:88px;"
-              controls-position="right"
-              :min="0"
-              :value="_styles.marginTop"
-              @change="
-                val =>
-                  setSelectComponentProperty({
-                    key: '_styles',
-                    value: { marginTop: val }
-                  })
-              "
-            ></el-input-number>
-          </template>
-        </el-col>
-      </template>
-    </el-row>
-    <template v-if="type !== 1">
+        <template v-if="showMarginTop">
+          <el-col :span="3">上边</el-col>
+          <el-col :span="9">
+            <template v-if="inFreeVessel">
+              <el-input-number
+                style="width:88px;"
+                controls-position="right"
+                :min="0"
+                :value="_styles.top"
+                @change="
+                  val =>
+                    setSelectComponentProperty({
+                      key: '_styles',
+                      value: { top: val }
+                    })
+                "
+              />
+            </template>
+            <template v-else>
+              <el-input-number
+                style="width:88px;"
+                controls-position="right"
+                :min="0"
+                :value="_styles.marginTop"
+                @change="
+                  val =>
+                    setSelectComponentProperty({
+                      key: '_styles',
+                      value: { marginTop: val }
+                    })
+                "
+              ></el-input-number>
+            </template>
+          </el-col>
+        </template>
+
+        <template v-if="type !== 0">
+          <el-col :span="12"></el-col>
+        </template>
+      </el-row>
+    </template>
+    <!-- 1和2的时候不显示 -->
+    <template v-if="type !== 1 && type !== 2">
+      <!-- 3个按钮 -->
       <el-row type="flex" justify="center" align="middle">
         <el-col class="align-btns">
           <el-button
@@ -118,8 +125,22 @@ export default {
   props: {
     type: {
       //1、只要marginLeft
+      //2、只要marginTop
+      //3、要marginLeft + 3个按钮
+      //4、要marginTop + 3个按钮
+      //5、只要3个按钮
       type: Number,
       default: 0
+    }
+  },
+  computed: {
+    showMarginLeft() {
+      let { type } = this;
+      return type === 1 || type === 3 || type === 0;
+    },
+    showMarginTop() {
+      let { type } = this;
+      return type === 2 || type === 4 || type === 0;
     }
   },
   methods: {
