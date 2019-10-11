@@ -121,7 +121,7 @@ export default {
             component: this.data,
             key: "customFeature",
             value: {
-              centerWidth: Math.round((nLeft / max) * 100)
+              centerWidth: (nLeft / max) * 100
             }
           });
         },

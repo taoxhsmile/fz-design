@@ -5,7 +5,7 @@
     ref="fz-static-vessel-preview"
   >
     <widgetComponentContainer
-      style="min-height:30px;border:1px solid green;"
+      style="min-height:30px;"
       :childrens="data._slots"
     />
   </div>
