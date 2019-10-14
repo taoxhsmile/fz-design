@@ -7,9 +7,15 @@ import store from "./vuex/store";
 //注册eventBus
 import eventBus from "./eventBus.js";
 import { registerComponents } from "@/components/index.js";
+import config from "@/config/index";
+import configAxios from "@/config/axios";
 
 //注册全局组件
 registerComponents(Vue);
+//注册url相关信息
+config(Vue);
+//注册axios
+configAxios(Vue);
 
 Vue.use(eventBus);
 

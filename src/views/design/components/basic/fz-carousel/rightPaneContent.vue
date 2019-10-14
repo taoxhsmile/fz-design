@@ -27,9 +27,13 @@
         </li>
       </ul>
       <div class="add-btn-wrap">
-        <el-button type="primary">
-          添加图片
-        </el-button>
+        <el-upload
+          :action="$file_upload_url"
+          :show-file-list="false"
+          :on-success="uploadSuccess"
+        >
+          <el-button size="small" type="primary">添加图片</el-button>
+        </el-upload>
       </div>
     </el-collapse-item>
     <el-collapse-item title="播放设置" name="2">
@@ -129,7 +133,23 @@ export default {
   methods: {
     ...mapMutations({
       setSelectComponentProperty: "pageDesign/setSelectComponentProperty"
-    })
+    }),
+    uploadSuccess(response) {
+      let { code, data: src } = response;
+      if (code === 10000) {
+        this.setSelectComponentProperty({
+          key: "contents",
+          value: [
+            ...this.contents,
+            {
+              _t: Date.now(),
+              type: "img",
+              src
+            }
+          ]
+        });
+      }
+    }
   }
 };
 </script>
