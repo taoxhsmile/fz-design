@@ -24,7 +24,7 @@ export default {
 <style lang="less" scoped>
 .rightpane {
   position: relative;
-  width: 345px;
+  min-width: 345px;
   box-shadow: rgba(39, 54, 78, 0.11) 0px -2px 30px 0px;
   z-index: 4;
   border-left: 1px solid rgb(222, 222, 228);
@@ -59,10 +59,6 @@ export default {
   }
   & /deep/ .el-collapse-item__header.focusing:focus:not(:hover) {
     color: #303133;
-  }
-  & /deep/ .el-color-picker__trigger {
-    width: 48px;
-    height: 48px;
   }
   & /deep/ .el-collapse-item__content {
     padding-bottom: 0;
@@ -103,6 +99,11 @@ export default {
 
   & /deep/ .el-collapse-item__wrap {
     border-bottom: none;
+  }
+
+  & /deep/ .el-color-picker__trigger {
+    width: 48px;
+    height: 48px;
   }
 
   & /deep/ .rightPane-item {
