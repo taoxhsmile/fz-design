@@ -6,7 +6,7 @@ import {
 export default {
   namespaced: true,
   state: {
-    activeIndex: 3
+    activeIndex: 0
   },
   getters: {
     ...generateCurrencyGetters(["activeIndex"])

@@ -11,17 +11,13 @@
         </shortcut>
       </li>
     </ul>
-    <!-- 库 -->
-    <basicWidgetsFunctionalList></basicWidgetsFunctionalList>
   </div>
 </template>
 <script>
 import { getPreviewDataByKind } from "@design/components/basic/index.js";
-import basicWidgetsFunctionalList from "./basicWidgetsFunctionalList";
 import shortcut from "./shortcut";
 export default {
   components: {
-    basicWidgetsFunctionalList,
     shortcut
   },
   data() {

@@ -27,30 +27,28 @@ export default {
   computed: {
     ...mapGetters({
       basicWidgetsFunctionalListActiveIndex:
-        "componentBasicWidgetsFunctionalList/activeIndex"
+        "componentLeftToolbarFunctionalList/activeIndex"
     })
   },
   methods: {
     ...mapMutations({
       setBasicWidgetsFunctionalListActiveIndex:
-        "componentBasicWidgetsFunctionalList/setActiveIndex"
+        "componentLeftToolbarFunctionalList/setActiveIndex"
     })
   }
 };
 </script>
 <style lang="less" scoped>
 .functional-list {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
+  padding-top: 30px;
   li {
     text-align: center;
     padding: 10px 0;
-    border-top: 1px solid white;
-    border-bottom: 1px solid white;
     position: relative;
     cursor: pointer;
+    color: #c0c4cc;
+    font-size: 12px;
+    margin-bottom: 10px;
     div {
       width: 24px;
       height: 24px;
@@ -81,8 +79,7 @@ export default {
       background-size: 100% 100%;
     }
     &.active {
-      border-top: 1px solid #ddd;
-      border-bottom: 1px solid #ddd;
+      color: @system-theme-color;
       &::before {
         content: "";
         position: absolute;

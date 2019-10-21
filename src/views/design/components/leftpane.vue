@@ -32,7 +32,7 @@ export default {
   computed: {
     ...mapGetters({
       basicWidgetsFunctionalListActiveIndex:
-        "componentBasicWidgetsFunctionalList/activeIndex"
+        "componentLeftToolbarFunctionalList/activeIndex"
     })
   }
 };
