@@ -130,6 +130,9 @@ export default {
       return this.rightPane.selectComponent.customFeature;
     }
   },
+  created() {
+    this.$fetchGet("/file/list", { pathPre: "egg-oss-file-temp/" });
+  },
   methods: {
     ...mapMutations({
       setSelectComponentProperty: "pageDesign/setSelectComponentProperty"

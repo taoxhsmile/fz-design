@@ -4,14 +4,27 @@ import { getApiUrl } from "./url";
 
 axios.defaults.timeout = 5000; //响应时间
 axios.defaults.headers.post["Content-Type"] =
-  "application/x-www-form-urlencoded;charset=UTF-8"; //配置请求头
+  "application/x-www-form-urlencoded"; //配置请求头
 axios.defaults.baseURL = "";
 
 //POST传参序列化(添加请求拦截器)
 axios.interceptors.request.use(
   config => {
     if (config.method === "post") {
-      config.data = qs.stringify(config.data);
+      let auth = {
+        "x-user-id": "1928232",
+        "x-access-token": "4bf50f3a23d34e99b83e1fd10d806f3d",
+        "x-platform": "browser",
+        "x-client-token": "a32184b3-e71b-4e15-ae56-66f8b7740a22",
+        "x-system-version": "10.1.1",
+        "x-client-version": "2.0.1",
+        "x-method-version": "1.0",
+        "x-network-type": "3g"
+      };
+      config.data = qs.stringify({
+        auth: JSON.stringify(auth),
+        data: JSON.stringify(config.data)
+      });
     }
     return config;
   },
