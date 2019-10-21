@@ -6,5 +6,12 @@ const resolve = dir => path.join(__dirname, dir);
 module.exports = {
   chainWebpack: config => {
     config.resolve.alias.set("@design", resolve("src/views/design"));
+  },
+  pluginOptions: {
+    //less 全局变量
+    "style-resources-loader": {
+      preProcessor: "less",
+      patterns: [path.resolve(__dirname, "./src/assets/styles/varibles.less")]
+    }
   }
 };

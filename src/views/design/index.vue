@@ -1,25 +1,30 @@
 <template>
   <section id="design">
     <div id="new-design">
-      <div class="contain">
+      <dir class="left-contain">
+        <leftToolbar />
+      </dir>
+      <div class="right-contain">
         <!-- 工具栏 -->
-        <toolbar />
+        <topToolbar />
         <!-- 主内容 -->
         <mainContent />
-        <!-- 浮动弹窗容器 -->
-        <fixedArea />
       </div>
+      <!-- 浮动弹窗容器 -->
+      <fixedArea />
     </div>
   </section>
 </template>
 <script>
-import toolbar from "./components/toolbar.vue";
+import leftToolbar from "./components/leftToolbar.vue";
+import topToolbar from "./components/topToolbar.vue";
 import mainContent from "./components/mainContent.vue";
 import fixedArea from "./components/fixedArea.vue";
 export default {
   name: "design-index",
   components: {
-    toolbar,
+    leftToolbar,
+    topToolbar,
     mainContent,
     fixedArea
   }
@@ -41,12 +46,20 @@ export default {
     width: 100%;
     height: 100%;
     transition: all 0.2s ease-in-out;
-    .contain {
+    display: flex;
+    .left-contain {
+      flex: 0 0 60px;
+      height: 100%;
+      width: 60px;
+      background: #262633;
+    }
+    .right-contain {
       display: flex;
       flex-direction: column;
       height: 100%;
       color: #5b6b73;
       font-size: 12px;
+      flex: auto;
     }
   }
 }

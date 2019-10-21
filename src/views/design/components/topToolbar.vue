@@ -1,8 +1,7 @@
 <template>
   <div id="toolbar">
     <div class="toolbar-left">
-      <div class="logo">
-        <img src="@/assets/images/logo.png" />
+      <div class="title">
         <h1>丰筝中台</h1>
       </div>
     </div>
@@ -59,22 +58,17 @@
 }
 .toolbar-left {
   flex: 0 0 370px;
-  .logo {
+  .title {
     display: flex;
     align-items: center;
-    padding-left: 24px;
-    img {
-      flex: 0 0 36px;
-      width: 36px;
-      height: 22px;
-    }
     h1 {
       font-size: 16px;
       color: #606266;
-      margin-left: 52px;
+      margin-left: 41px;
       font-family: PingFangSC;
       font-weight: 500;
       line-height: 20px;
+      color: @system-theme-color;
     }
   }
 }
