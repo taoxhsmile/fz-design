@@ -42,9 +42,8 @@ axios.interceptors.response.use(
     // }
     return res;
   },
-  error => {
-    console.log("网络异常");
-    return Promise.reject(error);
+  () => {
+    return Promise.reject("接口异常");
   }
 );
 
@@ -54,8 +53,12 @@ export function fetchPost(url, params) {
     axios
       .post(getApiUrl(url), params)
       .then(
-        response => {
-          resolve(response);
+        ({ data }) => {
+          if (data.resultCode === 200) {
+            resolve(data);
+          } else {
+            reject(data.resultMsg);
+          }
         },
         err => {
           reject(err);
@@ -72,8 +75,12 @@ export function fetchGet(url, param) {
     axios
       .get(getApiUrl(url), { params: param })
       .then(
-        response => {
-          resolve(response);
+        ({ data }) => {
+          if (data.resultCode === 200) {
+            resolve(data);
+          } else {
+            reject(data.resultMsg);
+          }
         },
         err => {
           reject(err);

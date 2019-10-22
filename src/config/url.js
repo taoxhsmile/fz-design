@@ -2,7 +2,7 @@ const map = {
   //公共配置
   base: {
     file_upload_host: "http://localhost:9000",
-    default_base_host: "http://localhost:9000"
+    default_base_host: "http://third.xzintl.com"
   },
   //线上环境配置
   pro: {
