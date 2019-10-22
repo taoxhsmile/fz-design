@@ -1,6 +1,6 @@
 <template>
   <div class="rightPane-item">
-    <el-tabs stretch type="card" v-model="activeName">
+    <el-tabs v-model="activeName">
       <el-tab-pane label="分割线组件" name="content">
         <rightPaneContent />
       </el-tab-pane>

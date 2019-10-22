@@ -1,7 +1,7 @@
 <template>
   <div class="leftpane-component-library">
-    <el-tabs stretch type="card" v-model="activeName">
-      <el-tab-pane label="基础组件" name="basic">
+    <el-collapse :value="['1', '2', '3', '4']">
+      <el-collapse-item title="基础组件" name="1">
         <ul>
           <template v-for="(basicPreviewData, i) in basicPreviewDatas">
             <li class="item" :key="i">
@@ -21,8 +21,8 @@
             ></li>
           </template>
         </ul>
-      </el-tab-pane>
-      <el-tab-pane label="布局组件" name="layout">
+      </el-collapse-item>
+      <el-collapse-item title="布局组件" name="2">
         <ul>
           <template v-for="(basicPreviewData, i) in layoutPreviewDatas">
             <li class="item" :key="i">
@@ -42,8 +42,8 @@
             ></li>
           </template>
         </ul>
-      </el-tab-pane>
-      <el-tab-pane label="功能组件" name="functional">
+      </el-collapse-item>
+      <el-collapse-item title="功能组件" name="3">
         <ul>
           <template v-for="(basicPreviewData, i) in functionalPreviewDatas">
             <li class="item" :key="i">
@@ -63,8 +63,8 @@
             ></li>
           </template>
         </ul>
-      </el-tab-pane>
-      <el-tab-pane label="全局组件" name="global">
+      </el-collapse-item>
+      <el-collapse-item title="全局组件" name="4">
         <ul>
           <template v-for="(basicPreviewData, i) in globalPreviewDatas">
             <li class="item" :key="i">
@@ -84,8 +84,8 @@
             ></li>
           </template>
         </ul>
-      </el-tab-pane>
-    </el-tabs>
+      </el-collapse-item>
+    </el-collapse>
   </div>
 </template>
 <script>
@@ -114,18 +114,25 @@ export default {
 </script>
 <style lang="less" scoped>
 .leftpane-component-library {
-  & /deep/ .el-tabs__header {
-    margin: 0;
-  }
-  & /deep/ .el-tabs--card > .el-tabs__header .el-tabs__nav {
-    border-radius: 0;
-  }
-  & /deep/ .el-tabs--card > .el-tabs__header .el-tabs__nav {
-    border: none;
-  }
-  & /deep/ .el-tabs__item {
-    height: 56px;
-    line-height: 56px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  & /deep/ .el-collapse-item {
+    .el-collapse-item__header {
+      padding-left: 20px;
+      border-bottom: 1px solid #d8d8d8;
+      color: #303133;
+    }
+    .el-collapse-item__arrow {
+      margin-right: 25px;
+      font-size: 18px;
+      color: #909399;
+    }
+    .el-collapse-item__content {
+      padding-bottom: 0;
+    }
+    .el-collapse-item__wrap {
+      border-bottom: 1px solid #d8d8d8;
+    }
   }
 
   ul {
@@ -133,7 +140,7 @@ export default {
     flex-wrap: wrap;
     li {
       &.item {
-        width: 100px;
+        width: 33.33%;
         height: 100px;
         text-align: center;
         box-sizing: border-box;
@@ -143,9 +150,11 @@ export default {
         cursor: pointer;
         i {
           font-size: 22px;
+          color: #303133;
         }
         p {
           margin-top: 8px;
+          color: #909399;
         }
       }
       &.line {

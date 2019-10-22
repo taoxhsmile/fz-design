@@ -2,7 +2,6 @@
   <div class="main-content">
     <screens />
     <leftpane />
-    <basicWidgets />
     <!-- todo:放快捷方式说明之类的弹窗 -->
     <viewport />
     <rightpane />
@@ -10,14 +9,12 @@
 </template>
 <script>
 import screens from "./screens.vue";
-import basicWidgets from "./basicWidgets.vue";
 import leftpane from "./leftpane.vue";
 import viewport from "./viewport.vue";
 import rightpane from "./rightpane.vue";
 export default {
   components: {
     screens,
-    basicWidgets,
     leftpane,
     viewport,
     rightpane

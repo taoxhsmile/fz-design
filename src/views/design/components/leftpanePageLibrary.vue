@@ -6,22 +6,27 @@
         v-for="(page, i) in pages"
         :key="page.__id__"
         @click="setPagesActiveIndex(i)"
+        :class="{ active: pagesActiveIndex === i }"
       >
         {{ page.__name__ }}
-        <dl class="tools">
-          <dd>
-            <fz-icon name="iconbianji"></fz-icon>
-          </dd>
-          <dd>
-            <fz-icon name="iconshoucang"></fz-icon>
-          </dd>
-          <dd>
-            <fz-icon name="iconfuzhi"></fz-icon>
-          </dd>
-          <dd>
-            <fz-icon name="iconshanchu"></fz-icon>
-          </dd>
-        </dl>
+        <div class="right">
+          <el-tooltip
+            class="item"
+            effect="dark"
+            placement="bottom"
+            :open-delay="200"
+          >
+            <fz-icon name="icontupian"></fz-icon>
+            <template slot="content">
+              <ul class="leftpane-page-library-tooltip-list">
+                <li>设置</li>
+                <li>收藏</li>
+                <li>创建副本</li>
+                <li>删除</li>
+              </ul>
+            </template>
+          </el-tooltip>
+        </div>
       </li>
     </ul>
     <button class="addpage-btn" @click="addPage">添加页面</button>
@@ -50,9 +55,6 @@ export default {
   ul {
     margin-bottom: 5px;
     li {
-      &:hover {
-        background: #f8f8f8;
-      }
       position: relative;
       height: 48px;
       line-height: 48px;
@@ -60,26 +62,15 @@ export default {
       color: #606266;
       font-size: 16px;
       cursor: pointer;
-      &:hover {
-        dl {
-          display: flex;
-        }
+      color: #606266;
+      &.active {
+        background: @system-theme-color;
+        color: white;
       }
-      dl {
+      .right {
         position: absolute;
+        right: 20px;
         top: 0;
-        right: 0;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        display: none;
-        dd {
-          padding: 0 10px;
-          color: #909399;
-          &:hover {
-            color: #2b8cff;
-          }
-        }
       }
     }
   }
@@ -96,6 +87,21 @@ export default {
     outline: none;
     cursor: pointer;
     background: none;
+  }
+}
+</style>
+<style lang="less">
+.leftpane-page-library-tooltip-list {
+  li {
+    width: 100px;
+    height: 28px;
+    line-height: 28px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    &:hover {
+      background: @system-theme-color;
+    }
   }
 }
 </style>

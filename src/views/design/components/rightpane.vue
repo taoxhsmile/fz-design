@@ -33,41 +33,50 @@ export default {
   & /deep/ .el-tabs__header {
     margin: 0;
   }
-  & /deep/ .el-tabs--card > .el-tabs__header .el-tabs__nav {
-    border-radius: 0;
-  }
-  & /deep/ .el-tabs--card > .el-tabs__header .el-tabs__nav {
-    border: none;
-  }
-  //tab标题栏
+  // & /deep/ .el-tabs--card > .el-tabs__header .el-tabs__nav {
+  //   border-radius: 0;
+  // }
+  // & /deep/ .el-tabs--card > .el-tabs__header .el-tabs__nav {
+  //   border: none;
+  // }
+  // //tab标题栏
   & /deep/ .el-tabs__item {
     height: 56px;
     line-height: 56px;
   }
+  & /deep/ .el-tabs__nav {
+    margin-left: 20px;
+  }
+  & /deep/ .el-tabs__content {
+    overflow-y: auto;
+    height: calc(100% - 56px);
+  }
+
   & /deep/ .el-collapse {
     border-top: none;
   }
   & /deep/ .el-collapse-item__header {
     color: #303133;
-    height: 56px;
-    line-height: 56px;
-    background: #fafafa;
-    font-family: PingFangSC;
-    padding-left: 24px;
-    font-weight: normal;
-    font-size: 14px;
+    padding-left: 20px;
+    border-bottom: 1px solid #d8d8d8;
+  }
+  & /deep/ .el-collapse-item__arrow {
+    margin-right: 25px;
+    font-size: 18px;
+    color: #909399;
   }
   & /deep/ .el-collapse-item__header.focusing:focus:not(:hover) {
     color: #303133;
   }
   & /deep/ .el-collapse-item__content {
     padding-bottom: 0;
+    border-bottom: 1px solid #d8d8d8;
   }
 
   & /deep/ .rightpane__content-wrap {
     padding: 10px 24px;
     &.border {
-      border-bottom: 1px solid #e9ecf0;
+      border-bottom: 1px solid #d8d8d8;
     }
   }
 
@@ -81,11 +90,6 @@ export default {
 
   & /deep/ .el-tabs {
     height: 100%;
-  }
-
-  & /deep/ .el-tabs__content {
-    overflow-y: auto;
-    height: calc(100% - 56px);
   }
 
   & /deep/ .el-collapse-item__arrow {
