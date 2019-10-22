@@ -154,7 +154,7 @@ export default {
       key.forEach(k => {
         component = component[k];
       });
-      Vue.set(this.getters["pageDesign/pageData"], _key, value);
+      Vue.set(component, _key, value);
     }
   },
   actions: {}

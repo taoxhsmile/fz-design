@@ -1,20 +1,18 @@
 <template>
   <div class="rightpane">
-    <template v-if="showPageRightpane">
-      <pageRightpane></pageRightpane>
-    </template>
-    <template v-else-if="selectComponent">
-      <component :is="rightPane"></component>
+    <template v-if="selectComponent">
+      <pageRightPane v-if="selectComponent.__type__ === 'page'"></pageRightPane>
+      <component v-else :is="rightPane"></component>
     </template>
   </div>
 </template>
 <script>
 import { mapGetters } from "vuex";
 import getComponents from "./basic/index.js";
-import pageRightpane from "./basic/pageRightpane.vue";
+import pageRightPane from "./basic/fz-page/rightPane.vue";
 export default {
   components: {
-    pageRightpane
+    pageRightPane
   },
   computed: {
     ...mapGetters({
@@ -27,10 +25,6 @@ export default {
         return null;
       }
       return getComponents("rightPane")[`${selectComponent.__type__}`];
-    },
-    showPageRightpane() {
-      let { selectComponent } = this;
-      return selectComponent && selectComponent.__type__ === "page";
     }
   }
 };
