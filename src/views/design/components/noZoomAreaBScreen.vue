@@ -1,8 +1,8 @@
 <template>
   <div id="screen" class="screen" style="width: 375px; height: 667px;">
-    <div class="screen-title">
-      <span>{{ pageData.__name__ }}</span
-      ><span>100%</span>
+    <div class="screen-title" v-if="pageData">
+      <span>{{ pageData.__name__ }}</span>
+      <span>100%</span>
     </div>
   </div>
 </template>

@@ -1,4 +1,5 @@
 import { Message } from "element-ui";
+import Vue from "vue";
 import $ from "jquery";
 import {
   generateCurrencyGetters,
@@ -16,7 +17,7 @@ export default {
     pagesActiveIndex: -1,
     //当前hover的组件
     hoverComponent: null,
-    //当前选中的组件
+    //当前选中的组件|页面|全局组件
     selectComponent: null,
     //当前拖拽中的组件
     dragComponent: null,
@@ -62,16 +63,15 @@ export default {
     ]),
     //当前页面数据
     pageData({ pages, pagesActiveIndex }) {
-      return pages[pagesActiveIndex] || {};
+      return pages[pagesActiveIndex] || null;
     },
     //当前页面组件
     pageComponents(state, getters) {
-      return getters.pageData.components || [];
+      return (getters.pageData && getters.pageData.components) || [];
     }
   },
   mutations: {
     ...generateCurrencyMutations([
-      "pageData",
       "hoverComponent",
       "selectComponent",
       "dragComponent"
@@ -79,6 +79,9 @@ export default {
     //新增页面
     addPage(state) {
       state.pages.push(generatePageData(state));
+      //设置默认选中当前新增的页面
+      let pageData = state.pages[state.pages.length - 1];
+      this.commit("pageDesign/setSelectComponent", pageData);
     },
     //添加组件
     addComponent(
@@ -95,7 +98,7 @@ export default {
           message: "请先选择页面"
         });
       }
-
+      //初始化组件数据
       componentData = generateComponentData({ componentData, inFreeVessel });
 
       //判断是添加还是插入
@@ -118,8 +121,9 @@ export default {
     },
     setPagesActiveIndex(state, pagesActiveIndex) {
       //切换页面的时候需要把页面上所有组件的状态清空
-      state.dragComponent = state.hoverComponent = state.selectComponent = null;
+      state.dragComponent = state.hoverComponent = null;
       state.pagesActiveIndex = pagesActiveIndex;
+      state.selectComponent = this.getters["pageDesign/pageData"];
     },
     // 设置选中组件的数据 传入 key和value
     setSelectComponentProperty({ selectComponent }, { key, value }) {
@@ -150,7 +154,7 @@ export default {
       key.forEach(k => {
         component = component[k];
       });
-      component[_key] = value;
+      Vue.set(this.getters["pageDesign/pageData"], _key, value);
     }
   },
   actions: {}

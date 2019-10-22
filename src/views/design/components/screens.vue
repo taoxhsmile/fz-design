@@ -21,7 +21,8 @@ export default {
   computed: {
     ...mapGetters({
       translateX: "componentArtBoard/translateX",
-      translateY: "componentArtBoard/translateY"
+      translateY: "componentArtBoard/translateY",
+      pageData: "pageDesign/pageData"
     })
   },
   methods: {
@@ -32,7 +33,7 @@ export default {
     }),
     //点击空白区域的时候清空selectComponent
     handleClick() {
-      this.setSelectComponent(null);
+      this.setSelectComponent(this.pageData);
     },
     //鼠标滚轮事件
     handleMousewheel(e) {

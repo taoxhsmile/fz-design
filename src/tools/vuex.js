@@ -30,7 +30,9 @@ export function generatePageData(state) {
   return {
     __id__: "page_" + getRandomId(),
     __name__: `页面${state.pages.length + 1}`,
-    components: []
+    __type__: "page",
+    components: [],
+    _styles: {}
   };
 }
 
