@@ -33,3 +33,8 @@ export const defaultStyles = {
   //背景颜色
   backgroundColor: "rgba(0,0,0,0)"
 };
+
+export const componentOptions = {
+  //文本、图片、按钮、分割线
+  slotsTypes: ["fz-text", "fz-picture", "fz-button", "fz-dividingline"]
+};

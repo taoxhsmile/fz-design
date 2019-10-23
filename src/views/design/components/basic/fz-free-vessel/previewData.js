@@ -33,3 +33,14 @@ export const defaultStyles = {
   //大小
   height: 175
 };
+
+export const componentOptions = {
+  //文本、图片、按钮、分割线
+  slotsTypes: [
+    "fz-text",
+    "fz-picture",
+    "fz-button",
+    "fz-dividingline",
+    "fz-free-vessel"
+  ]
+};
