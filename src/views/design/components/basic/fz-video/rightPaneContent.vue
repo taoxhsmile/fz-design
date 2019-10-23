@@ -2,6 +2,14 @@
   <el-collapse :value="['1']">
     <el-collapse-item title="视频地址" name="1">
       <div class="rightpane__content-wrap">
+        <el-row
+          class="rightpane__title"
+          type="flex"
+          justify="center"
+          align="middle"
+        >
+          <el-col>使用来源</el-col>
+        </el-row>
         <el-row type="flex" justify="center" align="middle">
           <el-input
             resize="none"
