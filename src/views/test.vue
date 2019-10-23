@@ -39,9 +39,22 @@
               @click="deleteTemplate(scope.row)"
               >删除模版</el-button
             >
+            <el-button type="text" size="small" @click="commitCode(scope.row)"
+              >上传代码</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
+    </el-card>
+
+    <el-card class="box-card">
+      <div slot="header" class="clearfix">
+        <span>页面列表</span>
+      </div>
+      {{ page_data }}
+    </el-card>
+    <el-card class="box-card">
+      <img v-if="qrcodeUrl" :src="qrcodeUrl" />
     </el-card>
 
     <el-button type="primary" @click="qsq">去授权</el-button>
@@ -52,7 +65,9 @@ export default {
   data() {
     return {
       dmcglb_data: [],
-      dmmblb_data: []
+      dmmblb_data: [],
+      page_data: [],
+      qrcodeUrl: ""
     };
   },
   created() {
@@ -60,6 +75,10 @@ export default {
     this.dmcglb();
     //代码模版列表
     this.dmmblb();
+    //页面列表
+    this.getPage();
+    //获取体验版二维码
+    this.getQrcode();
   },
   methods: {
     dmcglb() {
@@ -146,6 +165,85 @@ export default {
               });
           }
         }
+      });
+    },
+    //上传代码
+    commitCode({
+      user_version: userVersion,
+      user_desc: userDesc,
+      template_id: templateID
+    }) {
+      this.$fetchPost(
+        "/ThirdPartyDocking/Wechat/Agent/MiniProgram/CommitCode",
+        {
+          templateID,
+          authAppID: "wxd9810d17839549cb",
+          extJSON: JSON.stringify({
+            extAppid: "wxd9810d17839549cb",
+            ext: {
+              name: "wechat",
+              appId: "wxd9810d17839549cb",
+              test: "123"
+            },
+            window: {
+              backgroundTextStyle: "light",
+              navigationBarBackgroundColor: "#fff",
+              navigationBarTitleText: "Demo",
+              navigationBarTextStyle: "black"
+            },
+            networkTimeout: {
+              request: 10000,
+              downloadFile: 10000
+            },
+            tabBar: {
+              list: [
+                {
+                  pagePath: "pages/index/index",
+                  text: "首页",
+                  iconPath:
+                    "https://staticimg.ngmm365.com/210d689137104ff10cd2c1456b9dd418-w16_h16.png"
+                },
+                {
+                  pagePath: "pages/test/test",
+                  text: "测试",
+                  iconPath:
+                    "https://staticimg.ngmm365.com/e456189870c9037125d9888db42f836a-w16_h16.png"
+                }
+              ]
+            }
+          }),
+          userVersion,
+          userDesc
+        }
+      ).then(() => {
+        this.$message({
+          message: "操作成功",
+          type: "success"
+        });
+      });
+    },
+    //获取页面列表
+    getPage() {
+      this.$fetchPost(
+        "/ThirdPartyDocking/Wechat/Agent/MiniProgram/GetCodePageList",
+        {
+          authAppID: "wxd9810d17839549cb"
+        }
+      ).then(({ data }) => {
+        this.page_data = data.page_list;
+      });
+    },
+    getQrcode() {
+      this.$fetchPost(
+        "/ThirdPartyDocking/Wechat/Agent/MiniProgram/GetQrcode",
+        {
+          authAppID: "wxd9810d17839549cb"
+        },
+        {
+          responseType: "blob"
+        }
+      ).then(res => {
+        this.qrcodeUrl = URL.createObjectURL(res);
       });
     }
   }

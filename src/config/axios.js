@@ -48,48 +48,40 @@ axios.interceptors.response.use(
 );
 
 //返回一个Promise(发送post请求)
-export function fetchPost(url, params) {
+export function fetchPost(url, params, config) {
   return new Promise((resolve, reject) => {
-    axios
-      .post(getApiUrl(url), params)
-      .then(
-        ({ data }) => {
-          if (data.resultCode === 200) {
-            resolve(data);
-          } else {
-            reject(data.resultMsg);
-          }
-        },
-        err => {
-          reject(err);
-        }
-      )
-      .catch(error => {
-        reject(error);
-      });
+    let fetch = axios.post(getApiUrl(url), params, config);
+    fetchCallback(fetch, resolve, reject);
   });
 }
-////返回一个Promise(发送get请求)
-export function fetchGet(url, param) {
+//返回一个Promise(发送get请求)
+export function fetchGet(url, params, config) {
   return new Promise((resolve, reject) => {
-    axios
-      .get(getApiUrl(url), { params: param })
-      .then(
-        ({ data }) => {
-          if (data.resultCode === 200) {
-            resolve(data);
-          } else {
-            reject(data.resultMsg);
-          }
-        },
-        err => {
-          reject(err);
-        }
-      )
-      .catch(error => {
-        reject(error);
-      });
+    let fetch = axios.get(getApiUrl(url), { params }, config);
+    fetchCallback(fetch, resolve, reject);
   });
+}
+
+function fetchCallback(fetch, resolve, reject) {
+  fetch
+    .then(
+      res => {
+        let { data, headers } = res;
+        if (headers["content-type"].indexOf("image") > -1) {
+          resolve(data);
+        } else if (data.resultCode === 200) {
+          resolve(data);
+        } else {
+          reject(data.resultMsg);
+        }
+      },
+      err => {
+        reject(err);
+      }
+    )
+    .catch(error => {
+      reject(error);
+    });
 }
 
 export default function(Vue) {

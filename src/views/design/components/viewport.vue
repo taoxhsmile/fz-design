@@ -44,6 +44,6 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-width: 400px;
+  min-width: 480px;
 }
 </style>
