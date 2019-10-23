@@ -1,8 +1,7 @@
 <template>
   <div class="rightpane">
     <template v-if="selectComponent">
-      <pageRightPane v-if="selectComponent.__type__ === 'page'"></pageRightPane>
-      <component v-else :is="rightPane"></component>
+      <component :is="rightPane"></component>
     </template>
   </div>
 </template>
@@ -11,9 +10,6 @@ import { mapGetters } from "vuex";
 import getComponents from "./basic/index.js";
 import pageRightPane from "./basic/fz-page/rightPane.vue";
 export default {
-  components: {
-    pageRightPane
-  },
   computed: {
     ...mapGetters({
       selectComponent: "pageDesign/selectComponent",
@@ -24,6 +20,11 @@ export default {
       if (!selectComponent) {
         return null;
       }
+      //页面设置
+      if (selectComponent.__type__ === "page") {
+        return pageRightPane;
+      }
+      //普通组件
       return getComponents("rightPane")[`${selectComponent.__type__}`];
     }
   }
