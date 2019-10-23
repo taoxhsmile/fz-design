@@ -44,3 +44,33 @@ export function generateComponentData({ componentData, inFreeVessel }) {
   componentData.inFreeVessel = inFreeVessel;
   return componentData;
 }
+
+//计算该类型组件在当前页面已经创建了几个
+export function getComponentCountByType({ type, pageComponents }) {
+  let count = 0;
+  if (pageComponents && pageComponents.length) {
+    pageComponents.forEach(({ __type__, _slots, _leftSlots, _rightSlots }) => {
+      if (type === __type__) {
+        count++;
+      } else {
+        count +=
+          getComponentCountByType({
+            type,
+            pageComponents: _slots,
+            count
+          }) +
+          getComponentCountByType({
+            type,
+            pageComponents: _leftSlots,
+            count
+          }) +
+          getComponentCountByType({
+            type,
+            pageComponents: _rightSlots,
+            count
+          });
+      }
+    });
+  }
+  return count;
+}

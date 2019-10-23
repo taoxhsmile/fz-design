@@ -5,8 +5,10 @@ import {
   generateCurrencyGetters,
   generateCurrencyMutations,
   generatePageData,
-  generateComponentData
+  generateComponentData,
+  getComponentCountByType
 } from "@/tools/vuex";
+import { getPreviewDataByComponentName } from "@/views/design/components/basic/index";
 
 export default {
   namespaced: true,
@@ -91,6 +93,7 @@ export default {
       //判断是否传入list如果有就用传入的list 否则添加到root下
       insertList = insertList || this.getters["pageDesign/pageComponents"];
 
+      //添加组件之前判断页面是否创建
       if (state.pagesActiveIndex < 0) {
         return Message({
           type: "error",
@@ -98,6 +101,29 @@ export default {
           message: "请先选择页面"
         });
       }
+      //有些组件一个页面只能添加一个,需要进行判断
+      try {
+        let previewData = getPreviewDataByComponentName(componentData.__type__),
+          {
+            componentOptions: { limit }
+          } = previewData;
+        if (
+          limit &&
+          getComponentCountByType({
+            type: componentData.__type__,
+            pageComponents: this.getters["pageDesign/pageComponents"]
+          }) >= limit
+        ) {
+          return Message({
+            type: "error",
+            showClose: true,
+            message: `${componentData.__name__}组件一个页面只能有一个`
+          });
+        }
+      } catch (e) {
+        //e
+      }
+
       //初始化组件数据
       componentData = generateComponentData({ componentData, inFreeVessel });
 

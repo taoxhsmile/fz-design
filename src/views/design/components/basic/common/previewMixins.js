@@ -1,6 +1,6 @@
 import { stylesConvert } from "@design/components/tools/stylesConvert";
 
-export default function({ defaultStyles }) {
+export default function({ defaultStyles = {} }) {
   return {
     props: ["data", "list", "index"],
     computed: {
