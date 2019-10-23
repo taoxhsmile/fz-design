@@ -9,6 +9,7 @@ import {
   getComponentCountByType
 } from "@/tools/vuex";
 import { getPreviewDataByComponentName } from "@/views/design/components/basic/index";
+import tabBarDefaultData from "@/views/design/components/basic/fz-tab-bar/previewData.js";
 
 export default {
   namespaced: true,
@@ -24,35 +25,7 @@ export default {
     //当前拖拽中的组件
     dragComponent: null,
     //导航
-    tabBar: {
-      __type__: "fz-tab-bar",
-      list: [
-        {
-          id: 1,
-          title: "首页",
-          img:
-            "https://staticimg.ngmm365.com/210d689137104ff10cd2c1456b9dd418-w16_h16.png",
-          activeImg:
-            "https://staticimg.ngmm365.com/b12d58b65ab440f7fa7b7dab0ec1d367-w16_h16.png"
-        },
-        {
-          id: 2,
-          title: "购物车",
-          img:
-            "https://staticimg.ngmm365.com/e456189870c9037125d9888db42f836a-w16_h16.png",
-          activeImg:
-            "https://staticimg.ngmm365.com/aec64fdc5dd9d7e364bd8d1b32a41619-w16_h16.png"
-        },
-        {
-          id: 3,
-          title: "我的",
-          img:
-            "https://staticimg.ngmm365.com/09d2c2881807c8a5f5d4a9bb169a6eb6-w16_h16.png",
-          activeImg:
-            "https://staticimg.ngmm365.com/ad3379a25a4e0c27958be518ddc31cfd-w16_h16.png"
-        }
-      ]
-    }
+    tabBar: tabBarDefaultData
   },
   getters: {
     ...generateCurrencyGetters([
@@ -181,6 +154,10 @@ export default {
         component = component[k];
       });
       Vue.set(component, _key, value);
+    },
+    //设置数组子项的值
+    setArrayItemValue(state, { item, key, value }) {
+      Vue.set(item, key, value);
     }
   },
   actions: {}

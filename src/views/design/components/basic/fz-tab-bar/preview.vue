@@ -1,9 +1,12 @@
 <template>
   <div class="fz-tab-bar">
     <ul>
-      <li v-for="item in list" :key="item.id">
-        <img :src="item.img" @mousedown.prevent />
-        <p>{{ item.title }}</p>
+      <li v-for="(item, i) in list" :key="item.id">
+        <img
+          :src="i === activeIndex ? item.selectedIconPath : item.iconPath"
+          @mousedown.prevent
+        />
+        <p :style="pStyle(i)">{{ item.text }}</p>
       </li>
     </ul>
   </div>
@@ -18,6 +21,17 @@ export default {
     }),
     list() {
       return this.tabBar.list;
+    },
+    activeIndex() {
+      return 0;
+    }
+  },
+  methods: {
+    pStyle(i) {
+      let { activeIndex, tabBar } = this;
+      return {
+        color: i === activeIndex ? tabBar.selectedColor : tabBar.color
+      };
     }
   }
 };
