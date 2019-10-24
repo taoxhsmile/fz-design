@@ -11,7 +11,9 @@
     <el-row type="flex" justify="center" align="middle">
       <el-col :span="3">背景</el-col>
       <el-col :span="9">
+        <!-- 使用透明 -->
         <el-color-picker
+          v-if="showAlpha"
           :value="_styles.backgroundColor"
           @active-change="
             val =>
@@ -21,6 +23,18 @@
               })
           "
           show-alpha
+        ></el-color-picker>
+        <!-- 不使用透明 -->
+        <el-color-picker
+          v-else
+          :value="_styles.backgroundColor"
+          @active-change="
+            val =>
+              setSelectComponentProperty({
+                key: '_styles',
+                value: { backgroundColor: val }
+              })
+          "
         ></el-color-picker>
       </el-col>
       <el-col :span="12">
@@ -32,6 +46,12 @@
 <script>
 import rMixins from "./rMixins";
 export default {
-  mixins: [rMixins]
+  mixins: [rMixins],
+  props: {
+    showAlpha: {
+      type: Boolean,
+      default: true
+    }
+  }
 };
 </script>

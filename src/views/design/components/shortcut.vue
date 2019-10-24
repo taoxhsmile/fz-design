@@ -30,7 +30,13 @@ export default {
             .find(".icon")
             .clone()
         )[0],
-        { basicPreviewData } = this;
+        { basicPreviewData } = this,
+        { componentOptions } = basicPreviewData;
+
+      //不支持拖拽创建的组件直接return；
+      if (componentOptions && componentOptions.canDragCreate === false) {
+        return;
+      }
 
       drag.call(this, {
         dragTarget,

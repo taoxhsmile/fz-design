@@ -10,7 +10,8 @@ const componentNames = [
   "fz-dividingline",
   "fz-empty",
   "fz-tab-bar",
-  "fz-advertising"
+  "fz-advertising",
+  "fz-popup-window"
 ];
 
 //将单词第一个字母大写
@@ -32,6 +33,20 @@ export default function getComponents(type) {
     }
   });
   return components;
+}
+
+export function getPreviewData() {
+  let result = {};
+  componentNames.forEach(componentName => {
+    //todo
+    try {
+      let previewData = require(`./${componentName}/previewData`);
+      result[componentName] = previewData;
+    } catch (e) {
+      //e
+    }
+  });
+  return result;
 }
 
 export function getPreviewDataByKind(kind) {

@@ -8,7 +8,8 @@ const previewTypes = Enum([
   "widgetPreview",
   "freeVesselPreview",
   "layoutVesselPreview",
-  "staticVesselPreview"
+  "staticVesselPreview",
+  "popupWindowPreview"
 ]);
 
 function getPreviewType({ $container }) {
@@ -21,6 +22,8 @@ function getPreviewType({ $container }) {
     previewType = previewTypes.layoutVesselPreview;
   } else if ($container.hasClass("fz-static-vessel-preview")) {
     previewType = previewTypes.staticVesselPreview;
+  } else if ($container.hasClass("fz-popup-window-preview")) {
+    previewType = previewTypes.popupWindowPreview;
   }
   return previewType;
 }
@@ -83,6 +86,9 @@ export let generateGetInsertContainerAndWidgetViewFn = ({
       } else if (previewType === previewTypes.freeVesselPreview) {
         //自由面板
         $widgetViews = $container.find("> .free-widget-view");
+      } else if (previewType === previewTypes.popupWindowPreview) {
+        //自由面板
+        $widgetViews = $container.find("> .widget-view");
       }
 
       //（面板||自由面板）容器是空的则直接返回当前容器

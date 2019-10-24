@@ -79,6 +79,14 @@ export default {
     this.getPage();
     //获取体验版二维码
     this.getQrcode();
+
+    this.$fetchGet("/mock/order/list")
+      .then(({ data }) => {
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   },
   methods: {
     dmcglb() {

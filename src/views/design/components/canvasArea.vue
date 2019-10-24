@@ -35,7 +35,7 @@
     <div class="canvas-footer">
       <widgetView
         :data="tabBar"
-        :canMove="false"
+        :canDrag="false"
         :canDel="false"
         style="height:100%;"
       >

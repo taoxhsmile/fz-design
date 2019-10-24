@@ -11,7 +11,7 @@
     <widgetViewBorder :data="data"></widgetViewBorder>
 
     <!-- 是否支持移动 -->
-    <template v-if="canMove">
+    <template v-if="canDrag">
       <widgetViewDrag :data="data" :list="list" :index="index"></widgetViewDrag>
     </template>
     <!-- 是否支持删除 -->
@@ -36,7 +36,7 @@ export default {
     data: Object,
     list: Array,
     index: Number,
-    canMove: {
+    canDrag: {
       type: Boolean,
       default: true
     },

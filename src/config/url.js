@@ -28,8 +28,8 @@ export let hostConfig = {
 };
 
 export function getApiUrl(url) {
-  // 如果路径已http,https开头的，则不作处理。
-  if (url && url.indexOf("http") === 0) {
+  // 如果路径已http,https开头的或者mock数据，则不作处理。
+  if (url && (url.indexOf("http") === 0 || url.indexOf("/mock/") === 0)) {
     return url;
   }
 
