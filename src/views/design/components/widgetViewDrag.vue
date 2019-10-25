@@ -7,7 +7,7 @@
   ></div>
 </template>
 <script>
-import { mapMutations, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import { drag } from "@design/components/tools/drag";
 
 export default {
@@ -18,11 +18,6 @@ export default {
     })
   },
   methods: {
-    ...mapMutations({
-      setComponentProperty: "pageDesign/setComponentProperty",
-      setSelectComponent: "pageDesign/setSelectComponent",
-      setDragComponent: "pageDesign/setDragComponent"
-    }),
     // 拖拽preview
     mousedownFn({ pageX, pageY, currentTarget }) {
       let dragTarget = currentTarget.parentNode;
@@ -37,7 +32,8 @@ export default {
         componentList: this.list,
         componentIndex: this.index,
         componentData: this.data,
-        isCreate: false
+        isCreate: false,
+        store: this.$store
       });
     }
   }

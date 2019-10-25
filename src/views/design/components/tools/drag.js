@@ -39,20 +39,28 @@ function mouseInDom({ pageX, pageY, position, dom }) {
 
 //获取Container和WidgetView
 export let generateGetInsertContainerAndWidgetViewFn = ({
-  dragTarget //拖拽对象
+  dragTarget, //拖拽对象
   // isCreate = false //是否为新建
+  store
 }) => {
   let result = null;
 
   function getInsertContainerAndWidgetView({ $container, pageX, pageY }) {
     //初始化根容器
     if ($container == null) {
-      $container = $(`.${containerClassName}`).eq(0);
+      if (store.getters["pageDesign/selectComponentIsPopupWindow"]) {
+        $container = $(
+          `.fz-popup-window-preview[data-cid=${
+            store.getters["pageDesign/selectComponent"].__id__
+          }]`
+        );
+      } else {
+        $container = $(`.${containerClassName}`).eq(0);
+      }
     }
 
     let previewType = getPreviewType({ $container }),
       position = $container.offset();
-
     //判断鼠标是否在该容器内
     if (mouseInDom({ dom: $container, pageX, pageY, position })) {
       //找到容器内部所有的子项
@@ -71,15 +79,13 @@ export let generateGetInsertContainerAndWidgetViewFn = ({
         }
       } else if (previewType === previewTypes.staticVesselPreview) {
         //面板
-        let $containers = $container.find(`.${containerClassName}`);
-        for (let i = 0; i < $containers.length; i++) {
-          result = getInsertContainerAndWidgetView({
-            $container: $containers.eq(i),
-            pageX,
-            pageY
-          });
-          if (result) return result;
-        }
+        let $containers = $container.find(`> .${containerClassName}`).eq(0);
+        result = getInsertContainerAndWidgetView({
+          $container: $containers,
+          pageX,
+          pageY
+        });
+        if (result) return result;
       } else if (previewType === previewTypes.widgetPreview) {
         //面板+root
         $widgetViews = $container.find("> .widget-view");
@@ -87,16 +93,25 @@ export let generateGetInsertContainerAndWidgetViewFn = ({
         //自由面板
         $widgetViews = $container.find("> .free-widget-view");
       } else if (previewType === previewTypes.popupWindowPreview) {
-        //自由面板
-        $widgetViews = $container.find("> .widget-view");
+        //弹窗
+        let $containers = $container
+          .find(`> .fz-popup-window-content > .${containerClassName}`)
+          .eq(0);
+        result = getInsertContainerAndWidgetView({
+          $container: $containers,
+          pageX,
+          pageY
+        });
+        if (result) return result;
       }
 
-      //（面板||自由面板）容器是空的则直接返回当前容器
+      //（面板||自由面板||弹窗）容器是空的则直接返回当前容器
       if (
         previewType === previewTypes.widgetPreview ||
         previewType === previewTypes.freeVesselPreview
       ) {
         if (
+          !$widgetViews ||
           $widgetViews.length === 0 ||
           ($widgetViews.length === 1 && $widgetViews[0] === dragTarget)
         ) {
@@ -175,13 +190,7 @@ export function getInsertTempBlock() {
   return oInsertTempBlock;
 }
 
-export function setPosition({
-  insertInfo,
-  endX,
-  endY,
-  component,
-  setComponentProperty
-}) {
+export function setPosition({ insertInfo, endX, endY, component, store }) {
   let { $container } = insertInfo,
     { left: containerLeft, top: containerTop } = $container.offset(),
     value = {
@@ -198,7 +207,7 @@ export function setPosition({
     value.height = $container.height() - 15;
   }
 
-  setComponentProperty({
+  store.commit("pageDesign/setComponentProperty", {
     component,
     key: "_styles",
     value
@@ -219,7 +228,8 @@ export function drag({
   componentList,
   componentIndex,
   componentData,
-  isCreate = false //是否创建一个组件
+  isCreate = false, //是否创建一个组件
+  store
 }) {
   let isMoving = false, //是否移动过
     insertInfo = null,
@@ -252,7 +262,11 @@ export function drag({
   let oInsertTemp = getInsertTempBlock();
   //获取getInsertContainerAndWidgetView函数
   let getInsertContainerAndWidgetView = generateGetInsertContainerAndWidgetViewFn(
-    { dragTarget, isCreate }
+    {
+      dragTarget,
+      isCreate,
+      store
+    }
   );
 
   let mousemoveFn = ({ pageX, pageY }) => {
@@ -276,7 +290,7 @@ export function drag({
             })
             .appendTo(document.body);
         } else {
-          this.setDragComponent(componentData);
+          store.commit("pageDesign/setDragComponent", componentData);
           //刚开始拖动的时候插入[放在这里]
           $(dragTarget)
             .css({
@@ -343,7 +357,7 @@ export function drag({
       if (isCreate) {
         if (insertList) {
           //存在insertList的时候才添加新的组件
-          this.addComponent({
+          store.commit("pageDesign/addComponent", {
             componentData: basicPreviewData.default,
             index:
               insertDirection === "top"
@@ -419,10 +433,10 @@ export function drag({
       component = changeDataAndReturnComponent({ inFreeVessel });
 
       //设置选中组件
-      this.setSelectComponent(component);
+      store.commit("pageDesign/setSelectComponent", component);
 
       if (!isCreate) {
-        this.setDragComponent(null);
+        store.commit("pageDesign/setDragComponent", null);
         //清空样式
         dragTarget.style = "";
       }
@@ -430,7 +444,7 @@ export function drag({
       if (inFreeVessel) {
         if (!isCreate) {
           //设置组件的inFreeVessel属性为true
-          this.setComponentProperty({
+          store.commit("pageDesign/setComponentProperty", {
             component,
             key: "inFreeVessel",
             value: true
@@ -441,7 +455,7 @@ export function drag({
           insertInfo,
           endX,
           endY,
-          setComponentProperty: this.setComponentProperty,
+          store,
           component
         });
       }

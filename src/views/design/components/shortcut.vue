@@ -16,9 +16,7 @@ export default {
   props: ["basicPreviewData"],
   methods: {
     ...mapMutations({
-      addComponent: "pageDesign/addComponent",
-      setSelectComponent: "pageDesign/setSelectComponent",
-      setComponentProperty: "pageDesign/setComponentProperty"
+      addComponent: "pageDesign/addComponent"
     }),
     //点击添加组件
     _addComponent() {
@@ -43,7 +41,8 @@ export default {
         dragTargetWidth: 82,
         dragTargetHeight: 52,
         basicPreviewData,
-        isCreate: true
+        isCreate: true,
+        store: this.$store
       });
     }
   }

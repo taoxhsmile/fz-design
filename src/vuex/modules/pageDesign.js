@@ -43,13 +43,18 @@ export default {
     //当前页面组件
     pageComponents(state, getters) {
       return (getters.pageData && getters.pageData.components) || [];
+    },
+    //弹窗
+    selectComponentIsPopupWindow({ selectComponent }) {
+      return selectComponent && selectComponent.__type__ === "fz-popup-window";
     }
   },
   mutations: {
     ...generateCurrencyMutations([
       "hoverComponent",
       "selectComponent",
-      "dragComponent"
+      "dragComponent",
+      "activePopupWindowId"
     ]),
     //新增页面
     addPage(state) {

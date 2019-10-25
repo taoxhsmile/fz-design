@@ -4,15 +4,23 @@
       class="fz-popup-window-mask"
       :style="{ background: customFeature.maskBackgroundColor }"
     ></div>
-    <div class="fz-popup-window-content widget-view" :style="[styles]"></div>
+    <div class="fz-popup-window-content" :style="[styles]">
+      <widgetComponentContainer
+        :childrens="data._slots"
+      ></widgetComponentContainer>
+    </div>
   </div>
 </template>
 <script>
 import previewMixins from "@design/components/basic/common/previewMixins";
 import { defaultStyles } from "./previewData";
+import widgetComponentContainer from "@design/components/widgetComponentContainer";
 export default {
   name: "fz-popup-window-preview",
   mixins: [previewMixins({ defaultStyles })],
+  components: {
+    widgetComponentContainer
+  },
   computed: {
     customFeature() {
       return this.data.customFeature;
