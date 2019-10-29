@@ -15,9 +15,11 @@ module.exports = {
     }
   },
   devServer: {
+    port: 9001,
     proxy: {
       "/api": {
-        target: "http://localhost:3000",
+        target: "http://localhost:9001",
+        changeOrigin: true,
         bypass: function(req, res) {
           if (req.headers.accept.indexOf("html") !== -1) {
             console.log("Skipping proxy for browser request.");

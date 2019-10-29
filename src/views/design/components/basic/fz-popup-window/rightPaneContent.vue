@@ -3,8 +3,8 @@
     <el-collapse-item title="弹窗名称" name="1">
       <div class="rightpane__content-wrap">
         <el-row type="flex" justify="center" align="middle">
-          <el-col :span="3">弹窗名称</el-col>
-          <el-col :span="9">
+          <el-col :span="5">弹窗名称</el-col>
+          <el-col :span="16">
             <el-input
               resize="none"
               placeholder="请输入弹窗名称"
@@ -19,15 +19,15 @@
             >
             </el-input>
           </el-col>
-          <el-col :span="12"></el-col>
+          <el-col :span="3"></el-col>
         </el-row>
       </div>
     </el-collapse-item>
     <el-collapse-item title="触发设置" name="2">
       <div class="rightpane__content-wrap">
         <el-row type="flex" justify="center" align="middle">
-          <el-col :span="3">触发时机</el-col>
-          <el-col :span="9">
+          <el-col :span="5">触发时机</el-col>
+          <el-col :span="19">
             <el-select
               :value="customFeature.autoOpenOption"
               @input="
@@ -48,22 +48,21 @@
               </el-option>
             </el-select>
           </el-col>
-          <el-col :span="12"></el-col>
         </el-row>
       </div>
     </el-collapse-item>
     <el-collapse-item title="关闭设置" name="3">
       <div class="rightpane__content-wrap">
         <el-row type="flex" justify="center" align="middle">
-          <el-col :span="3">自动关闭</el-col>
-          <el-col :span="9">
+          <el-col :span="5">自动关闭</el-col>
+          <el-col :span="5">
             <el-switch
               v-model="customFeature.autoClose"
               :active-value="0"
               :inactive-value="1"
             ></el-switch>
           </el-col>
-          <el-col :span="3">
+          <el-col :span="8">
             <el-input-number
               style="width:88px;"
               controls-position="right"
@@ -78,7 +77,7 @@
               "
             ></el-input-number>
           </el-col>
-          <el-col :span="9">秒后关闭</el-col>
+          <el-col :span="6">秒后关闭</el-col>
         </el-row>
       </div>
     </el-collapse-item>

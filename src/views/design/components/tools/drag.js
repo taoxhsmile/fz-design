@@ -9,7 +9,8 @@ const previewTypes = Enum([
   "freeVesselPreview",
   "layoutVesselPreview",
   "staticVesselPreview",
-  "popupWindowPreview"
+  "popupWindowPreview",
+  "listVesselPreview"
 ]);
 
 function getPreviewType({ $container }) {
@@ -24,6 +25,8 @@ function getPreviewType({ $container }) {
     previewType = previewTypes.staticVesselPreview;
   } else if ($container.hasClass("fz-popup-window-preview")) {
     previewType = previewTypes.popupWindowPreview;
+  } else if ($container.hasClass("fz-list-vessel-preview")) {
+    previewType = previewTypes.listVesselPreview;
   }
   return previewType;
 }
@@ -51,7 +54,7 @@ export let generateGetInsertContainerAndWidgetViewFn = ({
       if (store.getters["pageDesign/selectComponentIsPopupWindow"]) {
         $container = $(
           `.fz-popup-window-preview[data-cid=${
-            store.getters["pageDesign/selectComponent"].__id__
+            store.getters["pageDesign/activePopupWindow"].__id__
           }]`
         );
       } else {
@@ -103,12 +106,24 @@ export let generateGetInsertContainerAndWidgetViewFn = ({
           pageY
         });
         if (result) return result;
+      } else if (previewType === previewTypes.listVesselPreview) {
+        //重复面板
+        let $containers = $container
+          .find(`> .fz-list-vessel-item > .${containerClassName}`)
+          .eq(0);
+        result = getInsertContainerAndWidgetView({
+          $container: $containers,
+          pageX,
+          pageY
+        });
+        if (result) return result;
       }
 
-      //（面板||自由面板||弹窗）容器是空的则直接返回当前容器
+      //（面板||自由面板||重复面板）容器是空的则直接返回当前容器
       if (
         previewType === previewTypes.widgetPreview ||
-        previewType === previewTypes.freeVesselPreview
+        previewType === previewTypes.freeVesselPreview ||
+        previewType === previewTypes.listVesselPreview
       ) {
         if (
           !$widgetViews ||
@@ -168,7 +183,8 @@ export let generateGetInsertContainerAndWidgetViewFn = ({
 
       if (
         previewType === previewTypes.widgetPreview ||
-        previewType === previewTypes.freeVesselPreview
+        previewType === previewTypes.freeVesselPreview ||
+        previewType === previewTypes.listVesselPreview
       ) {
         return { $container };
       }
@@ -235,21 +251,25 @@ export function drag({
     insertInfo = null,
     oldLeft,
     oldTop, //拖拽物体的初始位置
-    zoomAreaLeft,
-    zoomAreaTop, //获取transform元素的left、top计算position:fixed 的left、top
+    transformParentLeft,
+    transformParentTop, //获取transform元素的left、top计算position:fixed 的left、top
     layerX,
     layerY; //鼠标距离拖拽物体左上角的位置
 
   //初始化拖拽参数
   if (!isCreate) {
     let dragTargetOffset = $(dragTarget).offset(),
-      zoomAreaOffset = $(".zoom-area").offset();
+      oFzPopupWindowContent = $(dragTarget).parents(".fz-popup-window-content"), //判断拖拽的元素是否在popupWindow组件中处理position:fixed会相对transform元素定位问题
+      transformParentOffset =
+        oFzPopupWindowContent.length > 0
+          ? oFzPopupWindowContent.offset()
+          : $(".zoom-area").offset();
 
     oldLeft = dragTargetOffset.left;
     oldTop = dragTargetOffset.top;
 
-    zoomAreaLeft = zoomAreaOffset.left;
-    zoomAreaTop = zoomAreaOffset.top;
+    transformParentLeft = transformParentOffset.left;
+    transformParentTop = transformParentOffset.top;
 
     dragTargetWidth = $(dragTarget).width();
     dragTargetHeight = $(dragTarget).height();
@@ -309,8 +329,8 @@ export function drag({
         nLeft = pageX - dragTargetWidth / 2;
         nTop = pageY - dragTargetHeight / 1.5;
       } else {
-        nLeft = pageX - zoomAreaLeft - layerX;
-        nTop = pageY - zoomAreaTop - layerY;
+        nLeft = pageX - transformParentLeft - layerX;
+        nTop = pageY - transformParentTop - layerY;
       }
 
       //设置拖拽物体的位置
@@ -433,7 +453,9 @@ export function drag({
       component = changeDataAndReturnComponent({ inFreeVessel });
 
       //设置选中组件
-      store.commit("pageDesign/setSelectComponent", component);
+      if (component) {
+        store.commit("pageDesign/setSelectComponent", component);
+      }
 
       if (!isCreate) {
         store.commit("pageDesign/setDragComponent", null);

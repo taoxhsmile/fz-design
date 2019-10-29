@@ -25,7 +25,9 @@ export default {
     //当前拖拽中的组件
     dragComponent: null,
     //导航
-    tabBar: tabBarDefaultData
+    tabBar: tabBarDefaultData,
+    //当前选中的弹窗组件
+    activePopupWindow: null
   },
   getters: {
     ...generateCurrencyGetters([
@@ -34,7 +36,8 @@ export default {
       "hoverComponent",
       "selectComponent",
       "dragComponent",
-      "tabBar"
+      "tabBar",
+      "activePopupWindow"
     ]),
     //当前页面数据
     pageData({ pages, pagesActiveIndex }) {
@@ -45,17 +48,12 @@ export default {
       return (getters.pageData && getters.pageData.components) || [];
     },
     //弹窗
-    selectComponentIsPopupWindow({ selectComponent }) {
-      return selectComponent && selectComponent.__type__ === "fz-popup-window";
+    selectComponentIsPopupWindow({ activePopupWindow }) {
+      return !!activePopupWindow;
     }
   },
   mutations: {
-    ...generateCurrencyMutations([
-      "hoverComponent",
-      "selectComponent",
-      "dragComponent",
-      "activePopupWindowId"
-    ]),
+    ...generateCurrencyMutations(["hoverComponent", "dragComponent"]),
     //新增页面
     addPage(state) {
       state.pages.push(generatePageData(state));
@@ -163,6 +161,22 @@ export default {
     //设置数组子项的值
     setArrayItemValue(state, { item, key, value }) {
       Vue.set(item, key, value);
+    },
+    setSelectComponent(state, selectComponent) {
+      state.selectComponent = selectComponent;
+      //弹窗组件
+      if (selectComponent && selectComponent.__type__ === "fz-popup-window") {
+        if (
+          state.activePopupWindow &&
+          state.activePopupWindow === selectComponent
+        ) {
+          state.activePopupWindow = null;
+        } else {
+          state.activePopupWindow = selectComponent;
+        }
+      } else {
+        state.activePopupWindow = null;
+      }
     }
   },
   actions: {}
