@@ -1,13 +1,19 @@
 <template>
   <div>
-    <bindEventDialog />
+    <bindDataSourceDialog v-if="bindDataSourceDialogVisible" />
   </div>
 </template>
 <script>
-import bindEventDialog from "./bindEventDialog.vue";
+import { mapGetters } from "vuex";
+import bindDataSourceDialog from "./bindDataSourceDialog.vue";
 export default {
   components: {
-    bindEventDialog
+    bindDataSourceDialog
+  },
+  computed: {
+    ...mapGetters({
+      bindDataSourceDialogVisible: "componentBindDataSourceDialog/dialogVisible"
+    })
   }
 };
 </script>

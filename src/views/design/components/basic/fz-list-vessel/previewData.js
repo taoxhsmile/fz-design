@@ -12,7 +12,7 @@ export default {
     pageSize: 10, //每次加载条数
     columnHeight: 100, //列表高度
     totalSize: 4, //总条数
-    dataInfo: {}
+    dataInfo: null
   },
   _slots: []
 };

@@ -45,8 +45,8 @@
           <div slot="header">
             入参
           </div>
-          <div v-for="(value, key) in activeApi.input" :key="key">
-            {{ key }}【{{ value.name }}】
+          <div v-for="(item, i) in activeApi.input" :key="i">
+            {{ item.field }}【{{ item.name }}】
             <el-button type="primary" @click="showSelectComponentDialog">
               选择组件
             </el-button>
@@ -56,14 +56,16 @@
           <div slot="header">
             出参
           </div>
-          <div v-for="(value, key) in activeApi.output" :key="key">
-            {{ key }}【{{ value.name }}】
+          <div v-for="(item, i) in activeApi.output" :key="i">
+            {{ item.field }}【{{ item.name }}】
             <el-button type="primary">选择组件</el-button>
           </div>
         </el-card>
       </div>
     </template>
     <el-row v-if="dataType === 2"> </el-row>
+
+    <el-button type="primary" @click="confirmBindDataSource">确定</el-button>
   </el-dialog>
 </template>
 <script>
@@ -77,8 +79,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      dialogVisible: "componentBindEventDialog/dialogVisible",
-      dataType: "componentBindEventDialog/dataType"
+      dialogVisible: "componentBindDataSourceDialog/dialogVisible",
+      dataType: "componentBindDataSourceDialog/dataType"
     }),
     activeApi() {
       let { activeApiIndex, apiList } = this;
@@ -90,14 +92,47 @@ export default {
   },
   methods: {
     ...mapMutations({
-      setDataType: "componentBindEventDialog/setDataType"
+      setDataType: "componentBindDataSourceDialog/setDataType",
+      setDialogVisible: "componentBindDataSourceDialog/setDialogVisible",
+      setSelectComponentProperty: "pageDesign/setSelectComponentProperty"
     }),
     loadApiList() {
       this.$fetchGet("/mock/api/list").then(({ data }) => {
         this.apiList = data;
       });
     },
-    showSelectComponentDialog() {}
+    showSelectComponentDialog() {},
+    check() {
+      let { activeApi } = this;
+      if (!activeApi) {
+        return "请选择api";
+      }
+    },
+    confirmBindDataSource() {
+      let desc = "";
+      if ((desc = this.check())) {
+        return this.$message({
+          message: desc,
+          type: "error"
+        });
+      }
+
+      let { dataType, activeApi } = this;
+
+      let result = {
+        name: activeApi.name,
+        dataType,
+        api: activeApi.url,
+        input: activeApi.input,
+        output: activeApi.output
+      };
+
+      this.setSelectComponentProperty({
+        key: "customFeature.dataInfo",
+        value: result
+      });
+      this.setDialogVisible(false);
+    }
   }
 };
 </script>
