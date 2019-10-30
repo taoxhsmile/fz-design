@@ -15,28 +15,11 @@ export default {
     },
     column: 3
   },
-  images: [
-    {
-      _t: Date.now(),
-      src:
-        "https://staticimg.ngmm365.com/50d98b4973954fafaa9e6f05b255fdae-w900_h380.jpg"
-    },
-    {
-      _t: Date.now() + 1,
-      src:
-        "https://staticimg.ngmm365.com/50d98b4973954fafaa9e6f05b255fdae-w900_h380.jpg"
-    },
-    {
-      _t: Date.now() + 2,
-      src:
-        "https://staticimg.ngmm365.com/50d98b4973954fafaa9e6f05b255fdae-w900_h380.jpg"
-    },
-    {
-      _t: Date.now() + 3,
-      src:
-        "https://staticimg.ngmm365.com/50d98b4973954fafaa9e6f05b255fdae-w900_h380.jpg"
-    }
-  ]
+  image: {
+    src:
+      "https://staticimg.ngmm365.com/238fd2911a54e949ad0201507c47c60f-w900_h380.jpg?x-oss-process=image/resize,w_750/format,jpg/interlace,1/quality,Q_60/sharpen,90",
+    link: ""
+  }
 };
 
 //组件基本信息

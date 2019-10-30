@@ -11,7 +11,8 @@ export default {
     heightType: 1, //高度类型
     pageSize: 10, //每次加载条数
     columnHeight: 100, //列表高度
-    totalSize: 4 //总条数
+    totalSize: 4, //总条数
+    dataInfo: {}
   },
   _slots: []
 };

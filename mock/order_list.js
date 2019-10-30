@@ -1,4 +1,4 @@
-function test(method) {
+module.exports = function(method) {
   let res = null;
   switch (method) {
     case "GET":
@@ -11,6 +11,4 @@ function test(method) {
       res = null;
   }
   return res;
-}
-
-module.exports = test;
+};

@@ -1,7 +1,18 @@
 <template>
   <div class="fz-picture-preview" :style="styles">
     <template v-if="hasImage">
-      <img :src="image.src" @mousedown.prevent />
+      <div class="row" v-for="(r, i) in row" :key="i">
+        <div class="col" v-for="(c, j) in getCol(r)" :key="i * r + j">
+          <img :src="getImageData(i, j)" @mousedown.prevent />
+        </div>
+        <template v-if="r === row">
+          <div
+            class="col"
+            v-for="(c, j) in blockLength"
+            :key="data.images.length + j"
+          ></div>
+        </template>
+      </div>
     </template>
     <!-- 没有上传图片 -->
     <template v-else>
@@ -30,12 +41,39 @@ export default {
   name: "fz-picture-preview",
   mixins: [previewMixins({ defaultStyles })],
   computed: {
-    image() {
-      return this.data.image;
+    images() {
+      return this.data.images;
     },
     hasImage() {
-      let { image } = this;
-      return image && image.src;
+      return this.images && this.images.length;
+    },
+    imagesLength() {
+      return this.images.length;
+    },
+    column() {
+      return this.data.customFeature.column;
+    },
+    row() {
+      let { column, imagesLength } = this;
+      return Math.ceil(imagesLength / column);
+    },
+    blockLength() {
+      let { column, imagesLength, row } = this;
+      return row * column - imagesLength;
+    }
+  },
+  methods: {
+    getCol(r) {
+      let { row, column, imagesLength } = this;
+      if (r < row) {
+        return column;
+      } else {
+        return column - (row * column - imagesLength);
+      }
+    },
+    getImageData(i, j) {
+      let { images, column } = this;
+      return images[i * column + j].src;
     }
   }
 };
@@ -58,6 +96,12 @@ export default {
     width: 100%;
     height: 100%;
     border-radius: inherit;
+  }
+  .row {
+    display: flex;
+    .col {
+      flex: 1;
+    }
   }
 }
 </style>

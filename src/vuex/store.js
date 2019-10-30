@@ -5,6 +5,8 @@ import componentLeftToolbarFunctionalList from "./modules/componentLeftToolbarFu
 import componentColorPanel from "./modules/componentColorPanel.js";
 import componentColorPicker from "./modules/componentColorPicker.js";
 import componentArtBoard from "./modules/componentArtBoard.js";
+import componentBindEventDialog from "./modules/componentBindEventDialog.js";
+import componentSelectComponentDialog from "./modules/componentSelectComponentDialog.js";
 
 Vue.use(Vuex);
 
@@ -19,6 +21,8 @@ export default new Vuex.Store({
     componentLeftToolbarFunctionalList,
     componentColorPanel,
     componentColorPicker,
-    componentArtBoard
+    componentArtBoard,
+    componentBindEventDialog,
+    componentSelectComponentDialog
   }
 });

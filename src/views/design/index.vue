@@ -12,6 +12,8 @@
       </div>
       <!-- 浮动弹窗容器 -->
       <fixedArea />
+      <!-- 弹窗 -->
+      <dialogs />
     </div>
   </section>
 </template>
@@ -20,13 +22,15 @@ import leftToolbar from "./components/leftToolbar.vue";
 import topToolbar from "./components/topToolbar.vue";
 import mainContent from "./components/mainContent.vue";
 import fixedArea from "./components/fixedArea.vue";
+import dialogs from "./components/dialogs.vue";
 export default {
   name: "design-index",
   components: {
     leftToolbar,
     topToolbar,
     mainContent,
-    fixedArea
+    fixedArea,
+    dialogs
   }
 };
 </script>
