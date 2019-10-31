@@ -10,7 +10,8 @@ const previewTypes = Enum([
   "layoutVesselPreview",
   "staticVesselPreview",
   "popupWindowPreview",
-  "listVesselPreview"
+  "listVesselPreview",
+  "formVesselPreview"
 ]);
 
 function getPreviewType({ $container }) {
@@ -27,6 +28,8 @@ function getPreviewType({ $container }) {
     previewType = previewTypes.popupWindowPreview;
   } else if ($container.hasClass("fz-list-vessel-preview")) {
     previewType = previewTypes.listVesselPreview;
+  } else if ($container.hasClass("fz-form-vessel-preview")) {
+    previewType = previewTypes.formVesselPreview;
   }
   return previewType;
 }
@@ -68,7 +71,6 @@ export let generateGetInsertContainerAndWidgetViewFn = ({
     if (mouseInDom({ dom: $container, pageX, pageY, position })) {
       //找到容器内部所有的子项
       let $widgetViews = null;
-
       if (previewType === previewTypes.layoutVesselPreview) {
         //双栏
         let $containers = $container.find(`.cell > .${containerClassName}`);
@@ -117,13 +119,23 @@ export let generateGetInsertContainerAndWidgetViewFn = ({
           pageY
         });
         if (result) return result;
+      } else if (previewType === previewTypes.formVesselPreview) {
+        //表单
+        let $containers = $container
+          .find(`> .fz-form-vessel-content > .${containerClassName}`)
+          .eq(0);
+        result = getInsertContainerAndWidgetView({
+          $container: $containers,
+          pageX,
+          pageY
+        });
+        if (result) return result;
       }
 
-      //（面板||自由面板||重复面板）容器是空的则直接返回当前容器
+      //（面板||自由面板）容器是空的则直接返回当前容器
       if (
         previewType === previewTypes.widgetPreview ||
-        previewType === previewTypes.freeVesselPreview ||
-        previewType === previewTypes.listVesselPreview
+        previewType === previewTypes.freeVesselPreview
       ) {
         if (
           !$widgetViews ||
@@ -183,8 +195,7 @@ export let generateGetInsertContainerAndWidgetViewFn = ({
 
       if (
         previewType === previewTypes.widgetPreview ||
-        previewType === previewTypes.freeVesselPreview ||
-        previewType === previewTypes.listVesselPreview
+        previewType === previewTypes.freeVesselPreview
       ) {
         return { $container };
       }

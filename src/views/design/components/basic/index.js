@@ -12,7 +12,8 @@ const componentNames = [
   "fz-empty",
   "fz-tab-bar",
   "fz-advertising",
-  "fz-popup-window"
+  "fz-popup-window",
+  "fz-form-vessel"
 ];
 
 //将单词第一个字母大写
