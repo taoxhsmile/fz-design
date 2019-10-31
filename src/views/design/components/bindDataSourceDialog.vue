@@ -123,8 +123,7 @@ export default {
         name: activeApi.name,
         dataType,
         api: activeApi.url,
-        input: activeApi.input,
-        output: activeApi.output
+        id: activeApi.id
       };
 
       this.setSelectComponentProperty({

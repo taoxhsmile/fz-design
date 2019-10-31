@@ -1,4 +1,4 @@
-module.exports = function(method) {
+module.exports = function({ method }) {
   let res = null;
   switch (method) {
     case "GET":

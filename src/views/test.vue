@@ -80,7 +80,7 @@ export default {
     //获取体验版二维码
     this.getQrcode();
 
-    this.$fetchGet("/mock/order/list")
+    this.$fetchGet("/mock/api/detail", { id: "10001" })
       .then(({ data }) => {
         console.log(data);
       })

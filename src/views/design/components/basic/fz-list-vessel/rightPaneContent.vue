@@ -231,7 +231,7 @@
               placeholder="请选择相应字段"
             >
               <el-option
-                v-for="item in output"
+                v-for="item in apiOutputFields"
                 :key="item.field"
                 :label="item.name"
                 :value="item.field"
@@ -258,20 +258,16 @@ export default {
         { label: "自定义高度", value: 1 },
         { label: "自适应高度", value: 2 },
         { label: "自定义条数", value: 3 }
-      ]
+      ],
+      apiOutputFields: []
     };
   },
   computed: {
     customFeature() {
       return this.rightPane.customFeature;
     },
-    output() {
-      let {
-        customFeature: {
-          dataInfo: { output }
-        }
-      } = this;
-      return output;
+    dataInfo() {
+      return this.customFeature.dataInfo;
     },
     components() {
       let {
@@ -311,6 +307,30 @@ export default {
       setDialogVisible: "componentBindDataSourceDialog/setDialogVisible",
       setComponentProperty: "pageDesign/setComponentProperty"
     })
+  },
+  watch: {
+    ["dataInfo.id"]: {
+      immediate: true,
+      handler(val, oldVal) {
+        if (!val) return;
+        //如果更换了api需要清空所有子元素已选择的字段
+        if (val !== oldVal) {
+          this.components.forEach(component => {
+            this.setComponentProperty({
+              component,
+              key: "customFeature",
+              value: { segment: "" }
+            });
+          });
+        }
+        //调用接口获取api最新的输出字段
+        this.$fetchGet("/mock/api/detail", { id: this.dataInfo.id }).then(
+          ({ data }) => {
+            this.apiOutputFields = data.output;
+          }
+        );
+      }
+    }
   }
 };
 </script>
