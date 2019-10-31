@@ -1,6 +1,29 @@
 <template>
-  <el-collapse :value="['1', '2']">
-    <el-collapse-item title="数据绑定" name="1">
+  <el-collapse :value="['1', '2', '3']">
+    <el-collapse-item title="表单控件" name="1">
+      <div class="rightpane__content-wrap">
+        <ul class="form-ele-list">
+          <li
+            class="item"
+            v-for="(formElePreviewData, i) in formElePreviewDatas"
+            :key="i"
+          >
+            <shortcut
+              :basicPreviewData="formElePreviewData"
+              :insertList="selectComponent._slots"
+            >
+              <div class="content">
+                <fz-icon
+                  :name="formElePreviewData.componentInfo.icon"
+                ></fz-icon>
+                <p>{{ formElePreviewData.componentInfo.name }}</p>
+              </div>
+            </shortcut>
+          </li>
+        </ul>
+      </div>
+    </el-collapse-item>
+    <el-collapse-item title="数据绑定" name="2">
       <div class="rightpane__content-wrap">
         <div v-if="customFeature.dataInfo">
           {{ customFeature.dataInfo.name }}{{ customFeature.dataInfo.api }}
@@ -13,7 +36,7 @@
       </div>
     </el-collapse-item>
 
-    <el-collapse-item v-if="customFeature.dataInfo" title="子元素" name="2">
+    <el-collapse-item v-if="customFeature.dataInfo" title="子元素" name="3">
       <div class="rightpane__content-wrap">
         <el-row
           type="flex"
@@ -53,12 +76,18 @@
 </template>
 <script>
 import { mapMutations } from "vuex";
+import { getPreviewDataByKind } from "@design/components/basic/index.js";
+import shortcut from "@design/components/shortcut";
 
 export default {
   inject: ["rightPane"],
+  components: {
+    shortcut
+  },
   data() {
     return {
-      apiOutputFields: []
+      apiOutputFields: [],
+      formElePreviewDatas: getPreviewDataByKind("form-ele")
     };
   },
   computed: {
@@ -81,11 +110,7 @@ export default {
 
       (function getComponents(components) {
         components.forEach(component => {
-          if (
-            component.__type__ === "fz-text" ||
-            component.__type__ === "fz-picture" ||
-            component.__type__ === "fz-button"
-          ) {
+          if (component.__type__ === "fz-form-input") {
             result.push(component);
           } else if (
             component.__type__ === "fz-free-vessel" ||
@@ -135,3 +160,29 @@ export default {
   }
 };
 </script>
+<style lang="less" scoped>
+.form-ele-list {
+  display: flex;
+  flex-wrap: wrap;
+  li {
+    &.item {
+      width: 33.33%;
+      height: 100px;
+      text-align: center;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      i {
+        font-size: 22px;
+        color: #303133;
+      }
+      p {
+        margin-top: 8px;
+        color: #909399;
+      }
+    }
+  }
+}
+</style>

@@ -1,7 +1,7 @@
 <template>
   <div class="rightPane-item">
     <el-tabs v-model="activeName">
-      <el-tab-pane label="表单设置" name="content">
+      <el-tab-pane label="组件设置" name="content">
         <rightPaneContent />
       </el-tab-pane>
 
@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      activeName: "content"
+      activeName: "container"
     };
   }
 };

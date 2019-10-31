@@ -13,14 +13,23 @@ import $ from "jquery";
 import { drag } from "@design/components/tools/drag";
 
 export default {
-  props: ["basicPreviewData"],
+  props: {
+    basicPreviewData: null,
+    insertList: {
+      type: Array,
+      default: null
+    }
+  },
   methods: {
     ...mapMutations({
       addComponent: "pageDesign/addComponent"
     }),
     //点击添加组件
     _addComponent() {
-      this.addComponent({ componentData: this.basicPreviewData.default });
+      this.addComponent({
+        componentData: this.basicPreviewData.default,
+        insertList: this.insertList
+      });
     },
     mousedownFn({ currentTarget }) {
       let dragTarget = $("<div></div>").append(

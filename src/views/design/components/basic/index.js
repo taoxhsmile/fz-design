@@ -1,19 +1,20 @@
 const componentNames = [
-  "fz-text",
-  "fz-picture",
-  "fz-button",
+  ...["fz-text", "fz-picture", "fz-button"],
   "fz-video",
   "fz-carousel",
-  "fz-free-vessel",
-  "fz-layout-vessel",
-  "fz-static-vessel",
-  "fz-list-vessel",
   "fz-dividingline",
   "fz-empty",
   "fz-tab-bar",
   "fz-advertising",
   "fz-popup-window",
-  "fz-form-vessel"
+  ...[
+    "fz-form-vessel",
+    "fz-free-vessel",
+    "fz-layout-vessel",
+    "fz-static-vessel",
+    "fz-list-vessel"
+  ],
+  ...["fz-form-input", "fz-form-button"]
 ];
 
 //将单词第一个字母大写
