@@ -35,6 +35,17 @@ module.exports = function() {
           { field: "price", name: "价格", type: "number" },
           { field: "desc", name: "商品描述", type: "number" }
         ]
+      },
+      {
+        id: "10003",
+        name: "商品分类接口",
+        url: "https://tradeapi.ngmm365.com/goods/types",
+        input: [],
+        desc: "根据商品类型查询商品列表",
+        output: [
+          { field: "id", name: "类型id", type: "number" },
+          { field: "name", name: "类型名称", type: "string" }
+        ]
       }
     ],
     resultCode: 200,

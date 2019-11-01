@@ -7,7 +7,10 @@ export default {
   _styles: {},
   customFeature: {
     defaultColor: "#dddddd",
-    activeColor: "#3091F2"
+    activeColor: "#3091F2",
+    dataInfo: null,
+    frontUsefield: null,
+    apiUseField: null
   }
 };
 

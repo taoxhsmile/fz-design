@@ -24,7 +24,7 @@ export default {
   },
   data() {
     return {
-      activeName: "container"
+      activeName: "content"
     };
   }
 };

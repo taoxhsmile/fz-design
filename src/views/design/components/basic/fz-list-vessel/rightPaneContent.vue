@@ -1,5 +1,5 @@
 <template>
-  <el-collapse :value="['1', '2', '3', '4', '5']">
+  <el-collapse :value="['1', '2', '3', '4', '5', '6']">
     <el-collapse-item title="组件设置" name="5">
       <div class="rightpane__content-wrap">
         <el-row type="flex" justify="center" align="middle">
@@ -207,9 +207,7 @@
 
     <el-collapse-item title="数据绑定" name="3">
       <div class="rightpane__content-wrap">
-        <div v-if="customFeature.dataInfo">
-          {{ customFeature.dataInfo.name }}{{ customFeature.dataInfo.api }}
-        </div>
+        <div v-if="dataInfo">{{ dataInfo.name }}{{ dataInfo.api }}</div>
         <el-row type="flex" justify="center" align="middle">
           <el-button type="primary" @click="() => setDialogVisible(true)">
             绑定数据源
@@ -218,7 +216,7 @@
       </div>
     </el-collapse-item>
 
-    <el-collapse-item v-if="customFeature.dataInfo" title="子元素" name="4">
+    <el-collapse-item v-if="dataInfo" title="子元素" name="4">
       <div class="rightpane__content-wrap">
         <el-row
           type="flex"
@@ -254,6 +252,51 @@
         </el-row>
       </div>
     </el-collapse-item>
+
+    <el-collapse-item v-if="dataInfo" title="输入字段" name="6">
+      <div class="rightpane__content-wrap">
+        <el-row
+          type="flex"
+          justify="center"
+          align="middle"
+          v-for="item in apiInputFields"
+          :key="item.field"
+        >
+          <el-col :span="5">
+            <el-tooltip
+              class="item"
+              effect="dark"
+              :content="item.name"
+              placement="top"
+            >
+              <div>{{ item.field }}</div>
+            </el-tooltip>
+          </el-col>
+          <el-col :span="19">
+            <el-select
+              clearable
+              :value="dataInfo[`input_${item.field}`]"
+              @change="
+                val =>
+                  setSelectComponentProperty({
+                    key: 'customFeature.dataInfo',
+                    value: { [`input_${item.field}`]: val }
+                  })
+              "
+              placeholder="系统默认"
+            >
+              <el-option
+                v-for="item in inputFieldDataSourceOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+          </el-col>
+        </el-row>
+      </div>
+    </el-collapse-item>
   </el-collapse>
 </template>
 <script>
@@ -272,6 +315,8 @@ export default {
         { label: "自适应高度", value: 2 },
         { label: "自定义条数", value: 3 }
       ],
+      inputFieldDataSourceOptions: [{ label: "使用分类组件输出", value: 1 }],
+      apiInputFields: [],
       apiOutputFields: []
     };
   },
@@ -353,6 +398,7 @@ export default {
         //调用接口获取api最新的输出字段
         this.$fetchGet("/mock/api/detail", { id: this.dataInfo.id }).then(
           ({ data }) => {
+            this.apiInputFields = data.input;
             this.apiOutputFields = data.output;
           }
         );

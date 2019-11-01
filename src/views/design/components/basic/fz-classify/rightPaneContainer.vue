@@ -48,6 +48,7 @@
 import rSize from "../common/rSize";
 import rMargin from "../common/rMargin";
 import rBackground from "../common/rBackground";
+import { mapMutations } from "vuex";
 export default {
   inject: ["rightPane"],
   components: {
@@ -62,6 +63,11 @@ export default {
     customFeature() {
       return this.selectComponent.customFeature;
     }
+  },
+  methods: {
+    ...mapMutations({
+      setSelectComponentProperty: "pageDesign/setSelectComponentProperty"
+    })
   }
 };
 </script>
