@@ -1,3 +1,5 @@
+import { getPreviewDataByComponentName } from "@/views/design/components/basic/index";
+
 // 获取随机数不带小数点
 export function getRandomId() {
   return (Math.random() + "").replace(/\./, "");
@@ -37,7 +39,13 @@ export function generatePageData(state) {
 }
 
 //生成新的componentData
-export function generateComponentData({ componentData, inFreeVessel }) {
+export function generateComponentData({
+  __type__,
+  componentData,
+  inFreeVessel
+}) {
+  componentData =
+    componentData || getPreviewDataByComponentName(__type__).default;
   //深拷贝一份
   componentData = JSON.parse(JSON.stringify(componentData));
   componentData.__id__ = "component_" + getRandomId();

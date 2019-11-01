@@ -1,5 +1,17 @@
 <template>
-  <el-collapse :value="['1', '2', '3', '4']">
+  <el-collapse :value="['1', '2', '3', '4', '5']">
+    <el-collapse-item title="组件设置" name="5">
+      <div class="rightpane__content-wrap">
+        <el-row type="flex" justify="center" align="middle">
+          <el-button
+            :type="selectComponent._classify ? 'info' : 'primary'"
+            @click="triggerClassify"
+          >
+            {{ selectComponent._classify ? "删除" : "添加" }}分类
+          </el-button>
+        </el-row>
+      </div>
+    </el-collapse-item>
     <el-collapse-item title="组件设置" name="1">
       <div class="rightpane__content-wrap">
         <el-row type="flex" justify="center" align="middle">
@@ -246,6 +258,7 @@
 </template>
 <script>
 import { mapMutations } from "vuex";
+import { generateComponentData } from "@/tools/vuex";
 export default {
   inject: ["rightPane"],
   data() {
@@ -263,6 +276,9 @@ export default {
     };
   },
   computed: {
+    selectComponent() {
+      return this.rightPane.selectComponent;
+    },
     customFeature() {
       return this.rightPane.customFeature;
     },
@@ -306,7 +322,18 @@ export default {
       setSelectComponentProperty: "pageDesign/setSelectComponentProperty",
       setDialogVisible: "componentBindDataSourceDialog/setDialogVisible",
       setComponentProperty: "pageDesign/setComponentProperty"
-    })
+    }),
+    triggerClassify() {
+      let {
+        selectComponent: { _classify }
+      } = this;
+      this.setSelectComponentProperty({
+        key: "_classify",
+        value: _classify
+          ? null
+          : generateComponentData({ __type__: "fz-classify" })
+      });
+    }
   },
   watch: {
     ["dataInfo.id"]: {

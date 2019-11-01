@@ -16,7 +16,12 @@
     </template>
     <!-- 是否支持删除 -->
     <template v-if="canDel">
-      <widgetViewDel :data="data" :list="list" :index="index"></widgetViewDel>
+      <widgetViewDel
+        :data="data"
+        :list="list"
+        :index="index"
+        :delFn="delFn"
+      ></widgetViewDel>
     </template>
   </div>
 </template>
@@ -43,6 +48,10 @@ export default {
     canDel: {
       type: Boolean,
       default: true
+    },
+    delFn: {
+      type: Function,
+      default: null
     }
   },
   methods: {

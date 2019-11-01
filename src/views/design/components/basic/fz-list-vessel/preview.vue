@@ -4,19 +4,33 @@
     :style="[styles]"
     ref="fz-list-vessel-preview"
   >
-    <div class="fz-list-vessel-item" :style="[itemStyle]">
-      <widgetComponentContainer :childrens="data._slots" />
+    <div class="fz-list-vessel-header">
+      <!-- 分类 -->
+      <widgetView
+        v-if="data._classify"
+        :data="data._classify"
+        :canDrag="false"
+        :delFn="() => (data._classify = null)"
+      >
+        <fzClassifyPreview :data="data._classify" />
+      </widgetView>
     </div>
-    <div
-      v-if="showItem(1)"
-      class="fz-list-vessel-item"
-      :style="[itemStyle]"
-    ></div>
-    <div
-      v-if="showItem(2)"
-      class="fz-list-vessel-item"
-      :style="[itemStyle]"
-    ></div>
+
+    <div class="fz-list-vessel-content">
+      <div class="fz-list-vessel-item" :style="[itemStyle]">
+        <widgetComponentContainer :childrens="data._slots" />
+      </div>
+      <div
+        v-if="showItem(1)"
+        class="fz-list-vessel-item"
+        :style="[itemStyle]"
+      ></div>
+      <div
+        v-if="showItem(2)"
+        class="fz-list-vessel-item"
+        :style="[itemStyle]"
+      ></div>
+    </div>
   </div>
 </template>
 <script>
@@ -24,12 +38,16 @@ import previewMixins from "@design/components/basic/common/previewMixins";
 import { defaultStyles } from "./previewData";
 import widgetComponentContainer from "@design/components/widgetComponentContainer";
 import { stylesConvert } from "@design/components/tools/stylesConvert";
+import widgetView from "@design/components/widgetView";
+import fzClassifyPreview from "@/views/design/components/basic/fz-classify/preview";
 
 export default {
   name: "fz-list-vessel-preview",
   mixins: [previewMixins({ defaultStyles })],
   components: {
-    widgetComponentContainer
+    widgetComponentContainer,
+    widgetView,
+    fzClassifyPreview
   },
   computed: {
     customFeature() {
@@ -80,15 +98,18 @@ export default {
 </script>
 <style lang="less" scoped>
 .fz-list-vessel-preview {
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-wrap: nowrap;
-  min-height: 30px;
-  .fz-list-vessel-item {
-    border-right: 1px solid #63ccfe;
-    &:last-child {
-      border-right: none;
+  padding-top: 10px;
+  .fz-list-vessel-content {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-wrap: nowrap;
+    min-height: 30px;
+    .fz-list-vessel-item {
+      border-right: 1px solid #63ccfe;
+      &:last-child {
+        border-right: none;
+      }
     }
   }
 }

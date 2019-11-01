@@ -111,7 +111,9 @@ export let generateGetInsertContainerAndWidgetViewFn = ({
       } else if (previewType === previewTypes.listVesselPreview) {
         //重复面板
         let $containers = $container
-          .find(`> .fz-list-vessel-item > .${containerClassName}`)
+          .find(
+            `> .fz-list-vessel-content > .fz-list-vessel-item > .${containerClassName}`
+          )
           .eq(0);
         result = getInsertContainerAndWidgetView({
           $container: $containers,

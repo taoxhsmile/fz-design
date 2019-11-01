@@ -77,6 +77,10 @@ export default {
           message: "请先选择页面"
         });
       }
+      //如果没有传componentData，则直接通过__type__去查询对应组件数据
+      // componentData =
+      //   componentData || getPreviewDataByComponentName(__type__).default;
+
       //有些组件一个页面只能添加一个,需要进行判断
       try {
         let previewData = getPreviewDataByComponentName(componentData.__type__),

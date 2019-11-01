@@ -6,7 +6,7 @@
 <script>
 import { mapMutations, mapGetters } from "vuex";
 export default {
-  props: ["list", "index", "data"],
+  props: ["list", "index", "data", "delFn"],
   computed: {
     ...mapGetters({
       hoverComponent: "pageDesign/hoverComponent"
@@ -17,8 +17,12 @@ export default {
       delComponent: "pageDesign/delComponent"
     }),
     handleClick() {
-      let { list, index } = this;
-      this.delComponent({ list, index });
+      if (this.delFn) {
+        this.delFn();
+      } else {
+        let { list, index } = this;
+        this.delComponent({ list, index });
+      }
     }
   }
 };

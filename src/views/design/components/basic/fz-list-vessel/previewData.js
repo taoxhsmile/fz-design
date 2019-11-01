@@ -14,7 +14,8 @@ export default {
     totalSize: 4, //总条数
     dataInfo: null
   },
-  _slots: []
+  _slots: [],
+  _classify: null
 };
 
 //组件基本信息
