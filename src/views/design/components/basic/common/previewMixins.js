@@ -56,6 +56,9 @@ export default function({ defaultStyles = {} }) {
         return stylesConvert({
           _styles
         });
+      },
+      customFeature() {
+        return this.data.customFeature;
       }
     }
   };

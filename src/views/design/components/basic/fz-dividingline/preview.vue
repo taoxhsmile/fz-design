@@ -12,9 +12,6 @@ export default {
   name: "fz-dividingline-preview",
   mixins: [previewMixins({ defaultStyles })],
   computed: {
-    customFeature() {
-      return this.data.customFeature;
-    },
     innerContentStyle() {
       let {
         customFeature: {

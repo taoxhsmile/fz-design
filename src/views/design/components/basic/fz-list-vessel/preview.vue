@@ -50,9 +50,6 @@ export default {
     fzClassifyPreview
   },
   computed: {
-    customFeature() {
-      return this.data.customFeature;
-    },
     itemStyle() {
       let {
           customFeature: {

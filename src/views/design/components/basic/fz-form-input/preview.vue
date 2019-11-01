@@ -8,12 +8,7 @@ import previewMixins from "@design/components/basic/common/previewMixins";
 import { defaultStyles } from "./previewData";
 export default {
   name: "fz-form-input-preview",
-  mixins: [previewMixins({ defaultStyles })],
-  computed: {
-    customFeature() {
-      return this.data.customFeature;
-    }
-  }
+  mixins: [previewMixins({ defaultStyles })]
 };
 </script>
 <style lang="less" scoped>

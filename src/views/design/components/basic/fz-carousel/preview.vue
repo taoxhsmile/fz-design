@@ -27,9 +27,6 @@ export default {
     contents() {
       return this.data.contents;
     },
-    customFeature() {
-      return this.data.customFeature;
-    },
     swiperOption() {
       let {
         customFeature: { delay }

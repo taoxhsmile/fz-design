@@ -20,11 +20,6 @@ export default {
   mixins: [previewMixins({ defaultStyles })],
   components: {
     widgetComponentContainer
-  },
-  computed: {
-    customFeature() {
-      return this.data.customFeature;
-    }
   }
 };
 </script>
