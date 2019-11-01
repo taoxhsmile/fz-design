@@ -1,5 +1,5 @@
 <template>
-  <div class="fz-advertising">
+  <div class="fz-advertising-preview">
     <div class="content-wrap">
       <div class="title">小程序关联的公众号</div>
       <div class="content">
@@ -20,7 +20,7 @@
 <script>
 import { mapGetters } from "vuex";
 export default {
-  name: "fz-advertising",
+  name: "fz-advertising-preview",
   computed: {
     ...mapGetters({
       tabBar: "pageDesign/tabBar"
@@ -32,7 +32,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.fz-advertising {
+.fz-advertising-preview {
   .content-wrap {
     height: 140px;
     padding: 0 20px;
