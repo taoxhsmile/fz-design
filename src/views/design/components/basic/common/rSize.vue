@@ -80,7 +80,7 @@ export default {
       default: false
     },
     type: {
-      // 1、只要宽度
+      // 1、只要宽度 2、只要高度
       type: Number,
       default: 0
     }

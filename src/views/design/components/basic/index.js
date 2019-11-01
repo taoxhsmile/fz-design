@@ -14,7 +14,8 @@ const componentNames = [
     "fz-static-vessel",
     "fz-list-vessel"
   ],
-  ...["fz-form-input", "fz-form-textarea", "fz-form-button"]
+  ...["fz-form-input", "fz-form-textarea", "fz-form-button"],
+  ...["fz-classify"]
 ];
 
 //将单词第一个字母大写
