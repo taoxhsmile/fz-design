@@ -27,6 +27,7 @@ echo "Release as $release"
 
 # Tag prefix
 # prefix="prefix_v"
+
 prefix=""
 
 git pull origin $branch
