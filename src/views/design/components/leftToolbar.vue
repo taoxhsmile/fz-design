@@ -1,6 +1,6 @@
 <template>
   <div class="left-toolbar">
-    <img src="@/assets/images/logo.png" class="logo" />
+    <!-- <img src="@/assets/images/logo.png" class="logo" /> -->
 
     <!-- 库 -->
     <leftToolbarFunctionalList></leftToolbarFunctionalList>

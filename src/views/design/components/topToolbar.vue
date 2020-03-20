@@ -2,7 +2,7 @@
   <div id="toolbar">
     <div class="toolbar-left">
       <div class="title">
-        <h1>丰筝中台</h1>
+        <h1>象征</h1>
       </div>
     </div>
     <div class="toolbar-center">
